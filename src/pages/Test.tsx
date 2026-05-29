@@ -29,11 +29,9 @@ export function Test() {
 
   return (
     <>
-      {rating ? (
-        <p className="text-center text-2xl font-bold">
-          Esta plubicación tiene un rating de {rating} estrellas
-        </p>
-      ) : null}
+      <p className="text-center text-2xl font-bold">
+        Esta plubicación tiene un rating de {rating} estrellas
+      </p>
       <ul className="flex justify-center" onClick={handleClick}>
         {stars.map((star) => (
           <li
