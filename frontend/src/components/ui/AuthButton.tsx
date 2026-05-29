@@ -11,7 +11,7 @@ export function AuthButton({ text, href }: AuthButtonProps) {
 
   return (
     <NavLink
-      className={`border-2 border-neutral px-2 py-1 font-bold transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 active:scale-95 ${classes}`}
+      className={`border-2 border-neutral p-2 font-bold transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 active:scale-95 ${classes}`}
       to={href}
     >
       {text}
