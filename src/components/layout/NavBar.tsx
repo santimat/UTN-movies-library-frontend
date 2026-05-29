@@ -1,9 +1,13 @@
-import { NavLink } from 'react-router';
+import { href, NavLink } from 'react-router';
 
 const navItems = [
   {
-    name: 'Peliculas',
+    name: 'Todo',
     href: '/',
+  },
+  {
+    name: 'Peliculas',
+    href: '/movies',
   },
   {
     name: 'Series',
