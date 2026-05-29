@@ -17,10 +17,10 @@
 
 - Movie:
   - id (incremental)
-  - sinopsis (string)
+  - synopsis (string)
   - genre (string)
   - year (date)
-  - bannerUrl (string)
+  - posterURL (string)
   - rating (number)
   - averageRating (number)
 
