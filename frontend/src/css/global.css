@@ -5,4 +5,24 @@
   --color-secondary: #e63b2e;
   --color-tertiary: #0055ff;
   --color-neutral: #0055ff;
+
+  --font-headline: "Space Grotesk", sans-serif;
+  --font-body: "Geist", sans-serif;
+  --font-label: "Space Grotesk", sans-serif;
+}
+
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("@/assets/fonts/SpaceGrotesk.woff2") format("woff2");
+  font-style: normal;
+  font-weight: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist";
+  src: url("@/assets/fonts/Geist.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  fontdisplay: swap;
 }
