@@ -56,7 +56,7 @@
 - Error and success messages on forms.
 - Responsive design for mobile and desktop.
 
-## Good practices for Structure folders
+## Good practices for Directory Structure
 
 src/
 ├── assets/
