@@ -1,11 +1,12 @@
 import { type MouseEvent, useEffect, useState } from 'react';
-import { Star } from '@/components/icons/Star';
+import { StarIcon } from '@/components/icons/Star';
 
 export function Test() {
   const [rating, setRating] = useState(() => {
     const savedRating = localStorage.getItem('rating');
     return savedRating ? +savedRating : 0;
   });
+
   // init an array of 5 elements with values from 1 to 5
   const stars = Array.from({ length: 5 }, (_, i) => i + 1);
 
@@ -14,7 +15,7 @@ export function Test() {
     if (target instanceof HTMLLIElement) {
       // + converts the string to a number, if the dataset.rating is undefined it will default to '0'
       const clickedRating = +(target.dataset.rating || '0');
-      if (!clickedRating) return;
+
       // is current rating is the same as clickedRating, the reset to 0
       if (rating === clickedRating) return setRating(0);
 
@@ -40,7 +41,7 @@ export function Test() {
             data-rating={star}
             role="button"
           >
-            <Star
+            <StarIcon
               className={`pointer-events-none w-20 ${star <= rating ? 'fill-amber-400' : null}`}
             />
           </li>
