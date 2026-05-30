@@ -1,4 +1,4 @@
-export function Star({ className: classes }: { className?: string }) {
+export function StarIcon({ className: classes }: { className?: string }) {
   return (
     <svg
       fill="none"
