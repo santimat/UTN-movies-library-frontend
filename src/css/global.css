@@ -32,3 +32,6 @@
   flex-direction: column;
   height: 100dvh;
 }
+body {
+  overflow-x: hidden;
+}
