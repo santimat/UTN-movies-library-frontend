@@ -2,6 +2,7 @@ import { useState, type MouseEvent } from 'react';
 import { NavLink } from 'react-router';
 import type { HeaderNavItem } from '@/types/HeaderNavItem';
 import { BurguerIcon } from '@/components/icons/Burguer';
+import { Button } from '../ui/Button';
 
 interface MobileNavProps {
   navItems: HeaderNavItem[];
@@ -30,22 +31,27 @@ export function MobileNav({ navItems, handleIsActive }: MobileNavProps) {
       >
         <BurguerIcon className="pointer-events-none} w-8" />
       </button>
-      <nav
-        className={`absolute right-0 bottom-0 z-10 h-dvh w-3/4 bg-white/80 backdrop-blur-lg transition-transform duration-500 ${showNav} flex flex-col items-center justify-center`}
+      <div
+        className={`absolute right-0 bottom-0 z-10 flex h-dvh w-3/4 flex-col items-center justify-around bg-white/80 backdrop-blur-md transition-transform duration-500 ${showNav}`}
       >
-        <ul
-          className="grid gap-6 text-center text-2xl"
-          onClick={handleNavClick}
-        >
-          {navItems.map(({ text, href }) => (
-            <li key={href}>
-              <NavLink className={handleIsActive} to={href}>
-                {text}
-              </NavLink>
-            </li>
-          ))}
-        </ul>
-      </nav>
+        <nav>
+          <ul
+            className="grid gap-6 text-center text-2xl"
+            onClick={handleNavClick}
+          >
+            {navItems.map(({ text, href }) => (
+              <li key={href}>
+                <NavLink className={handleIsActive} to={href}>
+                  {text}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <Button href="/login" className="bg-tertiary text-white">
+          Iniciar Sesión
+        </Button>
+      </div>
     </>
   );
 }
