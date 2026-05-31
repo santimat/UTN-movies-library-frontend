@@ -10,7 +10,7 @@ interface MobileNavProps {
 }
 
 export function MobileNav({ navItems, handleIsActive }: MobileNavProps) {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const showNav = isOpen ? '' : 'translate-x-full';
   const handleClick = () => setIsOpen((prev) => !prev);
 
