@@ -13,6 +13,7 @@ export function MobileNav({ navItems, handleIsActive }: MobileNavProps) {
   const showNav = isOpen ? '' : 'translate-x-full';
   const handleClick = () => setIsOpen((prev) => !prev);
 
+  // close navbar when user navigates
   const handleNavClick = (event: MouseEvent<HTMLUListElement>) => {
     const target = event.target as HTMLLIElement;
     const isLink = target.tagName === 'A';
