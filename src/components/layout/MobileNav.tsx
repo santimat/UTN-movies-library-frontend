@@ -32,7 +32,7 @@ export function MobileNav({ navItems, handleIsActive }: MobileNavProps) {
         <BurguerIcon className="pointer-events-none} w-8" />
       </button>
       <div
-        className={`absolute right-0 bottom-0 z-10 flex h-dvh w-3/4 flex-col items-center justify-around bg-white/80 backdrop-blur-md transition-transform duration-500 ${showNav}`}
+        className={`absolute right-0 bottom-0 z-10 flex h-dvh w-3/4 flex-col items-center justify-evenly bg-white/80 backdrop-blur-md transition-transform duration-500 ${showNav}`}
       >
         <nav>
           <ul
