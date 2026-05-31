@@ -33,7 +33,10 @@ export function MobileNav({ navItems, handleIsActive }: MobileNavProps) {
       <nav
         className={`absolute right-0 bottom-0 z-10 h-dvh w-3/4 bg-white/80 backdrop-blur-lg transition-transform duration-500 ${showNav} flex flex-col items-center justify-center`}
       >
-        <ul className="grid gap-5 text-center" onClick={handleNavClick}>
+        <ul
+          className="grid gap-6 text-center text-2xl"
+          onClick={handleNavClick}
+        >
           {navItems.map(({ text, href }) => (
             <li key={href}>
               <NavLink className={handleIsActive} to={href}>
