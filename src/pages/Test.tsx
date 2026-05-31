@@ -11,10 +11,11 @@ export function Test() {
   const stars = Array.from({ length: 5 }, (_, i) => i + 1);
 
   const handleClick = (event: MouseEvent<HTMLUListElement>) => {
-    const { target } = event;
-    if (target instanceof HTMLLIElement) {
-      // + converts the string to a number, if the dataset.rating is undefined it will default to '0'
-      const clickedRating = +(target.dataset.rating || '0');
+    const target = event.target as HTMLLIElement;
+    const isListItem = target.tagName === 'LI';
+
+    if (isListItem) {
+      const clickedRating = Number(target.dataset.rating || '0');
 
       // is current rating is the same as clickedRating, the reset to 0
       if (rating === clickedRating) return setRating(0);
