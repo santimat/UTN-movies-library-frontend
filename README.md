@@ -120,4 +120,4 @@ src/
 └── main.tsx
 
 ## TODO
-[ ] Add dynamic imports to lazy load components
+[x] Add dynamic imports to lazy load components
