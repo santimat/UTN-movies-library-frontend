@@ -9,6 +9,8 @@
   --font-headline: 'Space Grotesk', sans-serif;
   --font-body: 'Geist', sans-serif;
   --font-label: 'Space Grotesk', sans-serif;
+
+  --shadow-auth: 5px 5px 2px #4a4a4a;
 }
 
 @font-face {
