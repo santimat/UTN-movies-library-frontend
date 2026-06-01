@@ -19,7 +19,7 @@ export function DesktopNav({ navItems, handleIsActive }: DesktopNavProps) {
           </li>
         ))}
       </ul>
-      <Button href="/Auth" className="bg-tertiary text-white">
+      <Button href="/auth" className="bg-tertiary text-white">
         Iniciar Sesión
       </Button>
     </nav>
