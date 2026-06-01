@@ -22,6 +22,7 @@ export function MobileNav({ navItems, handleIsActive }: MobileNavProps) {
     const target = event.target as HTMLLIElement;
     const isLink = target.tagName === 'A';
     if (isLink) {
+      window.document.body.style.overflow = 'auto';
       setIsOpen(false);
     }
   };
