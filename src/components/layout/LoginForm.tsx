@@ -7,7 +7,7 @@ export function LoginForm() {
   return (
     <div className="w-4/5 border-4 border-neutral p-4 shadow-auth">
       <h2 className="text-body mb-4 w-fit border-b-2 border-neutral text-2xl font-bold text-neutral uppercase">
-        Login
+        Auth
       </h2>
       <form>
         <div className="flex flex-col gap-6">

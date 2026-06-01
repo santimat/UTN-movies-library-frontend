@@ -46,7 +46,7 @@ export function MobileNav({ navItems, handleIsActive }: MobileNavProps) {
             </li>
           ))}
         </ul>
-        <Button href="/login" className="bg-tertiary text-white">
+        <Button href="/Auth" className="bg-tertiary text-white">
           Iniciar Sesión
         </Button>
       </nav>
