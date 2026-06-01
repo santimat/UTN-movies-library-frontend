@@ -118,3 +118,6 @@ src/
 │
 ├── App.tsx
 └── main.tsx
+
+## TODO
+[ ] Add dynamic imports to lazy load components
