@@ -23,6 +23,8 @@ export function AuthForm({
   onRememberMeChange,
   onSubmit,
 }: AuthFormProps) {
+  const submitClasses = rememberMe ? 'bg-neutral' : 'bg-tertiary';
+
   return (
     <div className="w-4/5 border-4 border-neutral p-4 shadow-auth">
       <h2 className="text-body mb-4 w-fit border-b-2 border-neutral text-2xl font-bold text-neutral uppercase">
@@ -53,7 +55,7 @@ export function AuthForm({
           </label>
         )}
         <AuthSubmitButton
-          className="bg-neutral"
+          className={submitClasses}
           value={submitLabel}
           handleSubmit={onSubmit}
         />

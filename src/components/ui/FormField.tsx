@@ -9,9 +9,9 @@ interface FormFieldProps {
 export function FormField({
   id,
   label,
-  type,
+  type = 'text',
   placeholder,
-  required,
+  required = true,
 }: FormFieldProps) {
   return (
     <label
