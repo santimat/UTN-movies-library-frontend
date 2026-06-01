@@ -1,7 +1,17 @@
+import { lazy } from 'react';
 import type { HeaderNavItem } from '@/types/HeaderNavItem';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
-import { DesktopNav } from '@/components/layout/DesktopNav';
-import { MobileNav } from '@/components/layout/MobileNav';
+
+const DesktopNav = lazy(() =>
+  import('@/components/layout/DesktopNav').then((module) => ({
+    default: module.DesktopNav,
+  }))
+);
+const MobileNav = lazy(() =>
+  import('@/components/layout/MobileNav').then((module) => ({
+    default: module.MobileNav,
+  }))
+);
 
 const navItems: HeaderNavItem[] = [
   {

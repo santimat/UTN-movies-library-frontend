@@ -1,9 +1,17 @@
+import { lazy } from 'react';
 import { Routes, Route } from 'react-router';
-import { Home } from '@/pages/Home';
-import { Test } from '@/pages/Test';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
-import { Auth } from '@/pages/Auth';
+
+const Home = lazy(() =>
+  import('@/pages/Home').then((module) => ({ default: module.Home }))
+);
+const Test = lazy(() =>
+  import('@/pages/Test').then((module) => ({ default: module.Test }))
+);
+const Auth = lazy(() =>
+  import('@/pages/Auth').then((module) => ({ default: module.Auth }))
+);
 
 function App() {
   return (

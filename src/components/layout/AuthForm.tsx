@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router';
 import { CheckBox } from '@/components/icons/CheckBox';
-import { AuthSubmitButton } from '../ui/AuthSubmitButton';
+import { AuthSubmitButton } from '@/components/ui/AuthSubmitButton';
 import type { ReactNode, SubmitEvent } from 'react';
 
 interface AuthFormProps {
