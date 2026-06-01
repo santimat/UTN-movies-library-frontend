@@ -37,7 +37,7 @@ export function LoginForm() {
       </AuthForm>
       <div className="relative bottom-0 mx-auto mt-10 flex w-4/5 items-center">
         <div className="absolute w-full bg-neutral p-1"></div>
-        <span className="relative z-10 mx-auto border-3 border-neutral bg-secondary px-4 py-2 text-2xl font-bold text-white">
+        <span className="relative mx-auto border-3 border-neutral bg-secondary px-4 py-2 text-2xl font-bold text-white">
           OR
         </span>
       </div>
