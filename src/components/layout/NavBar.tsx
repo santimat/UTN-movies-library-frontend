@@ -37,10 +37,10 @@ export function NavBar() {
   const isDesktop = useMediaQuery('(min-width:768px)');
 
   const handleIsActive = ({ isActive }: { isActive: boolean }) => {
-    return `p-2 ${
+    return `p-2 font-semibold ${
       isActive
         ? 'border-b-3 border-secondary'
-        : 'text-neutral/50 hover:bg-neutral/50 hover:text-white transition-colors'
+        : 'text-neutral hover:bg-neutral/50 hover:text-white transition-colors'
     }`;
   };
 
