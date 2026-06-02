@@ -43,12 +43,15 @@ export function MovieAdminPanel() {
 // [ ] Al hacer hover (poner el mouse encima del elemento) sobre el icono de editar debe tener un background azul
 // [ ] Al hacer hover (poner el mouse encima del elemento) sobre el icono de eliminar debe tener un background rojo
 // [ ] Al hacer hover en cada fila esta debe tener un background con menos opacidad
+// [ ] Te agradeceria si los centras los botones en actions
 
 // TIPS
 // - Los estilos css ponelos en el styles.css de la carpeta MovieAdminPanel (ya está importada)
 // - Vas a necesitar importar los icons Pen y Trash de @/icons (si no entendes lo del @/icons preguntale a claude por import aliases)
 // - Hacelo en desktop despues vemos el responsive tranca, porque tengo que pedirle el diseño a stitch fajshdjs
 // - Preguntale a claude como haces para que colapsen los bordes de la tabla (es con css)
+// - El texto ponelo todo en español el codigo en ingles
+
 // si te sale algun error que dice "eslint" no le des bola
 
 // PALETA DE COLORES
