@@ -1,7 +1,7 @@
 import { useId, useState } from 'react';
 import { FormField } from '@/components/ui/FormField';
 
-import { AuthForm } from '@/components/layout/AuthForm';
+import { AuthForm } from '@/components/ui/AuthForm';
 
 export function LoginForm() {
   const emailId = useId();
