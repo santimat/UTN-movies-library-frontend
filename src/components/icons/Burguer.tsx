@@ -1,4 +1,6 @@
-export function BurguerIcon({ className: classes }: { className?: string }) {
+import type { SvgProps } from '@/types/SvgProps';
+
+export function BurguerIcon({ className: classes }: SvgProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

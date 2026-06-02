@@ -1,4 +1,6 @@
-export function StarIcon({ className: classes }: { className?: string }) {
+import type { SvgProps } from '@/types/SvgProps';
+
+export function StarIcon({ className: classes }: SvgProps) {
   return (
     <svg
       fill="none"
