@@ -27,7 +27,12 @@ const moviesMockup = [
 ];
 
 export function MovieAdminPanel() {
-  return <h2>Exitos pana sos la cabra</h2>;
+  return (
+    // esas clases son para que quede centrado el contenido si te molestan eliminá el div al pingo
+    <div className="flex h-full items-center justify-center">
+      <h2>Exitos pana sos la cabra</h2>
+    </div>
+  );
 }
 
 // - Levantá el entorno con pnpm dev en la terminal del editor
