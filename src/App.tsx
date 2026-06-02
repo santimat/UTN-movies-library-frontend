@@ -12,6 +12,9 @@ const Test = lazy(() =>
 const Auth = lazy(() =>
   import('@/pages/Auth').then((module) => ({ default: module.Auth }))
 );
+const Admin = lazy(() =>
+  import('@/pages/Admin').then((module) => ({ default: module.Admin }))
+);
 
 function App() {
   return (
@@ -22,6 +25,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/test" element={<Test />} />
+          <Route path="/admin" element={<Admin />} />
         </Routes>
       </main>
       <Footer />

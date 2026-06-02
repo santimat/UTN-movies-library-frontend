@@ -30,6 +30,9 @@ export function MovieAdminPanel() {
   return <h2>Exitos pana sos la cabra</h2>;
 }
 
+// - Levantá el entorno con pnpm dev en la terminal del editor
+// - Vas a ver el componente renderizado en /admin
+
 // TODO
 // [ ] Iterar sobre moviesMockup y mostrar cada película en una tabla
 // [ ] Al hacer hover (poner el mouse encima del elemento) sobre el icono de editar debe tener un background azul
