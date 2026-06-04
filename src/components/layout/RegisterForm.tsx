@@ -1,5 +1,5 @@
-import { AuthForm } from '@/components/layout/AuthForm';
-import { FormField } from '../ui/FormField';
+import { AuthForm } from '@/components/ui/AuthForm';
+import { FormField } from '@/components/ui/FormField';
 import { useId } from 'react';
 
 export function RegisterForm() {
