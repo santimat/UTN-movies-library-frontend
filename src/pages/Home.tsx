@@ -1,14 +1,5 @@
-import { lazy } from 'react';
-const MovieList = lazy(() =>
-  import('@/components/layout/MovieList').then((module) => ({
-    default: module.MovieList,
-  }))
-);
-const FilterBar = lazy(() =>
-  import('@/components/layout/FilterBar').then((module) => ({
-    default: module.FilterBar,
-  }))
-);
+import { MovieList } from '@/components/layout/MovieList';
+import { FilterBar } from '@/components/layout/FilterBar';
 
 export function Home() {
   return (
