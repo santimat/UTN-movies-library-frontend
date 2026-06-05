@@ -23,7 +23,7 @@ const moviesMockup: MovieCardProps[] = [
 
 export function MovieList() {
   return (
-    <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,0.8fr))] justify-center gap-4 p-4 md:grid-cols-[repeat(auto-fit,minmax(250px,300px))] md:justify-normal">
+    <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,0.8fr))] justify-center gap-4 p-4 md:grid-cols-[repeat(auto-fit,minmax(250px,300px))] md:justify-normal">
       {moviesMockup.map((movie) => (
         <MovieCard key={`movie-card-${movie.id}`} {...movie} />
       ))}
