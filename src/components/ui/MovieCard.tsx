@@ -10,13 +10,13 @@ export function MovieCard({
   averageRating,
 }: MovieCardProps) {
   return (
-    <article className="group relative flex flex-col border-3 border-neutral text-neutral shadow-auth">
+    <article className="group relative flex animate-blurred-fade-in flex-col border-3 border-neutral text-neutral shadow-auth">
       <span className="absolute top-2 right-2 z-10 border-3 border-neutral bg-secondary px-2 py-1 font-semibold text-white">
         {averageRating.toFixed(1)}
       </span>
       <picture>
         <img
-          className="block h-90 w-full object-cover object-top grayscale transition-all duration-500 group-has-hover:grayscale-0"
+          className="block h-100 w-full object-cover object-top grayscale transition-all duration-500 group-has-hover:grayscale-0"
           src={posterUrl}
           alt={title}
         />
