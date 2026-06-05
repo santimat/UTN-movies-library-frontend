@@ -19,14 +19,6 @@ const navItems: HeaderNavItem[] = [
     href: '/',
   },
   {
-    text: 'Peliculas',
-    href: '/movies',
-  },
-  {
-    text: 'Series',
-    href: '/series',
-  },
-  {
     text: 'Mi Lista',
     href: '/my-list',
   },
