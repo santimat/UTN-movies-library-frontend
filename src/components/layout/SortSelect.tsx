@@ -15,6 +15,7 @@ export function SortSelect() {
         onClick={() => setIsSelectOpen((prev) => !prev)}
         name="sort"
         defaultValue="sort"
+        aria-label="Filtro de ordenamiento"
         className="peer w-full border-2 border-neutral p-1 uppercase"
       >
         <option value={'sort'} disabled>

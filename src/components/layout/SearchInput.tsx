@@ -13,6 +13,7 @@ export function SearchInput() {
         placeholder="Spiderman"
         type="search"
         name="search"
+        aria-label="Buscar peliculas"
       ></input>
     </label>
   );
