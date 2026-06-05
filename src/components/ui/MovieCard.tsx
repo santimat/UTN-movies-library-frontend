@@ -16,7 +16,7 @@ export function MovieCard({
       </span>
       <picture>
         <img
-          className="block h-79.5 w-full object-cover object-top grayscale transition-all duration-500 group-has-hover:grayscale-0"
+          className="block h-80 w-full object-cover grayscale transition-all duration-500 group-has-hover:grayscale-0"
           src={posterUrl}
           alt={title}
         />
