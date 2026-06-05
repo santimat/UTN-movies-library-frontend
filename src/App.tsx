@@ -20,7 +20,7 @@ function App() {
   return (
     <>
       <Header />
-      <main className="my-10 flex-1">
+      <main className="my-6 flex-1">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/auth" element={<Auth />} />
