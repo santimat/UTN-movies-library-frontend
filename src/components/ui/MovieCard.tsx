@@ -9,11 +9,14 @@ export function MovieCard({
   posterUrl,
   averageRating,
 }: MovieCardProps) {
+  const showBadge = averageRating > 0;
   return (
     <article className="group relative flex animate-blurred-fade-in flex-col border-3 border-neutral text-neutral shadow-auth">
-      <span className="absolute top-2 right-2 z-10 border-3 border-neutral bg-secondary px-2 py-1 font-semibold text-white">
-        {averageRating.toFixed(1)}
-      </span>
+      {showBadge && (
+        <span className="absolute top-2 right-2 z-10 border-3 border-neutral bg-secondary px-2 py-1 font-semibold text-white">
+          {averageRating.toFixed(1)}
+        </span>
+      )}
       <picture>
         <img
           className="block h-100 w-full object-cover object-top grayscale transition-all duration-500 group-has-hover:grayscale-0"
