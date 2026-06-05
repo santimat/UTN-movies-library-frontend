@@ -37,3 +37,6 @@
 body {
   overflow-x: hidden;
 }
+select {
+  -webkit-appearance: none;
+}
