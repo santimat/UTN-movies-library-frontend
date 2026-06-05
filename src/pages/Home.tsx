@@ -25,7 +25,7 @@ export function Home() {
   return (
     <>
       <title>Biblioteca de Películas</title>
-      <div className="grid grid-cols-2 gap-4 p-4 md:grid-cols-4">
+      <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] justify-center gap-4 p-4 md:grid-cols-[repeat(auto-fit,minmax(250px,350px))] md:justify-normal">
         {moviesMockup.map((movie) => (
           <MovieCard key={`movie-card-${movie.id}`} {...movie} />
         ))}
