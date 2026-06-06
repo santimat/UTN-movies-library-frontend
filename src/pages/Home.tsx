@@ -1,14 +1,18 @@
 import { MovieList } from '@/components/layout/MovieList';
 import { FilterBar } from '@/components/layout/FilterBar';
-import { getMovies } from '@/services/movies/movieService';
+import { Pagination } from '@/components/layout/Pagination';
 
 export function Home() {
-  getMovies();
   return (
     <>
       <title>Biblioteca de Películas</title>
-      <FilterBar />
-      <MovieList />
+      <div>
+        <div>
+          <FilterBar />
+          <MovieList />
+        </div>
+        <Pagination />
+      </div>
     </>
   );
 }

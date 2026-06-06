@@ -1,6 +1,6 @@
 import '@/css/MovieAdminPanel/styles.css';
-import {PenIcon} from '@/components/icons/Pen';
-import {TrashIcon} from '@/components/icons/Trash';
+import { PenIcon } from '@/components/icons/Pen';
+import { TrashIcon } from '@/components/icons/Trash';
 const moviesMockup = [
   {
     id: 1,
@@ -32,29 +32,33 @@ export function MovieAdminPanel() {
   return (
     // esas clases son para que quede centrado el contenido si te molestan eliminá el div al pingo
     <div className="flex h-full items-center justify-center">
-      <table class = "admin-table">
+      <table class="admin-table">
         <thead>
           <tr>
-            <th>Titulo</th>            
-            <th>Genero</th>            
-            <th>Año</th>            
-            <th>Rating</th>            
-            <th>Acciones</th>            
+            <th>Titulo</th>
+            <th>Genero</th>
+            <th>Año</th>
+            <th>Rating</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
-            {moviesMockup.map((movie) => (
-             <tr key={`movie-${movie.id}`}>
+          {moviesMockup.map((movie) => (
+            <tr key={`movie-${movie.id}`}>
               <th>{movie.title}</th>
               <td>{movie.genre}</td>
               <td>{movie.releaseYear}</td>
               <td>{movie.rating}/10</td>
-              <td className='table-button'>
-                <button><PenIcon/></button>
-                <button><TrashIcon/></button>
+              <td className="table-button">
+                <button>
+                  <PenIcon />
+                </button>
+                <button>
+                  <TrashIcon />
+                </button>
               </td>
-             </tr>
-            ) )}
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
@@ -65,7 +69,7 @@ export function MovieAdminPanel() {
 // - Vas a ver el componente renderizado en /admin
 
 // TODO
-// [x] Iterar sobre moviesMockup y mostrar cada película en una tabla 
+// [x] Iterar sobre moviesMockup y mostrar cada película en una tabla
 // [ ] Al hacer hover (poner el mouse encima del elemento) sobre el icono de editar debe tener un background azul
 // [ ] Al hacer hover (poner el mouse encima del elemento) sobre el icono de eliminar debe tener un background rojo
 // [ ] Al hacer hover en cada fila esta debe tener un background con menos opacidad

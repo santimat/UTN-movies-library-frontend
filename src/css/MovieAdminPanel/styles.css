@@ -1,42 +1,33 @@
- /*#1a1a1a; -> negro
+/*#1a1a1a; -> negro
  #e63b2e; -> rojo
  #0055ff; -> azul
  #4a4a4a; -> gris
  */
- .admin-table{
-    width: 50%;
- }
-
- .admin-table, td, tr, th{
-    border-collapse: collapse;
-    border: 2px solid #1a1a1a;
- }
-
- .admin-table thead{
-    background-color: #4a4a4a;
-    color: #ffffff;
- }
-
- .admin-table th{
-    padding: 16px;
- }
-
- .admin-table tbody th{
-    text-align: start;
- }
-
- .admin-table td{
-    text-align: center;
- }
-
- .admin-table button{
-    border: 1px solid #4a4a4a;
+.admin-table {
+  width: 50%;
 }
 
-.table-button{
-    display: flex;
-    gap: 6px;
-    justify-content: center;
-    border: 0px #ffffff; /* no se porque pero despues del gap salio un cuadrado negro en los botones con esto lo trato de ocultar*/
-    margin-top: 11px;
+.admin-table,
+td,
+tr,
+th {
+  border-collapse: collapse;
+  border: 2px solid #1a1a1a;
+}
+
+.admin-table thead {
+  background-color: #4a4a4a;
+  color: #ffffff;
+}
+
+.admin-table th {
+  padding: 16px;
+}
+
+.admin-table tbody th {
+  text-align: start;
+}
+
+.admin-table td {
+  text-align: center;
 }
