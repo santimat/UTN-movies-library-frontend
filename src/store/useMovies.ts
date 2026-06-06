@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { type Movie } from '@/types/entities/Movie';
-import { movieService } from '@/services/movies/movieService';
+import { movieService } from '@/services/movieService';
 interface UseMoviesState {
   movies: Movie[];
   originalMovies: Movie[];

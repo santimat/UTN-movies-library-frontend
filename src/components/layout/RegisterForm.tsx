@@ -2,26 +2,43 @@ import { useId, type SubmitEvent } from 'react';
 import { toast } from 'sonner';
 import { FormField } from '@/components/ui/FormField';
 import { AuthForm } from '@/components/ui/AuthForm';
+import { authService } from '@/services/authService';
+
+const FIELDS_DICTIONARY = {
+  username: 'Nombre de usuario',
+  email: 'Correo electrónico',
+  password: 'Contraseña',
+};
+
 export function RegisterForm() {
   const usernameId = useId();
   const emailId = useId();
   const passwordId = useId();
 
-  const handleSubmit = (event: SubmitEvent) => {
+  const handleSubmit = async (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const formData = new FormData(event.currentTarget as HTMLFormElement);
-    const username = formData.get('username') as string;
-    const email = formData.get('email') as string;
-    const password = formData.get('password') as string;
-    console.log({ username, email, password });
-    toast.success('¡Registro exitoso!', {
-      description: `Bienvenido, ${username}!`,
-      position: 'top-right',
-      classNames: {
-        toast: '!bg-tertiary !text-white !font-body',
-        description: '!text-white',
-      },
+    const formData = new FormData(event.currentTarget);
+
+    const missingFields = Array.from(formData.keys()).filter((field) => {
+      const value = formData.get(field);
+      return !value || value.toString().trim() === '';
     });
+
+    if (missingFields.length) {
+      const missingFieldNames = missingFields.map((field) => {
+        return FIELDS_DICTIONARY[field as keyof typeof FIELDS_DICTIONARY];
+      });
+
+      return toast.error(
+        `Por favor, completa los siguientes campos: ${missingFieldNames.join(', ')}`
+      );
+    }
+
+    const response = await authService.register(formData);
+    if (response.code === 'ALREADY_EXISTS') return toast.error(response.error);
+    if (response.code === 'UNKNOWN_ERROR') return toast.error(response.error);
+
+    toast.success('¡Registro exitoso! Ahora puedes iniciar sesión.');
   };
 
   return (
@@ -37,14 +54,12 @@ export function RegisterForm() {
           type="text"
           placeholder="pepegamer"
           name="username"
-          required
         />
         <FormField
           id={emailId}
           label="Correo electrónico"
           type="email"
           placeholder="user@example.com"
-          required
           name="email"
         />
         <FormField

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router';
 import type { Genre } from '@/types/entities/Genre';
-import { genreService } from '@/services/genres/genreService';
+import { genreService } from '@/services/genreService';
 
 export function ChipFilters() {
   const [genres, setGenres] = useState<Genre[]>([]);

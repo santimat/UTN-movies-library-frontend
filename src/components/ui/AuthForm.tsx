@@ -9,7 +9,7 @@ interface AuthFormProps {
   submitLabel: string;
   rememberMe?: boolean;
   showForgotPassword?: boolean;
-  onSubmit?: (e: SubmitEvent) => void;
+  onSubmit?: (e: SubmitEvent<HTMLFormElement>) => void;
   showRememberMe?: boolean;
   onRememberMeChange?: () => void;
 }
