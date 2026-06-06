@@ -14,6 +14,7 @@ export function RegisterForm() {
   const handleSubmit = async (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
+
     if (validateService.areMissingFields(formData, REGISTER_FIELDS)) return;
 
     const response = await authService.register(formData);
@@ -21,7 +22,7 @@ export function RegisterForm() {
       return toast.error(response.error);
 
     toast.success('¡Registro exitoso! Ahora puedes iniciar sesión.');
-    event.currentTarget.reset();
+    event.target.reset();
   };
 
   return (
@@ -37,6 +38,7 @@ export function RegisterForm() {
           type="text"
           placeholder="pepegamer"
           name="username"
+          required={false}
         />
         <FormField
           id={emailId}

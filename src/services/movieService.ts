@@ -21,11 +21,11 @@ export const movieService = {
       return {
         movies: [],
       };
+
     return {
       movies: data.content,
       totalPages: data.totalPages,
       totalElements: data.totalElements,
-      size: data.size,
     };
   },
 };

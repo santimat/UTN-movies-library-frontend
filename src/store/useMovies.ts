@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { type Movie } from '@/types/entities/Movie';
 import { movieService } from '@/services/movieService';
+
 interface UseMoviesState {
   movies: Movie[];
   originalMovies: Movie[];
@@ -22,7 +23,7 @@ interface UseMoviesState {
   }) => void;
 }
 
-export const useMovies = create<UseMoviesState>((set, get) => ({
+export const useMovies = create<UseMoviesState>((set) => ({
   originalMovies: [],
   movies: [],
   data: {},

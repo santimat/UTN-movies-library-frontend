@@ -8,14 +8,14 @@ import { useSearchParams } from 'react-router';
 export function SortSelect() {
   const [isSelectOpen, setIsSelectOpen] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [sortBy, setSortBy] = useState<keyof Movie | 'all'>(
-    (searchParams.get('sortBy') as keyof Movie) || 'all'
+  const [sortBy, setSortBy] = useState<keyof Movie>(
+    (searchParams.get('sortBy') as keyof Movie) || 'title'
   );
   const [sortOrder, setSortOrder] = useState<'ASC' | 'DESC'>(
     (searchParams.get('sortOrder') as 'ASC' | 'DESC') || 'ASC'
   );
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    const value = event.target.value as keyof Movie | 'all';
+    const value = event.target.value as keyof Movie;
     setSortBy(value);
   };
 
@@ -24,14 +24,6 @@ export function SortSelect() {
   };
 
   useEffect(() => {
-    if (sortBy === 'all') {
-      return setSearchParams((prev) => {
-        prev.delete('sortBy');
-        prev.set('sortOrder', sortOrder);
-        return prev;
-      });
-    }
-
     setSearchParams((prev) => {
       prev.set('sortBy', sortBy);
       prev.set('sortOrder', sortOrder);
@@ -59,7 +51,6 @@ export function SortSelect() {
           <option disabled value={'sort'}>
             Ordenar por
           </option>
-          <option value={''}>Todos</option>
           <option value={'title'}>Titulo</option>
           <option value={'genre'}>Genero</option>
           <option value={'averageRating'}>Rating</option>

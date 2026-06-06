@@ -12,6 +12,7 @@ export function SearchInput() {
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchText(event.target.value.toLowerCase());
   };
+
   useEffect(() => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
     timeoutRef.current = setTimeout(() => {
