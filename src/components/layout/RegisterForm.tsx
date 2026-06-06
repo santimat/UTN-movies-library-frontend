@@ -39,6 +39,7 @@ export function RegisterForm() {
     if (response.code === 'UNKNOWN_ERROR') return toast.error(response.error);
 
     toast.success('¡Registro exitoso! Ahora puedes iniciar sesión.');
+    event.currentTarget.reset();
   };
 
   return (
