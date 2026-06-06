@@ -1,20 +1,22 @@
-const API_URL = import.meta.env.VITE_API_URL;
-import { type Movie } from '@/types/entities/Movie';
+import { API_URL } from '@/lib/config';
+const URL_BASE = `${API_URL}/movies`;
 
-export interface MoviesResponse {
-  content: Movie[];
-  totalPages: number;
-  totalElements: number;
-  size: number;
-}
+export const movieService = {
+  getMovies: async (genre?: string) => {
+    const url = new URL(URL_BASE);
+    if (genre) url.searchParams.append('genre', genre);
+    const res = await fetch(url);
+    const data = await res.json();
 
-export const getMovies = async () => {
-  const res = await fetch(`${API_URL}/movies`);
-  const data = await res.json();
-  return {
-    movies: data.content,
-    totalPages: data.totalPages,
-    totalElements: data.totalElements,
-    size: data.size,
-  };
+    if (data.empty)
+      return {
+        movies: [],
+      };
+    return {
+      movies: data.content,
+      totalPages: data.totalPages,
+      totalElements: data.totalElements,
+      size: data.size,
+    };
+  },
 };
