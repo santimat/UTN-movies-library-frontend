@@ -3,12 +3,8 @@ import { toast } from 'sonner';
 import { FormField } from '@/components/ui/FormField';
 import { AuthForm } from '@/components/ui/AuthForm';
 import { authService } from '@/services/authService';
-
-const FIELDS_DICTIONARY = {
-  username: 'Nombre de usuario',
-  email: 'Correo electrónico',
-  password: 'Contraseña',
-};
+import { REGISTER_FIELDS } from '@/lib/constants';
+import { validateService } from '@/services/validateService';
 
 export function RegisterForm() {
   const usernameId = useId();
@@ -18,25 +14,11 @@ export function RegisterForm() {
   const handleSubmit = async (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-
-    const missingFields = Array.from(formData.keys()).filter((field) => {
-      const value = formData.get(field);
-      return !value || value.toString().trim() === '';
-    });
-
-    if (missingFields.length) {
-      const missingFieldNames = missingFields.map((field) => {
-        return FIELDS_DICTIONARY[field as keyof typeof FIELDS_DICTIONARY];
-      });
-
-      return toast.error(
-        `Por favor, completa los siguientes campos: ${missingFieldNames.join(', ')}`
-      );
-    }
+    if (validateService.areMissingFields(formData, REGISTER_FIELDS)) return;
 
     const response = await authService.register(formData);
-    if (response.code === 'ALREADY_EXISTS') return toast.error(response.error);
-    if (response.code === 'UNKNOWN_ERROR') return toast.error(response.error);
+    if (response.code === 'ALREADY_EXISTS' || response.code === 'UNKNOWN_ERROR')
+      return toast.error(response.error);
 
     toast.success('¡Registro exitoso! Ahora puedes iniciar sesión.');
     event.currentTarget.reset();

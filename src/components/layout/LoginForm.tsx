@@ -1,7 +1,9 @@
-import { useId, useState } from 'react';
+import { useId, useState, type SubmitEvent } from 'react';
 import { FormField } from '@/components/ui/FormField';
 
 import { AuthForm } from '@/components/ui/AuthForm';
+import { LOGIN_FIELDS } from '@/lib/constants';
+import { validateService } from '@/services/validateService';
 
 export function LoginForm() {
   const emailId = useId();
@@ -10,9 +12,16 @@ export function LoginForm() {
   const [remember, setRemember] = useState(false);
   const handleRemember = () => setRemember((prev) => !prev);
 
+  const handleSubmit = async (event: SubmitEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    if (validateService.areMissingFields(formData, LOGIN_FIELDS)) return;
+  };
+
   return (
     <div className="w-full">
       <AuthForm
+        onSubmit={handleSubmit}
         title="Inciar Sesión"
         submitLabel="iniciar sesión"
         onRememberMeChange={handleRemember}
@@ -24,14 +33,14 @@ export function LoginForm() {
           id={emailId}
           label="email"
           type="email"
-          required
+          name="email"
           placeholder="user@example.com"
         />
         <FormField
+          name="password"
           id={passwordId}
           label="contraseña"
           type="password"
-          required
           placeholder="***********"
         />
       </AuthForm>

@@ -1,4 +1,4 @@
-import { API_URL } from '@/lib/config';
+import { API_URL } from '@/lib/constants';
 // import type { RegisterUser } from '@/types/entities/User';
 const BASE_URL = `${API_URL}/users`;
 

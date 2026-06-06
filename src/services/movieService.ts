@@ -1,4 +1,4 @@
-import { API_URL } from '@/lib/config';
+import { API_URL } from '@/lib/constants';
 import { type Movie } from '@/types/entities/Movie';
 const URL_BASE = `${API_URL}/movies`;
 

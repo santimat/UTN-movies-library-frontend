@@ -1,5 +1,5 @@
+import { API_URL } from '@/lib/constants';
 import type { SpringPageResponse } from '@/types/SpringPageResponse';
-import { API_URL } from '@/lib/config';
 
 const URL_BASE = `${API_URL}/genres`;
 export const genreService = {
