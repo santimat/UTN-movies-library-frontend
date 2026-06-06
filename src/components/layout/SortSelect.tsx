@@ -53,6 +53,7 @@ export function SortSelect() {
           onChange={handleChange}
           name="sort"
           defaultValue="sort"
+          value={sortBy}
           aria-label="Filtro de ordenamiento"
           className="peer w-full border-2 border-neutral p-1 uppercase"
         >
