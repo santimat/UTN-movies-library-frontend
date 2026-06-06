@@ -11,6 +11,7 @@ export function PenIcon({
 }: PenIconProps) {
   return (
     <svg
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       width={width}
       height={height}
@@ -18,13 +19,13 @@ export function PenIcon({
       viewBox="0 0 24 24"
       fill="none"
       stroke="#607d8b"
-      stroke-width="1"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeWidth="1"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     >
-      <path d="M14 6l7 7l-4 4" />
-      <path d="M5.828 18.172a2.828 2.828 0 0 0 4 0l10.586 -10.586a2 2 0 0 0 0 -2.829l-1.171 -1.171a2 2 0 0 0 -2.829 0l-10.586 10.586a2.828 2.828 0 0 0 0 4z" />
-      <path d="M4 20l1.768 -1.768" />
+      <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
+      <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
+      <path d="M16 5l3 3" />
     </svg>
   );
 }
