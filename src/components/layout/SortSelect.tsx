@@ -7,9 +7,13 @@ import { useSearchParams } from 'react-router';
 
 export function SortSelect() {
   const [isSelectOpen, setIsSelectOpen] = useState(false);
-  const [sortBy, setSortBy] = useState<keyof Movie | 'all'>('all');
-  const [sortOrder, setSortOrder] = useState<'ASC' | 'DESC'>('DESC');
-  const [_, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [sortBy, setSortBy] = useState<keyof Movie | 'all'>(
+    (searchParams.get('sortBy') as keyof Movie) || 'all'
+  );
+  const [sortOrder, setSortOrder] = useState<'ASC' | 'DESC'>(
+    (searchParams.get('sortOrder') as 'ASC' | 'DESC') || 'ASC'
+  );
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value as keyof Movie | 'all';
     setSortBy(value);

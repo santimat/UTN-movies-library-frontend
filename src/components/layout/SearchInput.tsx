@@ -5,8 +5,10 @@ import { useSearchParams } from 'react-router';
 export function SearchInput() {
   const timeoutRef = useRef<number>(0);
   const DEBOUNCE_TIME = 400;
-  const [searchText, setSearchText] = useState<string>('');
-  const [_, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchText, setSearchText] = useState<string>(
+    searchParams.get('searchText') || ''
+  );
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchText(event.target.value.toLowerCase());
   };
