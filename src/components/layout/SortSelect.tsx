@@ -40,8 +40,8 @@ export function SortSelect() {
   }, [sortBy, sortOrder, setSearchParams]);
 
   return (
-    <>
-      <label className="relative shadow-auth md:w-60">
+    <div className="flex items-center gap-2">
+      <label className="relative w-full shadow-auth md:w-60">
         <span
           className={`pointer-events-none absolute top-1/2 right-2 -translate-y-1/2 transition-transform ${isSelectOpen && 'rotate-90'}`}
         >
@@ -52,10 +52,9 @@ export function SortSelect() {
           onClick={() => setIsSelectOpen((prev) => !prev)}
           onChange={handleChange}
           name="sort"
-          defaultValue="sort"
           value={sortBy}
           aria-label="Filtro de ordenamiento"
-          className="peer w-full border-2 border-neutral p-1 uppercase"
+          className="peer w-full border-2 border-neutral p-1 uppercase focus-visible:ring-2 focus-visible:ring-tertiary focus-visible:outline-none"
         >
           <option disabled value={'sort'}>
             Ordenar por
@@ -69,7 +68,7 @@ export function SortSelect() {
       </label>
       <button
         onClick={handleClick}
-        className="cursor-pointer border-2 border-neutral shadow-auth"
+        className="cursor-pointer border-2 border-neutral shadow-auth transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 active:scale-95"
       >
         {sortOrder === 'ASC' ? (
           <SortAscending className="pointer-events-none stroke-neutral" />
@@ -77,6 +76,6 @@ export function SortSelect() {
           <SortDescending className="pointer-events-none stroke-neutral" />
         )}
       </button>
-    </>
+    </div>
   );
 }
