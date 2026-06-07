@@ -44,8 +44,8 @@ export const authService = {
     const loginData = {
       email: formData.get('email'),
       password: formData.get('password'),
+      remember: formData.get('rememberMe') === 'on',
     };
-
     const res = await fetch(`${BASE_URL}/auth/login`, {
       method: 'POST',
       headers: {
