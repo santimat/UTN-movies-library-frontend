@@ -9,6 +9,12 @@ interface UseAuthStore {
   hydrateUser: (role?: 'admin' | 'user') => void;
   setUser: (user: UserResponse | null) => void;
   isAuthenticated: () => boolean;
+  login: (
+    formData: FormData
+  ) => Promise<void | { code: string; error: string }>;
+  register: (
+    formData: FormData
+  ) => Promise<void | { code: string; error: string }>;
 }
 
 export const useAuthStore = create<UseAuthStore>((set, get) => ({
@@ -27,6 +33,21 @@ export const useAuthStore = create<UseAuthStore>((set, get) => ({
       set({ user: null });
     } finally {
       set({ loading: false });
+    }
+  },
+  login: async (formData: FormData) => {
+    try {
+      const user = await authService.login(formData);
+      set({ user });
+    } catch (error) {
+      return error as { code: string; error: string };
+    }
+  },
+  register: async (formData: FormData) => {
+    try {
+      await authService.register(formData);
+    } catch (error) {
+      return error as { code: string; error: string };
     }
   },
   isAuthenticated: () => {
