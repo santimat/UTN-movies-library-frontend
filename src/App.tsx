@@ -1,7 +1,8 @@
 import { lazy } from 'react';
-import { Routes, Route } from 'react-router';
-import { Header } from '@/components/layout/Header';
-import { Footer } from '@/components/layout/Footer';
+import { Routes, Route, Outlet } from 'react-router';
+import { AdminRoute } from '@/routes/AdminRoute';
+import { GuardRoute } from '@/routes/GuardRoute';
+import { Layout } from '@/components/layout/Layout';
 
 const Home = lazy(() =>
   import('@/pages/Home').then((module) => ({ default: module.Home }))
@@ -19,16 +20,24 @@ const Admin = lazy(() =>
 function App() {
   return (
     <>
-      <Header />
-      <main className="relative my-6 flex-1">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/auth" element={<Auth />} />
-          <Route path="/test" element={<Test />} />
-          <Route path="/admin" element={<Admin />} />
-        </Routes>
-      </main>
-      <Footer />
+      <Routes>
+        <Route path="/" element={<GuardRoute />}>
+          <Route
+            element={
+              <Layout>
+                <Outlet />
+              </Layout>
+            }
+          >
+            <Route index element={<Home />} />
+            <Route path="test" element={<Test />} />
+            <Route path="auth" element={<Auth />} />
+            <Route element={<AdminRoute />}>
+              <Route path="admin" element={<Admin />} />
+            </Route>
+          </Route>
+        </Route>
+      </Routes>
     </>
   );
 }
