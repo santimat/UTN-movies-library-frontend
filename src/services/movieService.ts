@@ -1,5 +1,6 @@
 import { API_URL } from '@/lib/constants';
 import { type Movie } from '@/types/entities/Movie';
+import type { SpringPageResponse } from '@/types/SpringPageResponse';
 const URL_BASE = `${API_URL}/movies`;
 
 export const movieService = {
@@ -15,17 +16,17 @@ export const movieService = {
     if (sortOrder) url.searchParams.append('sortOrder', sortOrder);
     if (searchText) url.searchParams.append('searchText', searchText);
     const res = await fetch(url);
-    const data = await res.json();
+    const data: SpringPageResponse = await res.json();
 
-    if (data.empty)
+    if (!data.page.totalElements)
       return {
         movies: [],
       };
 
     return {
       movies: data.content,
-      totalPages: data.totalPages,
-      totalElements: data.totalElements,
+      totalPages: data.page.totalPages,
+      totalElements: data.page.totalElements,
     };
   },
 };
