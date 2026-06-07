@@ -44,7 +44,7 @@ export function AuthForm({
           <label className="flex items-center gap-2 font-semibold select-none">
             <input
               type="checkbox"
-              value={'true'}
+              name="rememberMe"
               className="invisible absolute"
               onChange={onRememberMeChange}
             />
