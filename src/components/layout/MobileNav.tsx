@@ -3,14 +3,12 @@ import { NavLink } from 'react-router';
 import type { HeaderNavItem } from '@/types/HeaderNavItem';
 import { BurguerIcon } from '@/components/icons/Burguer';
 import { Button } from '@/components/ui/Button';
-import { useAuthStore } from '@/store/useAuthStore';
 interface MobileNavProps {
   navItems: HeaderNavItem[];
   handleIsActive: ({ isActive }: { isActive: boolean }) => string;
 }
 
 export function MobileNav({ navItems, handleIsActive }: MobileNavProps) {
-  const { user: isAuth } = useAuthStore();
   const [isOpen, setIsOpen] = useState(false);
   const showNav = isOpen ? '' : 'translate-x-full';
   const handleClick = () => {
@@ -49,11 +47,9 @@ export function MobileNav({ navItems, handleIsActive }: MobileNavProps) {
             </li>
           ))}
         </ul>
-        {!isAuth && (
-          <Button href="/auth" className="bg-tertiary text-white">
-            Iniciar Sesión
-          </Button>
-        )}
+        <Button href="/auth" className="bg-tertiary text-white">
+          Iniciar Sesión
+        </Button>
       </nav>
     </>
   );

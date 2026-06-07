@@ -2,8 +2,6 @@ import { lazy } from 'react';
 import { Routes, Route } from 'react-router';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
-import { PrivateRoute } from '@/routes/PrivateRoute';
-import { PublicRoute } from '@/routes/PublicRoute';
 
 const Home = lazy(() =>
   import('@/pages/Home').then((module) => ({ default: module.Home }))
@@ -24,22 +22,10 @@ function App() {
       <Header />
       <main className="relative my-6 flex-1">
         <Routes>
-          <Route element={<PublicRoute />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/auth" element={<Auth />} />
-            <Route path="/test" element={<Test />} />
-          </Route>
-          <Route
-            element={
-              <PrivateRoute
-                requireAuth={true}
-                requireAdmin={true}
-                navigateTo="/auth"
-              />
-            }
-          >
-            <Route path="/admin" element={<Admin />} />
-          </Route>
+          <Route path="/" element={<Home />} />
+          <Route path="/auth" element={<Auth />} />
+          <Route path="/test" element={<Test />} />
+          <Route path="/admin" element={<Admin />} />
         </Routes>
       </main>
       <Footer />
