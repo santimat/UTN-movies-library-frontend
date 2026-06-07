@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { MovieCard } from '@/components/ui/MovieCard';
-import { useMovies } from '@/store/useMovies';
+import { useMovies } from '@/stores/useMovies';
 import { useSearchParams } from 'react-router';
 import { type Movie } from '@/types/entities/Movie';
 

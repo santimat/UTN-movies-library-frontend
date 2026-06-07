@@ -27,7 +27,6 @@ const navItems: HeaderNavItem[] = [
 export function NavBar() {
   // For mobile navbar
   const isDesktop = useMediaQuery('(min-width:768px)');
-
   const handleIsActive = ({ isActive }: { isActive: boolean }) => {
     return `p-2 font-semibold ${
       isActive
