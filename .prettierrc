@@ -4,5 +4,5 @@
   "tabWidth": 2,
   "trailingComma": "es5",
   "plugins": ["prettier-plugin-tailwindcss"],
-  "tailwindStylesheet": "./src/css/global.css"
+  "tailwindStylesheet": "./src/global.css"
 }
