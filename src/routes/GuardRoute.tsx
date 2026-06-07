@@ -8,11 +8,16 @@ export function GuardRoute() {
   const isLoginPage = window.location.pathname === '/auth';
   useEffect(() => {
     hydrateUser();
-    console.log('GuardRoute: Hydrating user data');
   }, [hydrateUser]);
 
   if (loading) return <Loader />;
-  if (isLoginPage && user?.email) return <Navigate to="/" />;
+  if (isLoginPage && user?.email)
+    return (
+      <>
+        <Navigate to="/" replace />
+        <Outlet />
+      </>
+    );
 
   return <Outlet />;
 }
