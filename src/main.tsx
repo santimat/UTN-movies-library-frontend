@@ -9,7 +9,7 @@ createRoot(document.getElementById('root')!).render(
     <App />
     <Toaster
       visibleToasts={1}
-      position="top-right"
+      position="top-center"
       className="font-body text-xl font-bold"
       toastOptions={{
         classNames: {
