@@ -1,21 +1,21 @@
 import { useId, useState, type SubmitEvent } from 'react';
+import { useNavigate } from 'react-router';
 import { toast } from 'sonner';
 
+import { LOGIN_FIELDS } from '@/lib/constants';
+import { authService } from '@/services/authService';
+import { validateService } from '@/services/validateService';
+import { useAuthStore } from '@/stores/useAuthStore';
 import { FormField } from '@/components/ui/FormField';
 import { AuthForm } from '@/components/ui/AuthForm';
-import { validateService } from '@/services/validateService';
-import { authService } from '@/services/authService';
-import { LOGIN_FIELDS } from '@/lib/constants';
-import { useAuthStore } from '@/store/useAuthStore';
-import { useNavigate } from 'react-router';
 
 export function LoginForm() {
-  const emailId = useId();
-  const passwordId = useId();
-
   const [remember, setRemember] = useState(false);
   const { setUser } = useAuthStore();
+  const emailId = useId();
+  const passwordId = useId();
   const navigate = useNavigate();
+
   const handleRemember = () => setRemember((prev) => !prev);
 
   const handleSubmit = async (event: SubmitEvent<HTMLFormElement>) => {
@@ -28,6 +28,7 @@ export function LoginForm() {
 
     if (res.code === 'UNKNOWN_ERROR') return toast.error(res.error);
     setUser(res);
+    if (res?.role === 'ADMIN') return navigate('/admin');
     navigate('/');
   };
 
