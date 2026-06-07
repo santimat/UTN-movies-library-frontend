@@ -1,5 +1,12 @@
 const BASE_URL = `/api`;
 
+const handleResponseErrors = (res: Response) => {
+  if (res.status === 401) throw new Error('UNAUTHORIZED');
+  if (res.status === 404) throw new Error('USER_NOT_FOUND');
+  if (res.status === 403) throw new Error('FORBIDDEN');
+  if (!res.ok) throw new Error('UNKNOWN_ERROR');
+};
+
 export const authService = {
   register: async (formData: FormData) => {
     const registerData = {
@@ -67,10 +74,21 @@ export const authService = {
 
     return await res.json();
   },
-  checkAcces: async (role: 'user' | 'admin') => {
-    const res = await fetch(`${BASE_URL}/auth/${role}`, {
+  checkAuth: async () => {
+    const res = await fetch(`${BASE_URL}/auth/user`, {
       credentials: 'include',
     });
-    return res;
+
+    handleResponseErrors(res);
+
+    return await res.json();
+  },
+  checkAdmin: async () => {
+    const res = await fetch(`${BASE_URL}/auth/admin`, {
+      credentials: 'include',
+    });
+    handleResponseErrors(res);
+
+    return await res.json();
   },
 };
