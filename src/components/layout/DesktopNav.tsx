@@ -9,9 +9,8 @@ interface DesktopNavProps {
 }
 
 export function DesktopNav({ navItems, handleIsActive }: DesktopNavProps) {
-  const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
-  const isAdmin = useAuthStore((s) => s.user?.role === 'ADMIN');
-
+  const { isAuthenticated, user } = useAuthStore();
+  const isAdmin = user?.role === 'ADMIN';
   return (
     <nav className="flex flex-1 items-center justify-end gap-10">
       <ul className="flex gap-4 font-label text-xl font-semibold">
