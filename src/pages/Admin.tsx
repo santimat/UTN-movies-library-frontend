@@ -1,4 +1,4 @@
-import { MovieAdminPanel } from '@/components/layout/MovieAdminPanel';
+import { MovieAdminPanel } from '@/features/admin/components/MovieAdminPanel';
 export function Admin() {
   return (
     <>

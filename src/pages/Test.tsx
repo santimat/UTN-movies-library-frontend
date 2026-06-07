@@ -1,5 +1,5 @@
 import { type MouseEvent, useEffect, useState } from 'react';
-import { StarIcon } from '@/components/icons/Star';
+import { StarIcon } from '@/shared/components/icons/Star';
 
 export function Test() {
   const [rating, setRating] = useState(() => {

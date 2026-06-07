@@ -1,6 +1,6 @@
-import { MovieList } from '@/components/layout/MovieList';
-import { FilterBar } from '@/components/layout/FilterBar';
-import { Pagination } from '@/components/layout/Pagination';
+import { MovieList } from '@/features/movies/components/MovieList';
+import { FilterBar } from '@/features/movies/components/FilterBar';
+import { Pagination } from '@/features/movies/components/Pagination';
 
 export function Home() {
   return (

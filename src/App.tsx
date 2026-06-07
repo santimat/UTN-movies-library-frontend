@@ -2,7 +2,7 @@ import { lazy } from 'react';
 import { Routes, Route, Outlet } from 'react-router';
 import { AdminRoute } from '@/routes/AdminRoute';
 import { GuardRoute } from '@/routes/GuardRoute';
-import { Layout } from '@/components/layout/Layout';
+import { Layout } from '@/shared/components/layout/Layout';
 
 const Home = lazy(() =>
   import('@/pages/Home').then((module) => ({ default: module.Home }))
@@ -15,6 +15,11 @@ const Auth = lazy(() =>
 );
 const Admin = lazy(() =>
   import('@/pages/Admin').then((module) => ({ default: module.Admin }))
+);
+const NotFound = lazy(() =>
+  import('@/pages/NotFound').then((module) => ({
+    default: module.NotFound,
+  }))
 );
 
 function App() {
@@ -35,6 +40,7 @@ function App() {
             <Route element={<AdminRoute />}>
               <Route path="admin" element={<Admin />} />
             </Route>
+            <Route path="*" element={<NotFound />} />
           </Route>
         </Route>
       </Routes>
