@@ -2,7 +2,7 @@ import { lazy } from 'react';
 import { Routes, Route } from 'react-router';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
-
+import { PrivateRoute } from '@/routes/PrivateRoute';
 const Home = lazy(() =>
   import('@/pages/Home').then((module) => ({ default: module.Home }))
 );
@@ -25,7 +25,17 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/test" element={<Test />} />
-          <Route path="/admin" element={<Admin />} />
+          <Route
+            element={
+              <PrivateRoute
+                requireAuth={true}
+                requireAdmin={true}
+                navigateTo="/auth"
+              />
+            }
+          >
+            <Route path="/admin" element={<Admin />} />
+          </Route>
         </Routes>
       </main>
       <Footer />
