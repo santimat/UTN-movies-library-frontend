@@ -1,5 +1,5 @@
-import { LoginForm } from '@/components/layout/LoginForm';
-import { RegisterForm } from '@/components/layout/RegisterForm';
+import { LoginForm } from '@/components/layout/auth/LoginForm';
+import { RegisterForm } from '@/components/layout/auth/RegisterForm';
 
 export function Auth() {
   return (
