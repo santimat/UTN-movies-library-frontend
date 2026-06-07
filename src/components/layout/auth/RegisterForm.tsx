@@ -2,11 +2,12 @@ import { useId, type SubmitEvent } from 'react';
 import { toast } from 'sonner';
 import { FormField } from '@/components/ui/FormField';
 import { AuthForm } from '@/components/ui/AuthForm';
-import { authService } from '@/services/authService';
 import { REGISTER_FIELDS } from '@/lib/constants';
 import { validateService } from '@/services/validateService';
+import { useAuthStore } from '@/stores/useAuthStore';
 
 export function RegisterForm() {
+  const { register } = useAuthStore();
   const usernameId = useId();
   const emailId = useId();
   const passwordId = useId();
@@ -16,12 +17,11 @@ export function RegisterForm() {
     const formData = new FormData(event.currentTarget);
 
     if (validateService.areMissingFields(formData, REGISTER_FIELDS)) return;
+    const error = await register(formData);
+    console.log(error);
+    if (error) return toast.error(error.error);
 
-    const response = await authService.register(formData);
-    if (response.code === 'ALREADY_EXISTS' || response.code === 'UNKNOWN_ERROR')
-      return toast.error(response.error);
-
-    toast.success('¡Registro exitoso! Ahora puedes iniciar sesión.');
+    toast.success('Registro exitoso. Ahora puedes iniciar sesión.');
     event.target.reset();
   };
 

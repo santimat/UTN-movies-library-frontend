@@ -11,7 +11,7 @@ import { AuthForm } from '@/components/ui/AuthForm';
 
 export function LoginForm() {
   const [remember, setRemember] = useState(false);
-  const { setUser } = useAuthStore();
+  const login = useAuthStore((s) => s.login);
   const emailId = useId();
   const passwordId = useId();
   const navigate = useNavigate();
@@ -22,13 +22,9 @@ export function LoginForm() {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     if (validateService.areMissingFields(formData, LOGIN_FIELDS)) return;
-    const res = await authService.login(formData);
-    if (res.code === 'INVALID_CREDENTIALS' || res.code === 'USER_NOT_FOUND')
-      return toast.error(res.error);
-
-    if (res.code === 'UNKNOWN_ERROR') return toast.error(res.error);
-    setUser(res);
-    if (res?.role === 'ADMIN') return navigate('/admin');
+    const error = await login(formData);
+    if (error) return toast.error(error.error);
+    event.target.reset();
     navigate('/');
   };
 
