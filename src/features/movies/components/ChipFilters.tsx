@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router';
-import type { Genre } from '@/types/entities/Genre';
 import { genreService } from '@/features/movies/services/genreService';
-
+import { Chip } from '@/shared/components/ui/Chip';
 export function ChipFilters() {
   const [genres, setGenres] = useState<Genre[]>([]);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -32,13 +31,16 @@ export function ChipFilters() {
   return (
     <ul className="flex scrollbar-thin gap-4 overflow-x-auto p-2">
       {genres.map((genre) => (
-        <li key={`genre-chip-${genre.id}`}>
-          <button
+        <li key={`chíp-genre-${genre.id}`}>
+          <Chip
             onClick={() => handleClick(genre.name.toLowerCase())}
-            className={`hover:cursor border-2 border-neutral px-2 py-1 whitespace-nowrap uppercase transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 hover:cursor-pointer active:scale-95 ${selectedGenre?.includes(genre.name.toLowerCase()) ? 'bg-neutral text-white' : ''}`}
-          >
-            {genre.name}
-          </button>
+            className={`hover:cursor hover:-translate-x-0.5 hover:-translate-y-0.5 hover:cursor-pointer active:scale-95 ${
+              selectedGenre?.includes(genre.name.toLowerCase())
+                ? 'bg-neutral text-white'
+                : ''
+            } `}
+            text={genre.name}
+          />
         </li>
       ))}
     </ul>
