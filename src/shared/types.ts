@@ -13,3 +13,8 @@ export type SpringPageResponse = {
     totalPages: number;
   };
 };
+
+export type AppError = {
+  code: string;
+  error: string;
+};
