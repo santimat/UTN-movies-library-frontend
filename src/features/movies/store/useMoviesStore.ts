@@ -22,6 +22,9 @@ interface UseMoviesState {
     sortOrder?: 'ASC' | 'DESC';
     searchText?: string;
   }) => void;
+  fetchMovieById: (
+    id: number
+  ) => Promise<Movie | { code: string; error: string }>;
 }
 
 export const useMoviesStore = create<UseMoviesState>((set) => ({
@@ -40,11 +43,20 @@ export const useMoviesStore = create<UseMoviesState>((set) => ({
       set({ movies: movies });
       set({ originalMovies: movies });
       set({ data });
-    } catch (error) {
-      console.error('Error fetching movies:', error);
+    } catch {
       return {
         movies: [],
       };
+    } finally {
+      set({ loading: false });
+    }
+  },
+  fetchMovieById: async (id: number) => {
+    try {
+      const movie = await movieService.getMovieById(id);
+      return movie;
+    } catch (error) {
+      return error;
     } finally {
       set({ loading: false });
     }
