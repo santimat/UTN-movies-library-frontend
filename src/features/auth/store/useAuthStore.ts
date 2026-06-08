@@ -1,5 +1,5 @@
 import { authService } from '@/features/auth/services/authService';
-import type { UserResponse } from '@/types/entities/User';
+import type { UserResponse } from '@/features/auth/types';
 import { create } from 'zustand';
 
 interface UseAuthStore {
@@ -8,13 +8,13 @@ interface UseAuthStore {
   setLoading: (loading: boolean) => void;
   hydrateUser: (role?: 'admin' | 'user') => void;
   setUser: (user: UserResponse | null) => void;
-  isAuthenticated: () => boolean;
   login: (
     formData: FormData
   ) => Promise<void | { code: string; error: string }>;
   register: (
     formData: FormData
   ) => Promise<void | { code: string; error: string }>;
+  logout: () => Promise<void | { code: string; error: string }>;
 }
 
 export const useAuthStore = create<UseAuthStore>((set, get) => ({
@@ -50,7 +50,14 @@ export const useAuthStore = create<UseAuthStore>((set, get) => ({
       return error as { code: string; error: string };
     }
   },
-  isAuthenticated: () => {
-    return !!get().user?.email;
+  logout: async () => {
+    try {
+      await authService.logout();
+      set({ user: null });
+    } catch (error) {
+      return error as { code: string; error: string };
+    } finally {
+      set({ loading: false });
+    }
   },
 }));

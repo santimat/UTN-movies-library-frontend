@@ -1,11 +1,11 @@
 import { handleResponseErrors } from '@/features/auth/helpers/helpers';
 import { handleErrors } from '@/shared/utils/handleFetchErrors';
 
-const BASE_URL = `/api`;
+const BASE_URL = `/api/auth`;
 
 const auth = async (endpoint: string, payload: object) => {
   try {
-    const res = await fetch(`${BASE_URL}/auth/${endpoint}`, {
+    const res = await fetch(`${BASE_URL}/${endpoint}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -37,8 +37,18 @@ export const authService = {
     };
     return await auth('login', loginData);
   },
+  logout: async () => {
+    try {
+      await fetch(`${BASE_URL}/logout`, {
+        credentials: 'include',
+        method: 'POST',
+      });
+    } catch (error) {
+      handleErrors(error);
+    }
+  },
   checkAuth: async () => {
-    const res = await fetch(`${BASE_URL}/auth/user`, {
+    const res = await fetch(`${BASE_URL}/user`, {
       credentials: 'include',
     });
 
@@ -46,7 +56,7 @@ export const authService = {
     return await res.json();
   },
   checkAdmin: async () => {
-    const res = await fetch(`${BASE_URL}/auth/admin`, {
+    const res = await fetch(`${BASE_URL}/admin`, {
       credentials: 'include',
     });
     handleResponseErrors(res);
