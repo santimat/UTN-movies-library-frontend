@@ -1,5 +1,10 @@
 # Movies library
 
+## TODO
+
+[x] Add dynamic imports to lazy load components
+[ ] Check createPortal for Modal views
+
 ## Stack
 
 - Springboot Java
@@ -118,6 +123,3 @@ src/
 │
 ├── App.tsx
 └── main.tsx
-
-## TODO
-[x] Add dynamic imports to lazy load components
