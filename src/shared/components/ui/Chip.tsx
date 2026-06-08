@@ -10,7 +10,7 @@ export function Chip({
   return (
     <button
       onClick={onClick}
-      className={`border-2 border-neutral px-2 py-1 whitespace-nowrap uppercase transition-transform ${classes}`}
+      className={`border-2 border-neutral p-2 whitespace-nowrap uppercase transition-transform ${classes}`}
     >
       {text}
     </button>
