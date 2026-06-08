@@ -7,7 +7,7 @@
 - React
 - Zustand
 - Tailwindcss
-- MySQL
+- PostgreSQL
 - [tailwind-animations](https://tailwind-animations.com/)
 
 ## Design
