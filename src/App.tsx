@@ -7,6 +7,11 @@ import { Layout } from '@/shared/components/layout/Layout';
 const Home = lazy(() =>
   import('@/pages/Home').then((module) => ({ default: module.Home }))
 );
+const MovieDetail = lazy(() =>
+  import('@/pages/Movie').then((module) => ({
+    default: module.Movie,
+  }))
+);
 const Test = lazy(() =>
   import('@/pages/Test').then((module) => ({ default: module.Test }))
 );
@@ -19,6 +24,11 @@ const Admin = lazy(() =>
 const NotFound = lazy(() =>
   import('@/pages/NotFound').then((module) => ({
     default: module.NotFound,
+  }))
+);
+const Logout = lazy(() =>
+  import('@/routes/Logout').then((module) => ({
+    default: module.Logout,
   }))
 );
 
@@ -35,11 +45,13 @@ function App() {
             }
           >
             <Route index element={<Home />} />
+            <Route path="movie/:id" element={<MovieDetail />} />
             <Route path="test" element={<Test />} />
             <Route path="auth" element={<Auth />} />
             <Route element={<AdminRoute />}>
               <Route path="admin" element={<Admin />} />
             </Route>
+            <Route path="logout" element={<Logout />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Route>
