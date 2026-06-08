@@ -27,7 +27,7 @@ export function MovieList() {
     return (
       <div className="flex h-full items-center justify-center">
         <p className="font-headline text-2xl font-bold text-secondary uppercase">
-          {error.error} 🥲
+          {error.error}
         </p>
       </div>
     );

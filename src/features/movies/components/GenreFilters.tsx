@@ -27,7 +27,7 @@ export function ChipFilters() {
   return (
     <ul className="flex scrollbar-thin gap-4 overflow-x-auto p-2">
       {error?.code ? (
-        <li className="text-red-500">Error loading genres: {error.error}</li>
+        <li className="text-red-500">{error.error}</li>
       ) : (
         genres.map((genre) => (
           <li key={`chíp-genre-${genre.id}`}>
