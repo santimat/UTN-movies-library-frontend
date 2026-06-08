@@ -1,7 +1,5 @@
-import {
-  handleResponseErrors,
-  handleErrors,
-} from '@/features/auth/helpers/handleResponseErrors';
+import { handleResponseErrors } from '@/features/auth/helpers/helpers';
+import { handleErrors } from '@/shared/utils/handleFetchErrors';
 
 const BASE_URL = `/api`;
 
