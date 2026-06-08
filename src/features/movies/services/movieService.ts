@@ -43,4 +43,14 @@ export const movieService = {
       throw handleFetchErrors(error);
     }
   },
+  getGenres: async () => {
+    try {
+      const res = await fetch(`${API_URL}/genres`);
+      handleResponseErrors(res);
+      const { content: genres } = await res.json();
+      return genres;
+    } catch (error) {
+      throw handleFetchErrors(error);
+    }
+  },
 };
