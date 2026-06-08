@@ -15,7 +15,7 @@ interface UseAuthStore {
   logout: () => void;
 }
 
-export const useAuthStore = create<UseAuthStore>((set, get) => ({
+export const useAuthStore = create<UseAuthStore>((set) => ({
   user: null,
   error: null,
   loading: true,
