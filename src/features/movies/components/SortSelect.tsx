@@ -4,6 +4,7 @@ import { ArrowDownIcon } from '@/shared/components/icons/ArrowDown';
 import { SortAscending } from '@/shared/components/icons/SortAscending';
 import { SortDescending } from '@/shared/components/icons/SortDescending';
 import { type Movie } from '@/features/movies/types';
+import { Button } from '@/shared/components/ui/Button';
 
 export function SortSelect() {
   const [isSelectOpen, setIsSelectOpen] = useState(false);
@@ -57,16 +58,13 @@ export function SortSelect() {
           <option value={'year'}>Año</option>
         </select>
       </label>
-      <button
-        onClick={handleClick}
-        className="cursor-pointer border-2 border-neutral shadow-auth transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 active:scale-95"
-      >
+      <Button onClick={handleClick} className="p-0!">
         {sortOrder === 'ASC' ? (
           <SortAscending className="pointer-events-none stroke-neutral" />
         ) : (
           <SortDescending className="pointer-events-none stroke-neutral" />
         )}
-      </button>
+      </Button>
     </div>
   );
 }

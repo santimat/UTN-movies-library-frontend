@@ -1,5 +1,5 @@
 import { CameraOffIcon } from '@/shared/components/icons/CameraOff';
-import { Button } from '@/shared/components/ui/Button';
+import { ButtonLink } from '@/shared/components/ui/ButtonLink';
 
 export function NotFound() {
   return (
@@ -10,12 +10,12 @@ export function NotFound() {
         </div>
       </div>
       <div className="flex flex-col items-center gap-20">
-        <Button
+        <ButtonLink
           className="border-black bg-secondary p-4 text-xl text-white shadow-auth"
           href="/"
         >
           Volver al inicio
-        </Button>
+        </ButtonLink>
 
         <h1 className="font-headline text-5xl font-bold md:text-6xl lg:text-7xl xl:text-8xl">
           Escena

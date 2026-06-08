@@ -1,7 +1,7 @@
 import { useState, type MouseEvent } from 'react';
 import { NavLink } from 'react-router';
 import { BurguerIcon } from '@/shared/components/icons/Burguer';
-import { Button } from '@/shared/components/ui/Button';
+import { ButtonLink } from '@/shared/components/ui/ButtonLink';
 import { type HeaderNavItem } from '@/shared/components/layout/navbar/types';
 import { useAuthStore } from '@/features/auth/store/useAuthStore';
 
@@ -53,9 +53,9 @@ export function MobileNav({ navItems, handleIsActive }: MobileNavProps) {
           ))}
         </ul>
         {!isAuthenticated && (
-          <Button href="/auth" className="bg-tertiary text-white">
+          <ButtonLink href="/auth" className="bg-tertiary text-white">
             Iniciar Sesión
-          </Button>
+          </ButtonLink>
         )}
       </nav>
     </>
