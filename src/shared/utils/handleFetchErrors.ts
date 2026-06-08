@@ -1,4 +1,4 @@
-export const handleErrors = (error: unknown) => {
+export const handleFetchErrors = (error: unknown) => {
   if (error instanceof Error)
     throw {
       code: 'NETWORK_ERROR',

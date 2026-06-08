@@ -1,5 +1,5 @@
 import { handleResponseErrors } from '@/features/auth/helpers/helpers';
-import { handleErrors } from '@/shared/utils/handleFetchErrors';
+import { handleFetchErrors } from '@/shared/utils/handleFetchErrors';
 
 const BASE_URL = `/api/auth`;
 
@@ -16,7 +16,7 @@ const auth = async (endpoint: string, payload: object) => {
     handleResponseErrors(res);
     return await res.json();
   } catch (error) {
-    handleErrors(error);
+    handleFetchErrors(error);
   }
 };
 
@@ -44,7 +44,7 @@ export const authService = {
         method: 'POST',
       });
     } catch (error) {
-      handleErrors(error);
+      handleFetchErrors(error);
     }
   },
   checkAuth: async () => {
