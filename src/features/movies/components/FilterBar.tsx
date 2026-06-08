@@ -1,6 +1,6 @@
 import { SearchInput } from '@/features/movies/components/SearchInput';
 import { SortSelect } from '@/features/movies/components/SortSelect';
-import { ChipFilters } from '@/features/movies/components/ChipFilters';
+import { ChipFilters } from '@/features/movies/components/GenreFilters';
 
 export function FilterBar() {
   return (
