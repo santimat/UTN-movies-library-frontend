@@ -7,6 +7,7 @@ import { areMissingFields } from '@/shared/utils/checkMissingFields';
 import { useAuthStore } from '@/features/auth/store/useAuthStore';
 import { FormField } from '@/features/auth/components/FormField';
 import { AuthForm } from '@/features/auth/components/AuthForm';
+import type { AppError } from '@/shared/types';
 
 export function LoginForm() {
   const [remember, setRemember] = useState(false);
@@ -20,11 +21,18 @@ export function LoginForm() {
   const handleSubmit = async (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
+    const form = event.currentTarget;
+
     if (areMissingFields(formData, LOGIN_FIELDS)) return;
-    const error = await login(formData);
-    if (error) return toast.error(error.error);
-    event.target.reset();
-    navigate('/');
+    try {
+      await login(formData);
+      navigate('/');
+    } catch (err) {
+      const { error } = err as AppError;
+      toast.error(error);
+    } finally {
+      form.reset();
+    }
   };
 
   return (

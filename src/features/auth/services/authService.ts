@@ -13,29 +13,45 @@ const auth = async (endpoint: string, payload: object) => {
       body: JSON.stringify(payload),
     });
 
-    handleResponseErrors(res);
+    console.log('Response status:', res.status);
+    handleResponseErrors(res, {
+      409: {
+        code: 'EMAIL_ALREADY_EXISTS',
+        error: 'El correo ya está registrado.',
+      },
+    });
+
     return await res.json();
   } catch (error) {
-    handleFetchErrors(error);
+    console.log('Fetch error:', error);
+    throw handleFetchErrors(error);
   }
 };
 
 export const authService = {
   register: async (formData: FormData) => {
-    const registerData = {
-      name: formData.get('username'),
-      email: formData.get('email'),
-      password: formData.get('password'),
-    };
-    return await auth('register', registerData);
+    try {
+      const registerData = {
+        name: formData.get('username'),
+        email: formData.get('email'),
+        password: formData.get('password'),
+      };
+      return await auth('register', registerData);
+    } catch (error) {
+      throw handleFetchErrors(error);
+    }
   },
   login: async (formData: FormData) => {
-    const loginData = {
-      email: formData.get('email'),
-      password: formData.get('password'),
-      remember: formData.get('rememberMe') === 'on',
-    };
-    return await auth('login', loginData);
+    try {
+      const loginData = {
+        email: formData.get('email'),
+        password: formData.get('password'),
+        remember: formData.get('rememberMe') === 'on',
+      };
+      return await auth('login', loginData);
+    } catch (error) {
+      throw handleFetchErrors(error);
+    }
   },
   logout: async () => {
     try {
@@ -44,22 +60,30 @@ export const authService = {
         method: 'POST',
       });
     } catch (error) {
-      handleFetchErrors(error);
+      throw handleFetchErrors(error);
     }
   },
   checkAuth: async () => {
-    const res = await fetch(`${BASE_URL}/user`, {
-      credentials: 'include',
-    });
+    try {
+      const res = await fetch(`${BASE_URL}/user`, {
+        credentials: 'include',
+      });
 
-    handleResponseErrors(res);
-    return await res.json();
+      handleResponseErrors(res);
+      return await res.json();
+    } catch (error) {
+      throw handleFetchErrors(error);
+    }
   },
   checkAdmin: async () => {
-    const res = await fetch(`${BASE_URL}/admin`, {
-      credentials: 'include',
-    });
-    handleResponseErrors(res);
-    return await res.json();
+    try {
+      const res = await fetch(`${BASE_URL}/admin`, {
+        credentials: 'include',
+      });
+      handleResponseErrors(res);
+      return await res.json();
+    } catch (error) {
+      throw handleFetchErrors(error);
+    }
   },
 };

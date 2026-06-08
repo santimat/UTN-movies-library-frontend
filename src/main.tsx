@@ -11,6 +11,7 @@ createRoot(document.getElementById('root')!).render(
       visibleToasts={1}
       position="top-center"
       className="font-body text-xl font-bold"
+      duration={2000}
       toastOptions={{
         classNames: {
           error: '!bg-secondary !text-white',
