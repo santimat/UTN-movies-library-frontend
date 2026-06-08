@@ -1,8 +1,11 @@
 import { useEffect } from 'react';
 import { useLocation, NavLink } from 'react-router';
-import { useMoviesStore } from '@/features/movies/store/useMoviesStore';
+
 import type { Movie } from '@/features/movies/types';
+import { useMoviesStore } from '@/features/movies/store/useMoviesStore';
+
 import { NotFound } from '@/pages/NotFound';
+
 import { Loader } from '@/shared/components/ui/Loader';
 import { ArrowBackIcon } from '@/shared/components/icons/ArrowBack';
 import { MovieDetail } from '@/features/movies/components/MovieDetail';

@@ -13,7 +13,6 @@ const auth = async (endpoint: string, payload: object) => {
       body: JSON.stringify(payload),
     });
 
-    console.log('Response status:', res.status);
     handleResponseErrors(res, {
       409: {
         code: 'EMAIL_ALREADY_EXISTS',
@@ -23,7 +22,6 @@ const auth = async (endpoint: string, payload: object) => {
 
     return await res.json();
   } catch (error) {
-    console.log('Fetch error:', error);
     throw handleFetchErrors(error);
   }
 };
