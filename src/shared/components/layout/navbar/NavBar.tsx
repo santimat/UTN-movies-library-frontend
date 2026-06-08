@@ -1,6 +1,6 @@
 import { lazy } from 'react';
 import { useMediaQuery } from '@/shared/hooks/useMediaQuery';
-
+import { type HeaderNavItem } from '@/shared/components/layout/navbar/types';
 const DesktopNav = lazy(() =>
   import('@/shared/components/layout/navbar/DesktopNav').then((module) => ({
     default: module.DesktopNav,
@@ -12,10 +12,6 @@ const MobileNav = lazy(() =>
   }))
 );
 
-type HeaderNavItem = {
-  text: string;
-  href: string;
-};
 const navItems: HeaderNavItem[] = [
   {
     text: 'Todo',

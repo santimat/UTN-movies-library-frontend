@@ -1,7 +1,7 @@
-import type { HeaderNavItem } from '@/types/HeaderNavItem';
 import { Button } from '@/shared/components/ui/Button';
 import { NavLink } from 'react-router';
 import { useAuthStore } from '@/features/auth/store/useAuthStore';
+import { type HeaderNavItem } from '@/shared/components/layout/navbar/types';
 
 interface DesktopNavProps {
   navItems: HeaderNavItem[];
@@ -9,7 +9,8 @@ interface DesktopNavProps {
 }
 
 export function DesktopNav({ navItems, handleIsActive }: DesktopNavProps) {
-  const { isAuthenticated, user } = useAuthStore();
+  const { user } = useAuthStore();
+  const isAuthenticated = !!user?.email;
   const isAdmin = user?.role === 'ADMIN';
   return (
     <nav className="flex flex-1 items-center justify-end gap-10">
@@ -28,7 +29,7 @@ export function DesktopNav({ navItems, handleIsActive }: DesktopNavProps) {
             Panel de administración
           </Button>
         )}
-        {!isAuthenticated() ? (
+        {!isAuthenticated ? (
           <Button href="/auth" className="bg-tertiary text-white">
             Iniciar Sesión
           </Button>
