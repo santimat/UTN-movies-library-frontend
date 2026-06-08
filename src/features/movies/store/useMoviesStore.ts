@@ -1,10 +1,14 @@
 import { create } from 'zustand';
-import { type Movie } from '@/features/movies/types';
+import { type Movie, type Genre } from '@/features/movies/types';
 import { movieService } from '@/features/movies/services/movieService';
+import type { AppError } from '@/shared/types';
 
 interface UseMoviesState {
   movies: Movie[];
+  movie: Movie | null;
+  genres: Genre[];
   originalMovies: Movie[];
+  error: AppError | null;
   loading: boolean;
   data?: {
     totalPages?: number;
@@ -22,15 +26,16 @@ interface UseMoviesState {
     sortOrder?: 'ASC' | 'DESC';
     searchText?: string;
   }) => void;
-  fetchMovieById: (
-    id: number
-  ) => Promise<Movie | { code: string; error: string }>;
+  fetchMovieById: (id: number) => void;
 }
 
 export const useMoviesStore = create<UseMoviesState>((set) => ({
   originalMovies: [],
   movies: [],
+  movie: null,
+  genres: [],
   data: {},
+  error: null,
   loading: true,
   fetchMovies: async ({ genre, sortBy, sortOrder, searchText }) => {
     try {
@@ -40,13 +45,12 @@ export const useMoviesStore = create<UseMoviesState>((set) => ({
         sortOrder,
         searchText
       );
+
       set({ movies: movies });
       set({ originalMovies: movies });
       set({ data });
-    } catch {
-      return {
-        movies: [],
-      };
+    } catch (error) {
+      set({ error: error as AppError });
     } finally {
       set({ loading: false });
     }
@@ -54,9 +58,9 @@ export const useMoviesStore = create<UseMoviesState>((set) => ({
   fetchMovieById: async (id: number) => {
     try {
       const movie = await movieService.getMovieById(id);
-      return movie;
+      set({ movie });
     } catch (error) {
-      return error;
+      set({ error: error as AppError });
     } finally {
       set({ loading: false });
     }

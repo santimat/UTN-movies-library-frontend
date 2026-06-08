@@ -2,6 +2,7 @@ import { API_URL } from '@/shared/utils/constants';
 import { type Movie } from '@/features/movies/types';
 import type { SpringPageResponse } from '@/shared/types';
 import { handleFetchErrors } from '@/shared/utils/handleFetchErrors';
+import { handleResponseErrors } from '@/features/auth/helpers/helpers';
 const URL_BASE = `${API_URL}/movies`;
 
 export const movieService = {
@@ -19,35 +20,27 @@ export const movieService = {
 
     try {
       const res = await fetch(url);
+      handleResponseErrors(res);
       const data: SpringPageResponse = await res.json();
-
-      if (!data.page.totalElements)
-        return {
-          movies: [],
-        };
 
       return {
         movies: data.content,
         totalPages: data.page.totalPages,
         totalElements: data.page.totalElements,
       };
-    } catch {
-      throw new Error('Error fetching movies');
+    } catch (error) {
+      throw handleFetchErrors(error);
     }
   },
   getMovieById: async (id: number) => {
     try {
       const res = await fetch(`${URL_BASE}/${id}`);
-      const data = await res.json();
+      handleResponseErrors(res);
 
-      if (data.status === 404)
-        throw {
-          code: 'NOT_FOUND',
-          error: `Pelicula con el id ${id} no encontrada`,
-        };
+      const data = await res.json();
       return data;
     } catch (error) {
-      handleFetchErrors(error);
+      throw handleFetchErrors(error);
     }
   },
 };
