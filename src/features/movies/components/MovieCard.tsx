@@ -1,6 +1,6 @@
 import { type MovieCardProps } from '@/features/movies/types';
 import { RatingBadge } from '@/shared/components/ui/RatingBadge';
-import { Button } from '@/shared/components/ui/Button';
+import { ButtonLink } from '@/shared/components/ui/ButtonLink';
 import { StarIcon } from '@/shared/components/icons/Star';
 export function MovieCard({
   id,
@@ -32,9 +32,12 @@ export function MovieCard({
             <span>&diams;</span>
             <span>{year}</span>
           </div>
-          <Button href={`/movie/${id}`} className="block text-center uppercase">
+          <ButtonLink
+            href={`/movie/${id}`}
+            className="block text-center uppercase"
+          >
             Ver detalles
-          </Button>
+          </ButtonLink>
         </div>
       </footer>
     </article>

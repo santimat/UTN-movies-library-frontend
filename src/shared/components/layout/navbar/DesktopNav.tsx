@@ -1,4 +1,4 @@
-import { Button } from '@/shared/components/ui/Button';
+import { ButtonLink } from '@/shared/components/ui/ButtonLink';
 import { NavLink } from 'react-router';
 import { useAuthStore } from '@/features/auth/store/useAuthStore';
 import { type HeaderNavItem } from '@/shared/components/layout/navbar/types';
@@ -25,18 +25,18 @@ export function DesktopNav({ navItems, handleIsActive }: DesktopNavProps) {
       </ul>
       <div className="flex gap-4">
         {isAdmin && (
-          <Button href="/admin" className="bg-tertiary text-white">
+          <ButtonLink href="/admin" className="bg-tertiary text-white">
             Panel de administración
-          </Button>
+          </ButtonLink>
         )}
         {!isAuthenticated ? (
-          <Button href="/auth" className="bg-tertiary text-white">
+          <ButtonLink href="/auth" className="bg-tertiary text-white">
             Iniciar Sesión
-          </Button>
+          </ButtonLink>
         ) : (
-          <Button href="/logout" className="bg-secondary text-white">
+          <ButtonLink href="/logout" className="bg-secondary text-white">
             Cerrar Sesión
-          </Button>
+          </ButtonLink>
         )}
       </div>
     </nav>
