@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useLocation, NavLink } from 'react-router';
 import { useMoviesStore } from '@/features/movies/store/useMoviesStore';
 import type { Movie } from '@/features/movies/types';

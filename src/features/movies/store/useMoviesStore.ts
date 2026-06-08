@@ -27,6 +27,7 @@ interface UseMoviesState {
     searchText?: string;
   }) => void;
   fetchMovieById: (id: number) => void;
+  fetchGenres: () => void;
 }
 
 export const useMoviesStore = create<UseMoviesState>((set) => ({
@@ -63,6 +64,14 @@ export const useMoviesStore = create<UseMoviesState>((set) => ({
       set({ error: error as AppError });
     } finally {
       set({ loading: false });
+    }
+  },
+  fetchGenres: async () => {
+    try {
+      const genres = await movieService.getGenres();
+      set({ genres });
+    } catch (error) {
+      set({ error: error as AppError });
     }
   },
 }));
