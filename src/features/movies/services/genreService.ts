@@ -1,5 +1,5 @@
 import { API_URL } from '@/shared/utils/constants';
-import type { SpringPageResponse } from '@/features/movies/types';
+import type { SpringPageResponse } from '@/shared/types';
 
 const URL_BASE = `${API_URL}/genres`;
 export const genreService = {

@@ -1,7 +1,7 @@
 import { API_URL } from '@/shared/utils/constants';
 import { type Movie } from '@/features/movies/types';
-import type { SpringPageResponse } from '@/features/movies/types';
-import { handleErrors } from '@/shared/utils/handleFetchErrors';
+import type { SpringPageResponse } from '@/shared/types';
+import { handleFetchErrors } from '@/shared/utils/handleFetchErrors';
 const URL_BASE = `${API_URL}/movies`;
 
 export const movieService = {
@@ -47,7 +47,7 @@ export const movieService = {
         };
       return data;
     } catch (error) {
-      handleErrors(error);
+      handleFetchErrors(error);
     }
   },
 };
