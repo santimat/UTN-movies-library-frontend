@@ -1,30 +1,26 @@
-export const handleResponseErrors = (res: Response) => {
-  if (res.status === 401)
-    throw {
-      code: 'INVALID_CREDENTIALS',
-      error: 'Contraseña incorrecta.',
-    };
+import { type AppError } from '@/shared/types';
+const DEFAULT_HTTP_ERRORS: Partial<Record<number, AppError>> = {
+  401: { code: 'INVALID_CREDENTIALS', error: 'Contraseña incorrecta.' },
+  403: {
+    code: 'FORBIDDEN',
+    error: 'No tienes permiso para acceder a este recurso.',
+  },
+  404: { code: 'NOT_FOUND', error: 'El recurso no fue encontrado.' },
+  409: { code: 'ALREADY_EXISTS', error: 'El recurso ya existe.' },
+};
 
-  if (res.status === 404)
-    throw {
-      code: 'USER_NOT_FOUND',
-      error: 'No se encontró un usuario con ese correo electrónico.',
-    };
-  if (res.status === 403)
-    throw {
-      code: 'FORBIDDEN',
-      error: 'No tienes permiso para acceder a este recurso.',
-    };
-  if (res.status === 409)
-    throw {
-      code: 'ALREADY_EXISTS',
-      error:
-        'El correo electrónico ya está registrado. Por favor, utiliza otro.',
-    };
+export const handleResponseErrors = (
+  res: Response,
+  overrides?: Partial<Record<number, AppError>>
+): void => {
+  if (res.ok) return;
 
-  if (!res.ok)
-    throw {
-      code: 'SERVER_ERROR',
-      error: 'Ocurrió un error en el servidor. Por favor, intenta nuevamente.',
-    };
+  const errors = { ...DEFAULT_HTTP_ERRORS, ...overrides };
+  const knownError = errors[res.status];
+  if (knownError) throw knownError;
+
+  throw {
+    code: 'SERVER_ERROR',
+    error: 'Ocurrió un error en el servidor. Por favor, intenta nuevamente.',
+  };
 };
