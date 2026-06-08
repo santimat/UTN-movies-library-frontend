@@ -3,3 +3,13 @@ export interface SvgProps {
   height?: number;
   className?: string;
 }
+
+export type SpringPageResponse = {
+  content: [];
+  page: {
+    size: number;
+    number: number;
+    totalElements: number;
+    totalPages: number;
+  };
+};
