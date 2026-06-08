@@ -9,22 +9,15 @@ import { MovieDetail } from '@/features/movies/components/MovieDetail';
 import { MovieFeedback } from '@/features/reviews/components/MovieFeedback';
 
 export function Movie() {
-  const [error, setError] = useState<string | null>(null);
-  const [movie, setMovie] = useState<Movie | null>(null);
-  const { fetchMovieById, loading } = useMoviesStore();
+  const { fetchMovieById, loading, error, movie } = useMoviesStore();
   const movieId = useLocation().pathname.split('/')[2];
 
   useEffect(() => {
-    const fetchMovie = async () => {
-      const res = await fetchMovieById(Number(movieId));
-      if ('error' in res) return setError(res.error);
-      setMovie(res);
-    };
-
-    fetchMovie();
-  }, [setMovie, fetchMovieById, movieId]);
+    fetchMovieById(Number(movieId));
+  }, [fetchMovieById, movieId]);
 
   if (loading) return <Loader />;
+
   if (error || !movie?.id) return <NotFound />;
 
   return (
