@@ -4,6 +4,7 @@
 
 [x] Add dynamic imports to lazy load components
 [ ] Check createPortal for Modal views
+[ ] Check memo() to prevent re-renders on children components
 
 ## Stack
 
