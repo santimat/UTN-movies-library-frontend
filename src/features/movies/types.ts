@@ -7,6 +7,7 @@ export type Movie = {
   year: number;
   posterUrl: string;
   averageRating: number;
+  duration: number;
 };
 
 export type MovieRequest = Omit<Movie, 'id'>;
