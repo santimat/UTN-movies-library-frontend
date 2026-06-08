@@ -35,10 +35,7 @@ export function MovieCard({
             <span>&diams;</span>
             <span>{year}</span>
           </div>
-          <Button
-            href={`/details/${id}`}
-            className="block text-center uppercase"
-          >
+          <Button href={`/movie/${id}`} className="block text-center uppercase">
             Ver detalles
           </Button>
         </div>
