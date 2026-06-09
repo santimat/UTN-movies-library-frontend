@@ -2,6 +2,7 @@ import { type MovieCardProps } from '@/features/movies/types';
 import { RatingBadge } from '@/shared/components/ui/RatingBadge';
 import { ButtonLink } from '@/shared/components/ui/ButtonLink';
 import { StarIcon } from '@/shared/components/icons/Star';
+
 export function MovieCard({
   id,
   title,
@@ -9,10 +10,15 @@ export function MovieCard({
   year,
   posterUrl,
   averageRating,
-}: MovieCardProps) {
+  idx,
+}: MovieCardProps & { idx: number }) {
   const showBadge = averageRating > 0;
+  const animationDelay = `${idx * 100}ms`;
   return (
-    <article className="group relative flex animate-blurred-fade-in flex-col border-3 border-neutral text-neutral shadow-auth">
+    <article
+      className="group relative flex animate-fade-in-up flex-col border-3 border-neutral text-neutral shadow-auth"
+      style={{ animationDelay: animationDelay }}
+    >
       {showBadge && <RatingBadge content={averageRating.toFixed(1)} />}
       <picture>
         <img
@@ -25,9 +31,7 @@ export function MovieCard({
         <h3 className="line-clamp-2 font-semibold uppercase">{title}</h3>
         <div className="flex flex-col justify-end gap-2">
           <div className="flex items-center gap-2 font-semibold text-neutral/60 uppercase">
-            <span>
-              <StarIcon className="w-6 fill-tertiary/70 stroke-tertiary/70" />
-            </span>
+            <StarIcon className="w-6 fill-tertiary/70 stroke-tertiary/70" />
             <span>{genre}</span>
             <span>&diams;</span>
             <span>{year}</span>
