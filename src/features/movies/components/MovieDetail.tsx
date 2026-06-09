@@ -43,7 +43,7 @@ export function MovieDetail({ movie }: MovieDetailProps) {
             <MovieMetaItem label="director" value={movie?.director} />
           </li>
           <li className="w-full flex-1">
-            <MovieMetaItem label="duration" value={`${movie?.duration} mins`} />
+            <MovieMetaItem label="duración" value={`${movie?.duration} mins`} />
           </li>
         </ul>
         <div className="mt-6 flex flex-col gap-4 md:flex-row">
