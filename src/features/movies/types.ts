@@ -19,3 +19,11 @@ export type Genre = {
   id: number;
   name: string;
 };
+
+export type GetMoviesProps = {
+  genre?: string;
+  sortBy?: keyof Movie | undefined;
+  sortOrder?: 'ASC' | 'DESC';
+  searchText?: string;
+  page?: string;
+};
