@@ -1,6 +1,5 @@
 import { lazy } from 'react';
 import { Routes, Route, Outlet } from 'react-router';
-import { AdminRoute } from '@/routes/AdminRoute';
 import { GuardRoute } from '@/routes/GuardRoute';
 import { Layout } from '@/shared/components/layout/Layout';
 
@@ -29,6 +28,11 @@ const NotFound = lazy(() =>
 const Logout = lazy(() =>
   import('@/routes/Logout').then((module) => ({
     default: module.Logout,
+  }))
+);
+const AdminRoute = lazy(() =>
+  import('@/routes/AdminRoute').then((module) => ({
+    default: module.AdminRoute,
   }))
 );
 

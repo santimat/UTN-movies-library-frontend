@@ -2,9 +2,9 @@ import { SearchIcon } from '@/shared/components/icons/Search';
 import { useState, type ChangeEvent, useRef, useEffect } from 'react';
 import { useSearchParams } from 'react-router';
 
+const DEBOUNCE_TIME = 400;
 export function SearchInput() {
   const timeoutRef = useRef<number>(0);
-  const DEBOUNCE_TIME = 400;
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchText, setSearchText] = useState<string>(
     searchParams.get('searchText') || ''
@@ -17,11 +17,14 @@ export function SearchInput() {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
     timeoutRef.current = setTimeout(() => {
       setSearchParams((prevParams) => {
-        if (searchText == '') prevParams.delete('searchText');
-        else prevParams.set('searchText', searchText);
-        return prevParams;
+        const next = new URLSearchParams(prevParams);
+        if (searchText == '') next.delete('searchText');
+        else next.set('searchText', searchText);
+        return next;
       });
     }, DEBOUNCE_TIME);
+
+    return () => clearTimeout(timeoutRef.current);
   }, [searchText, setSearchParams]);
 
   return (

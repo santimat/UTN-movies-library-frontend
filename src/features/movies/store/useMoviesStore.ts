@@ -7,13 +7,13 @@ interface UseMoviesState {
   movies: Movie[];
   movie: Movie | null;
   genres: Genre[];
-  originalMovies: Movie[];
-  error: AppError | null;
-  loading: boolean;
-  data?: {
+  moviesError: AppError | null;
+  genresError: AppError | null;
+  moviesLoading: boolean;
+  genresLoading: boolean;
+  data: {
     totalPages?: number;
     totalElements?: number;
-    size?: number;
   };
   fetchMovies: ({
     genre,
@@ -30,14 +30,15 @@ interface UseMoviesState {
   fetchGenres: () => void;
 }
 
-export const useMoviesStore = create<UseMoviesState>((set) => ({
-  originalMovies: [],
+export const useMoviesStore = create<UseMoviesState>((set, get) => ({
   movies: [],
   movie: null,
-  genres: [],
+  moviesLoading: true,
+  moviesError: null,
   data: {},
-  error: null,
-  loading: true,
+  genres: [],
+  genresError: null,
+  genresLoading: true,
   fetchMovies: async ({ genre, sortBy, sortOrder, searchText }) => {
     try {
       const { movies, ...data } = await movieService.getMovies(
@@ -46,32 +47,31 @@ export const useMoviesStore = create<UseMoviesState>((set) => ({
         sortOrder,
         searchText
       );
-
-      set({ movies: movies });
-      set({ originalMovies: movies });
-      set({ data });
+      set((state) => ({
+        ...state,
+        movies,
+        data,
+        moviesLoading: false,
+      }));
     } catch (error) {
-      set({ error: error as AppError });
-    } finally {
-      set({ loading: false });
+      set({ moviesError: error as AppError, moviesLoading: false });
     }
   },
   fetchMovieById: async (id: number) => {
     try {
       const movie = await movieService.getMovieById(id);
-      set({ movie });
+      set({ movie, moviesLoading: false });
     } catch (error) {
-      set({ error: error as AppError });
-    } finally {
-      set({ loading: false });
+      set({ moviesError: error as AppError, moviesLoading: false });
     }
   },
   fetchGenres: async () => {
+    if (get().genres.length) return;
     try {
       const genres = await movieService.getGenres();
-      set({ genres });
+      set({ genres, genresLoading: false });
     } catch (error) {
-      set({ error: error as AppError });
+      set({ genresError: error as AppError, genresLoading: false });
     }
   },
 }));

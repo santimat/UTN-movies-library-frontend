@@ -1,6 +1,7 @@
 export const handleFetchErrors = (error: unknown): never => {
   if (error && typeof error === 'object' && 'code' in error && 'error' in error)
     throw error;
+
   if (error instanceof TypeError)
     throw {
       code: 'NETWORK_ERROR',

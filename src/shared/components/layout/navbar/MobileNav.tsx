@@ -1,17 +1,23 @@
 import { useState, type MouseEvent } from 'react';
-import { NavLink } from 'react-router';
+import { Link } from 'react-router';
 import { BurguerIcon } from '@/shared/components/icons/Burguer';
 import { ButtonLink } from '@/shared/components/ui/ButtonLink';
 import { type HeaderNavItem } from '@/shared/components/layout/navbar/types';
 import { useAuthStore } from '@/features/auth/store/useAuthStore';
+import { useShallow } from 'zustand/shallow';
 
 interface MobileNavProps {
   navItems: HeaderNavItem[];
-  handleIsActive: ({ isActive }: { isActive: boolean }) => string;
+  handleIsActive: (href: string) => string;
+  pathname: string;
 }
 
-export function MobileNav({ navItems, handleIsActive }: MobileNavProps) {
-  const { user } = useAuthStore();
+export function MobileNav({
+  navItems,
+  handleIsActive,
+  pathname,
+}: MobileNavProps) {
+  const user = useAuthStore(useShallow((s) => s.user));
   const isAuthenticated = !!user?.email;
 
   const [isOpen, setIsOpen] = useState(false);
@@ -46,14 +52,18 @@ export function MobileNav({ navItems, handleIsActive }: MobileNavProps) {
         <ul className="grid gap-6 text-center text-2xl">
           {navItems.map(({ text, href }) => (
             <li key={href}>
-              <NavLink className={handleIsActive} to={href}>
+              <Link className={handleIsActive(href)} to={href}>
                 {text}
-              </NavLink>
+              </Link>
             </li>
           ))}
         </ul>
         {!isAuthenticated && (
-          <ButtonLink href="/auth" className="bg-tertiary text-white">
+          <ButtonLink
+            href="/auth"
+            className="bg-tertiary text-white"
+            isActive={pathname === '/auth'}
+          >
             Iniciar Sesión
           </ButtonLink>
         )}

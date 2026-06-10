@@ -2,21 +2,31 @@ import { useEffect } from 'react';
 import { useSearchParams } from 'react-router';
 import { Button } from '@/shared/components/ui/Button';
 import { useMoviesStore } from '@/features/movies/store/useMoviesStore';
-export function ChipFilters() {
+import { useShallow } from 'zustand/shallow';
+
+export function GenreFilters() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const { genres, fetchGenres, error } = useMoviesStore();
+  const { genres, fetchGenres, error } = useMoviesStore(
+    useShallow((state) => ({
+      genres: state.genres,
+      fetchGenres: state.fetchGenres,
+      error: state.genresError,
+    }))
+  );
   const selectedGenre = searchParams.get('genre');
 
   const handleClick = (genre: string) => {
     if (selectedGenre == genre) {
       return setSearchParams((prev) => {
-        prev.delete('genre');
-        return prev;
+        const next = new URLSearchParams(prev);
+        next.delete('genre');
+        return next;
       });
     }
     setSearchParams((prev) => {
-      prev.set('genre', genre);
-      return prev;
+      const next = new URLSearchParams(prev);
+      next.set('genre', genre);
+      return next;
     });
   };
 

@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router';
+import { Link } from 'react-router';
 import { CheckBox } from '@/shared/components/icons/CheckBox';
 import { AuthSubmitButton } from '@/features/auth/components/AuthSubmitButton';
 import type { ReactNode, SubmitEvent } from 'react';
@@ -33,12 +33,12 @@ export function AuthForm({
       <form onSubmit={onSubmit}>
         <div className="flex flex-col gap-6">{fields}</div>
         {showForgotPassword && (
-          <NavLink
+          <Link
             to={'/forgot-password'}
             className={'mt-4 block text-right text-secondary hover:underline'}
           >
             Olvidaste tu contraseña?
-          </NavLink>
+          </Link>
         )}
         {showRememberMe && (
           <label className="flex items-center gap-2 font-semibold select-none">

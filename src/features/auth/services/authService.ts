@@ -63,7 +63,7 @@ export const authService = {
   },
   checkAuth: async () => {
     try {
-      const res = await fetch(`${BASE_URL}/user`, {
+      const res = await fetch(`${BASE_URL}/me`, {
         credentials: 'include',
       });
 
@@ -78,6 +78,7 @@ export const authService = {
       const res = await fetch(`${BASE_URL}/admin`, {
         credentials: 'include',
       });
+      console.log(res);
       handleResponseErrors(res);
       return await res.json();
     } catch (error) {

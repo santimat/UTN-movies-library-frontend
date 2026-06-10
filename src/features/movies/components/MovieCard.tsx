@@ -1,7 +1,7 @@
 import { type MovieCardProps } from '@/features/movies/types';
-import { RatingBadge } from '@/shared/components/ui/RatingBadge';
-import { ButtonLink } from '@/shared/components/ui/ButtonLink';
 import { StarIcon } from '@/shared/components/icons/Star';
+import { ButtonLink } from '@/shared/components/ui/ButtonLink';
+import { RatingBadge } from '@/shared/components/ui/RatingBadge';
 
 export function MovieCard({
   id,

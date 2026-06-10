@@ -5,11 +5,8 @@ import { create } from 'zustand';
 
 interface UseAuthStore {
   user: UserResponse | null;
-  loading: boolean;
   error: AppError | null;
-  setLoading: (loading: boolean) => void;
-  hydrateUser: (role?: 'admin' | 'user') => void;
-  setUser: (user: UserResponse | null) => void;
+  hydrateUser: (role?: 'admin' | 'me') => void;
   login: (formData: FormData) => Promise<void>;
   register: (formData: FormData) => Promise<void>;
   logout: () => void;
@@ -18,19 +15,14 @@ interface UseAuthStore {
 export const useAuthStore = create<UseAuthStore>((set) => ({
   user: null,
   error: null,
-  loading: true,
-  setLoading: (loading: boolean) => set({ loading }),
-  setUser: (user: UserResponse | null) => set({ user }),
-  hydrateUser: async (role: 'admin' | 'user' = 'user') => {
+  hydrateUser: async (role: 'admin' | 'me' = 'me') => {
     try {
-      const user = await (role === 'user'
+      const user = await (role === 'me'
         ? authService.checkAuth()
         : authService.checkAdmin());
       set({ user });
     } catch (error) {
       set({ error: error as AppError, user: null });
-    } finally {
-      set({ loading: false });
     }
   },
   login: async (formData: FormData) => {
@@ -57,8 +49,6 @@ export const useAuthStore = create<UseAuthStore>((set) => ({
       set({ user: null });
     } catch (error) {
       set({ error: error as AppError });
-    } finally {
-      set({ loading: false });
     }
   },
 }));

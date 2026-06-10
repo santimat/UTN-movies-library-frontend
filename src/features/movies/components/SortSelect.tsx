@@ -1,36 +1,39 @@
-import { useEffect, useState, type ChangeEvent } from 'react';
+import { lazy, useEffect, useState, type ChangeEvent } from 'react';
 import { useSearchParams } from 'react-router';
 import { ArrowDownIcon } from '@/shared/components/icons/ArrowDown';
 import { SortAscending } from '@/shared/components/icons/SortAscending';
-import { SortDescending } from '@/shared/components/icons/SortDescending';
 import { type Movie } from '@/features/movies/types';
 import { Button } from '@/shared/components/ui/Button';
+
+const SortDescending = lazy(() =>
+  import('@/shared/components/icons/SortDescending').then((module) => ({
+    default: module.SortDescending,
+  }))
+);
 
 export function SortSelect() {
   const [isSelectOpen, setIsSelectOpen] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [sortBy, setSortBy] = useState<keyof Movie>(
-    (searchParams.get('sortBy') as keyof Movie) || 'title'
-  );
-  const [sortOrder, setSortOrder] = useState<'ASC' | 'DESC'>(
-    (searchParams.get('sortOrder') as 'ASC' | 'DESC') || 'ASC'
-  );
+  const sortBy = searchParams.get('sortBy') || 'title';
+  const sortOrder = searchParams.get('sortOrder') || 'ASC';
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value as keyof Movie;
-    setSortBy(value);
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      next.set('sortBy', value);
+      return next;
+    });
   };
 
   const handleClick = () => {
-    setSortOrder((prev) => (prev === 'ASC' ? 'DESC' : 'ASC'));
-  };
-
-  useEffect(() => {
     setSearchParams((prev) => {
-      prev.set('sortBy', sortBy);
-      prev.set('sortOrder', sortOrder);
-      return prev;
+      const next = new URLSearchParams(prev);
+      const currentSortOrder = next.get('sortOrder');
+      const nextSortOrder = currentSortOrder === 'ASC' ? 'DESC' : 'ASC';
+      next.set('sortOrder', nextSortOrder);
+      return next;
     });
-  }, [sortBy, sortOrder, setSearchParams]);
+  };
 
   return (
     <div className="flex items-center gap-2">

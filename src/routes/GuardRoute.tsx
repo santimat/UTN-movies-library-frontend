@@ -1,17 +1,21 @@
 import { Outlet, Navigate } from 'react-router';
 import { useEffect } from 'react';
 import { useAuthStore } from '@/features/auth/store/useAuthStore';
-import { Loader } from '@/shared/components/ui/Loader';
-import { useLocation } from 'react-router';
+import { useShallow } from 'zustand/shallow';
+import { useMatch } from 'react-router';
 export function GuardRoute() {
-  const { user, loading, hydrateUser } = useAuthStore();
+  const { user, hydrateUser } = useAuthStore(
+    useShallow((s) => ({
+      user: s.user,
+      hydrateUser: s.hydrateUser,
+    }))
+  );
 
-  const isLoginPage = useLocation().pathname.split('/')[1] === 'auth';
+  const isLoginPage = useMatch('/auth');
   useEffect(() => {
     hydrateUser();
   }, [hydrateUser]);
 
-  if (loading) return <Loader />;
   if (isLoginPage && user?.email)
     return (
       <>
