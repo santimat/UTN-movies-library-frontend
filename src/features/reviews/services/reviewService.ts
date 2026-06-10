@@ -1,7 +1,7 @@
-import { handleResponseErrors } from '@/features/auth/helpers/helpers';
-import type { SpringPageResponse } from '@/shared/types';
 import { API_URL } from '@/shared/utils/constants';
+import type { SpringPageResponse } from '@/shared/types';
 import { handleFetchErrors } from '@/shared/utils/handleFetchErrors';
+import { handleResponseErrors } from '@/shared/utils/handleResponseErrors';
 
 const BASE_URL = `${API_URL}/movies/reviews`;
 
