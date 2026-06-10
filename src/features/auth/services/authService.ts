@@ -1,4 +1,4 @@
-import { handleResponseErrors } from '@/features/auth/helpers/helpers';
+import { handleResponseErrors } from '@/shared/utils/handleResponseErrors';
 import { handleFetchErrors } from '@/shared/utils/handleFetchErrors';
 
 const BASE_URL = `/api/auth`;

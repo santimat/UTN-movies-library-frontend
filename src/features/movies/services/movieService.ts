@@ -1,7 +1,7 @@
 import { API_URL } from '@/shared/utils/constants';
 import type { SpringPageResponse } from '@/shared/types';
 import { handleFetchErrors } from '@/shared/utils/handleFetchErrors';
-import { handleResponseErrors } from '@/shared/utils/helpers';
+import { handleResponseErrors } from '@/shared/utils/handleResponseErrors';
 const URL_BASE = `${API_URL}/movies`;
 import { type GetMoviesProps } from '@/features/movies/types';
 
