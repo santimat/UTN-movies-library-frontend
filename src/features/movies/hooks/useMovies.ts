@@ -4,7 +4,7 @@ import { useMoviesStore } from '@/features/movies/store/useMoviesStore';
 import { useMovieSearchParams } from '@/features/movies/hooks/useMovieSearchParams';
 
 export function useMovies() {
-  const { genre, sortBy, sortOrder, searchText } = useMovieSearchParams();
+  const { genre, sortBy, sortOrder, searchText, page } = useMovieSearchParams();
   const { movies, fetchMovies, loading, error } = useMoviesStore(
     useShallow((state) => ({
       movies: state.movies,
@@ -15,8 +15,8 @@ export function useMovies() {
   );
 
   useEffect(() => {
-    fetchMovies({ genre, sortBy, sortOrder, searchText });
-  }, [searchText, genre, sortBy, sortOrder, fetchMovies]);
+    fetchMovies({ genre, sortBy, sortOrder, searchText, page });
+  }, [searchText, genre, sortBy, sortOrder, fetchMovies, page]);
 
   return { movies, loading, error };
 }

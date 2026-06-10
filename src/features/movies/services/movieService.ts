@@ -1,22 +1,16 @@
 import { API_URL } from '@/shared/utils/constants';
-import { type Movie } from '@/features/movies/types';
 import type { SpringPageResponse } from '@/shared/types';
 import { handleFetchErrors } from '@/shared/utils/handleFetchErrors';
 import { handleResponseErrors } from '@/features/auth/helpers/helpers';
 const URL_BASE = `${API_URL}/movies`;
+import { type GetMoviesProps } from '@/features/movies/types';
 
 export const movieService = {
-  getMovies: async (
-    genre?: string,
-    sortBy?: keyof Movie | undefined,
-    sortOrder?: 'ASC' | 'DESC',
-    searchText?: string
-  ) => {
+  getMovies: async (filters: GetMoviesProps) => {
     const url = new URL(URL_BASE);
-    if (genre) url.searchParams.append('genre', genre);
-    if (sortBy) url.searchParams.append('sortBy', sortBy);
-    if (sortOrder) url.searchParams.append('sortOrder', sortOrder);
-    if (searchText) url.searchParams.append('searchText', searchText);
+    Object.entries(filters).forEach(([key, value]) => {
+      if (value) url.searchParams.append(key, value);
+    });
 
     try {
       const res = await fetch(url);

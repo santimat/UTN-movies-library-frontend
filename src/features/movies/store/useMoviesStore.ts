@@ -1,5 +1,9 @@
 import { create } from 'zustand';
-import { type Movie, type Genre } from '@/features/movies/types';
+import {
+  type Movie,
+  type Genre,
+  type GetMoviesProps,
+} from '@/features/movies/types';
 import { movieService } from '@/features/movies/services/movieService';
 import type { AppError } from '@/shared/types';
 
@@ -20,12 +24,8 @@ interface UseMoviesState {
     sortBy,
     sortOrder,
     searchText,
-  }: {
-    genre?: string;
-    sortBy?: keyof Movie;
-    sortOrder?: 'ASC' | 'DESC';
-    searchText?: string;
-  }) => void;
+    page,
+  }: GetMoviesProps) => void;
   fetchMovieById: (id: number) => void;
   fetchGenres: () => void;
 }
@@ -39,14 +39,9 @@ export const useMoviesStore = create<UseMoviesState>((set, get) => ({
   genres: [],
   genresError: null,
   genresLoading: true,
-  fetchMovies: async ({ genre, sortBy, sortOrder, searchText }) => {
+  fetchMovies: async (filters: GetMoviesProps) => {
     try {
-      const { movies, ...data } = await movieService.getMovies(
-        genre,
-        sortBy,
-        sortOrder,
-        searchText
-      );
+      const { movies, ...data } = await movieService.getMovies(filters);
       set((state) => ({
         ...state,
         movies,
