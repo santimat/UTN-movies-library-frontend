@@ -13,10 +13,10 @@ export function CheckBox({
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      width={width}
-      height={height}
       className={`pointer-events-none ${classes}`}
+      height={height}
+      width={width}
+      viewBox="0 0 24 24"
     >
       {empty ? (
         <path fill="currentColor" d="M3 21V3h18v18zm2-2h14V5H5z" />

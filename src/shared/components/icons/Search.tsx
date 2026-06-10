@@ -6,20 +6,19 @@ export function SearchIcon({
 }: SvgProps) {
   return (
     <svg
-      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
-      width={width}
-      height={height}
-      viewBox="0 0 24 24"
       fill="none"
-      stroke="#607d8b"
-      strokeWidth="2"
+      stroke="currentColor"
       strokeLinecap="round"
       strokeLinejoin="round"
+      strokeWidth="2"
+      aria-hidden="true"
       className={classes}
+      height={height}
+      width={width}
+      viewBox="0 0 24 24"
     >
-      <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
-      <path d="M21 21l-6 -6" />
+      <path d="M3 10a7 7 0 1 0 14 0 7 7 0 1 0-14 0m18 11-6-6" />
     </svg>
   );
 }
