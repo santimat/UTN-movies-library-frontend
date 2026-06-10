@@ -25,7 +25,7 @@ export function SortSelect() {
         <select
           onBlur={() => setIsSelectOpen(false)}
           onClick={() => setIsSelectOpen((prev) => !prev)}
-          onChange={setSortBy}
+          onChange={(event) => setSortBy(event.target.value)}
           name="sort"
           value={sortBy}
           aria-label="Filtro de ordenamiento"

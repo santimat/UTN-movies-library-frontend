@@ -9,7 +9,7 @@ interface UseAuthStore {
   hydrateUser: (role?: 'admin' | 'me') => void;
   login: (formData: FormData) => Promise<void>;
   register: (formData: FormData) => Promise<void>;
-  logout: () => void;
+  logout: () => Promise<void>;
 }
 
 export const useAuthStore = create<UseAuthStore>((set) => ({

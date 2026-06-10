@@ -5,7 +5,10 @@ export function Logout() {
   const logout = useAuthStore((s) => s.logout);
   const navigate = useNavigate();
   useEffect(() => {
-    logout();
+    const performLogout = async () => {
+      await logout();
+    };
+    performLogout();
     navigate('/');
   }, [logout, navigate]);
 

@@ -10,11 +10,11 @@ interface ButtonProps {
 
 export function ButtonLink({
   href,
-  className: classes,
+  className: classes = '',
   children,
   isActive,
 }: ButtonProps) {
-  const classesToAdd = `border-2 p-2 font-bold whitespace-nowrap transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 border-neutral active:scale-95 ${isActive ? 'hidden' : ''} ${!!classes && classes}`;
+  const classesToAdd = `border-2 p-2 font-bold whitespace-nowrap transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 border-neutral active:scale-95 ${isActive ? 'hidden' : ''} ${classes}`;
 
   return (
     <Link className={classesToAdd} to={href}>

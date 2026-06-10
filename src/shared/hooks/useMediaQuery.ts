@@ -16,7 +16,7 @@ export function useMediaQuery(query: string) {
       // clear the event listener
       media.removeEventListener('change', handlerChange);
     };
-  });
+  }, [query]);
 
   return matches;
 }

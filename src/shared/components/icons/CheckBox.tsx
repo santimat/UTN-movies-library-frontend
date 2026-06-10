@@ -1,7 +1,6 @@
 import type { SvgProps } from '@/shared/types';
 
 interface CheckBoxProps extends SvgProps {
-  className?: string;
   empty?: boolean;
 }
 export function CheckBox({

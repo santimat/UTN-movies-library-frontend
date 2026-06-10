@@ -16,7 +16,7 @@ export function GenreFilters() {
   const selectedGenre = searchParams.get('genre');
 
   const handleClick = (genre: string) => {
-    if (selectedGenre == genre) {
+    if (selectedGenre === genre) {
       return setSearchParams((prev) => {
         const next = new URLSearchParams(prev);
         next.delete('genre');
@@ -43,7 +43,7 @@ export function GenreFilters() {
           <li key={`chíp-genre-${genre.id}`}>
             <Button
               onClick={() => handleClick(genre?.name.toLowerCase())}
-              className={`hover:cursor px-2 py-0 first-letter:uppercase hover:-translate-x-0.5 hover:-translate-y-0.5 hover:cursor-pointer active:scale-95 ${
+              className={`px-2 py-0 first-letter:uppercase hover:-translate-x-0.5 hover:-translate-y-0.5 hover:cursor-pointer active:scale-95 ${
                 selectedGenre === genre?.name.toLowerCase()
                   ? 'bg-neutral text-white'
                   : ''

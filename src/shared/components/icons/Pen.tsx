@@ -1,14 +1,10 @@
-interface PenIconProps {
-  width?: number;
-  height?: number;
-  className?: string;
-}
+import type { SvgProps } from '@/shared/types';
 
 export function PenIcon({
   width = 32,
   height = 32,
   className: classes,
-}: PenIconProps) {
+}: SvgProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

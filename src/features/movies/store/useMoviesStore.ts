@@ -42,12 +42,11 @@ export const useMoviesStore = create<UseMoviesState>((set, get) => ({
   fetchMovies: async (filters: GetMoviesProps) => {
     try {
       const { movies, ...data } = await movieService.getMovies(filters);
-      set((state) => ({
-        ...state,
+      set({
         movies,
         data,
         moviesLoading: false,
-      }));
+      });
     } catch (error) {
       set({ moviesError: error as AppError, moviesLoading: false });
     }

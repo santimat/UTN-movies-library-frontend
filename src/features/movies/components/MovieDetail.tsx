@@ -27,7 +27,7 @@ export function MovieDetail({ movie }: MovieDetailProps) {
         </ul>
       </div>
       <div className="relative mx-auto md:-order-1 md:row-span-3">
-        <RatingBadge content={movie?.averageRating} />
+        <RatingBadge content={movie.averageRating} />
         <img
           src={movie?.posterUrl}
           alt={movie?.title}
@@ -51,6 +51,7 @@ export function MovieDetail({ movie }: MovieDetailProps) {
             className="flex flex-1 items-center justify-center gap-2 border-2 border-neutral bg-secondary p-2 text-xl text-white uppercase transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 active:scale-95"
             href={movie?.trailerUrl}
             target="_blank"
+            rel="noopener noreferrer"
           >
             <PlayIcon width={24} height={24} />
             Ver trailer

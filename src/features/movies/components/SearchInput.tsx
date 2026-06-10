@@ -1,37 +1,14 @@
 import { SearchIcon } from '@/shared/components/icons/Search';
-import { useState, type ChangeEvent, useRef, useEffect } from 'react';
-import { useSearchParams } from 'react-router';
+import { useMovieSearchParams } from '../hooks/useMovieSearchParams';
 
-const DEBOUNCE_TIME = 400;
 export function SearchInput() {
-  const timeoutRef = useRef<number>(0);
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [searchText, setSearchText] = useState<string>(
-    searchParams.get('searchText') || ''
-  );
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setSearchText(event.target.value.toLowerCase());
-  };
-
-  useEffect(() => {
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    timeoutRef.current = setTimeout(() => {
-      setSearchParams((prevParams) => {
-        const next = new URLSearchParams(prevParams);
-        if (searchText == '') next.delete('searchText');
-        else next.set('searchText', searchText);
-        return next;
-      });
-    }, DEBOUNCE_TIME);
-
-    return () => clearTimeout(timeoutRef.current);
-  }, [searchText, setSearchParams]);
+  const { inputValue, handleSearchChange } = useMovieSearchParams();
 
   return (
     <label className="group relative flex items-center border-2 border-neutral shadow-auth md:w-80">
       <input
-        onChange={handleChange}
-        value={searchText}
+        onChange={handleSearchChange}
+        value={inputValue}
         className="peer w-full p-1 pl-8 placeholder:uppercase focus-visible:ring-2 focus-visible:ring-tertiary focus-visible:outline-none"
         placeholder="Spiderman"
         type="search"

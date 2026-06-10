@@ -39,7 +39,7 @@ export function LoginForm() {
     <div className="w-full">
       <AuthForm
         onSubmit={handleSubmit}
-        title="Inciar Sesión"
+        title="Iniciar Sesión"
         submitLabel="iniciar sesión"
         onRememberMeChange={handleRemember}
         rememberMe={remember}
@@ -52,7 +52,6 @@ export function LoginForm() {
           type="email"
           name="email"
           placeholder="user@example.com"
-          required={false}
         />
         <FormField
           name="password"
