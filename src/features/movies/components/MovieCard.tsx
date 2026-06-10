@@ -37,7 +37,7 @@ export function MovieCard({
             <span>{year}</span>
           </div>
           <ButtonLink
-            href={`/movie/${id}`}
+            to={`/movie/${id}`}
             className="block text-center uppercase"
           >
             Ver detalles
