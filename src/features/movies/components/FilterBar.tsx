@@ -2,7 +2,7 @@ import { SearchInput } from '@/features/movies/components/SearchInput';
 import { SortSelect } from '@/features/movies/components/SortSelect';
 import { GenreFilters } from '@/features/movies/components/GenreFilters';
 
-export function FilterBar() {
+export function Filters() {
   return (
     <form
       className="flex flex-col gap-4 p-4 font-semibold"
