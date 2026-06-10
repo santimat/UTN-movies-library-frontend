@@ -1,32 +1,9 @@
-import { useEffect } from 'react';
-import { useSearchParams } from 'react-router';
-import { useShallow } from 'zustand/shallow';
-
-import { MovieCard } from '@/features/movies/components/MovieCard';
 import { Loader } from '@/shared/components/ui/Loader';
-import { useMoviesStore } from '@/features/movies/store/useMoviesStore';
-import { type Movie } from '@/features/movies/types';
+import { useMovies } from '@/features/movies/hooks/useMovies';
+import { MovieCard } from '@/features/movies/components/MovieCard';
 
 export function MovieList() {
-  const [searchParams] = useSearchParams();
-  const { movies, fetchMovies, loading, error } = useMoviesStore(
-    useShallow((state) => ({
-      movies: state.movies,
-      fetchMovies: state.fetchMovies,
-      loading: state.moviesLoading,
-      error: state.moviesError,
-    }))
-  );
-
-  const genre = searchParams.get('genre') || undefined;
-  const sortBy = (searchParams.get('sortBy') as keyof Movie) || undefined;
-  const sortOrder =
-    (searchParams.get('sortOrder') as 'ASC' | 'DESC') || undefined;
-  const searchText = searchParams.get('searchText') || undefined;
-
-  useEffect(() => {
-    fetchMovies({ genre, sortBy, sortOrder, searchText });
-  }, [searchText, genre, sortBy, sortOrder, fetchMovies]);
+  const { movies, loading, error } = useMovies();
 
   if (loading) {
     return <Loader />;

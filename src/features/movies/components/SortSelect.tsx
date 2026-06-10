@@ -1,9 +1,8 @@
-import { lazy, useEffect, useState, type ChangeEvent } from 'react';
-import { useSearchParams } from 'react-router';
+import { lazy, useState } from 'react';
+import { useSort } from '@/features/movies/hooks/useSort';
+import { Button } from '@/shared/components/ui/Button';
 import { ArrowDownIcon } from '@/shared/components/icons/ArrowDown';
 import { SortAscending } from '@/shared/components/icons/SortAscending';
-import { type Movie } from '@/features/movies/types';
-import { Button } from '@/shared/components/ui/Button';
 
 const SortDescending = lazy(() =>
   import('@/shared/components/icons/SortDescending').then((module) => ({
@@ -13,27 +12,7 @@ const SortDescending = lazy(() =>
 
 export function SortSelect() {
   const [isSelectOpen, setIsSelectOpen] = useState(false);
-  const [searchParams, setSearchParams] = useSearchParams();
-  const sortBy = searchParams.get('sortBy') || 'title';
-  const sortOrder = searchParams.get('sortOrder') || 'ASC';
-  const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    const value = event.target.value as keyof Movie;
-    setSearchParams((prev) => {
-      const next = new URLSearchParams(prev);
-      next.set('sortBy', value);
-      return next;
-    });
-  };
-
-  const handleClick = () => {
-    setSearchParams((prev) => {
-      const next = new URLSearchParams(prev);
-      const currentSortOrder = next.get('sortOrder');
-      const nextSortOrder = currentSortOrder === 'ASC' ? 'DESC' : 'ASC';
-      next.set('sortOrder', nextSortOrder);
-      return next;
-    });
-  };
+  const { sortBy, sortOrder, setSortBy, setSortOrder } = useSort();
 
   return (
     <div className="flex items-center gap-2">
@@ -46,7 +25,7 @@ export function SortSelect() {
         <select
           onBlur={() => setIsSelectOpen(false)}
           onClick={() => setIsSelectOpen((prev) => !prev)}
-          onChange={handleChange}
+          onChange={setSortBy}
           name="sort"
           value={sortBy}
           aria-label="Filtro de ordenamiento"
@@ -61,7 +40,7 @@ export function SortSelect() {
           <option value={'year'}>Año</option>
         </select>
       </label>
-      <Button onClick={handleClick} className="p-0!">
+      <Button onClick={setSortOrder} className="p-0!">
         {sortOrder === 'ASC' ? (
           <SortAscending className="pointer-events-none stroke-neutral" />
         ) : (
