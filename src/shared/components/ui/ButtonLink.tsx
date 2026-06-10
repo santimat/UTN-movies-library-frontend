@@ -3,13 +3,13 @@ import { Link } from 'react-router';
 
 interface ButtonProps {
   children: ReactNode;
-  href: string;
+  to: string;
   className?: string;
   isActive?: boolean;
 }
 
 export function ButtonLink({
-  href,
+  to: href,
   className: classes = '',
   children,
   isActive,
