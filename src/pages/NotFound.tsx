@@ -12,7 +12,7 @@ export function NotFound() {
       <div className="flex flex-col items-center gap-20">
         <ButtonLink
           className="border-black bg-secondary p-4 text-xl text-white shadow-auth"
-          href="/"
+          to="/"
         >
           Volver al inicio
         </ButtonLink>
