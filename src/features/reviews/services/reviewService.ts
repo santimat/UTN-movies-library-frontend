@@ -2,13 +2,14 @@ import { API_URL } from '@/shared/utils/constants';
 import type { SpringPageResponse } from '@/shared/types';
 import { handleFetchErrors } from '@/shared/utils/handleFetchErrors';
 import { handleResponseErrors } from '@/shared/utils/handleResponseErrors';
+import type { ReviewRequest } from '@/features/reviews/types';
 
-const BASE_URL = `${API_URL}/movies/reviews`;
+const BASE_URL = `${API_URL}/reviews`;
 
 export const reviewService = {
   getReviewsByMovieId: async (movieId: number) => {
     try {
-      const res = await fetch(`${BASE_URL}/${movieId}`);
+      const res = await fetch(`${API_URL}/movies/reviews/${movieId}`);
       handleResponseErrors(res);
       const data: SpringPageResponse = await res.json();
       if (!data.page.totalElements)
@@ -19,7 +20,23 @@ export const reviewService = {
 
       return data.content;
     } catch (error) {
-      handleFetchErrors(error);
+      throw handleFetchErrors(error);
+    }
+  },
+  createReview: async (payload: ReviewRequest) => {
+    try {
+      const res = await fetch(BASE_URL, {
+        credentials: 'include',
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+      handleResponseErrors(res);
+      return await res.json();
+    } catch (error) {
+      throw handleFetchErrors(error);
     }
   },
 };
