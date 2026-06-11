@@ -49,6 +49,14 @@ export function MobileNav({
         className={`fixed right-0 bottom-0 z-40 flex h-dvh w-3/4 flex-col items-center justify-evenly bg-white/80 backdrop-blur-md transition-transform duration-500 ${showNav}`}
         onClick={handleNavClick}
       >
+        {user?.email && (
+          <p className="text-center font-semibold text-neutral">
+            Nombre de usuario:
+            <span className="block text-2xl font-bold first-letter:capitalize">
+              {user?.name}
+            </span>
+          </p>
+        )}
         <ul className="grid gap-6 text-center text-2xl">
           {navItems.map(({ text, href }) => (
             <li key={href}>
@@ -58,28 +66,30 @@ export function MobileNav({
             </li>
           ))}
         </ul>
-        {!isAuthenticated ? (
-          <ButtonLink
-            to="/auth"
-            className="bg-tertiary text-white"
-            isActive={pathname === '/auth'}
-          >
-            Iniciar Sesión
-          </ButtonLink>
-        ) : (
-          <ButtonLink
-            to="/logout"
-            className="bg-tertiary text-white"
-            isActive={pathname === '/auth'}
-          >
-            Cerrar Sesión
-          </ButtonLink>
-        )}
-        {isAuthenticated && user?.role === 'ADMIN' && (
-          <ButtonLink to="/admin" className="bg-secondary text-white">
-            Panel de administración
-          </ButtonLink>
-        )}
+        <div className="flex flex-col gap-4 text-center">
+          {isAuthenticated && user?.role === 'ADMIN' && (
+            <ButtonLink to="/admin" className="bg-secondary text-white">
+              Panel de administración
+            </ButtonLink>
+          )}
+          {!isAuthenticated ? (
+            <ButtonLink
+              to="/auth"
+              className="bg-tertiary text-white"
+              isActive={pathname === '/auth'}
+            >
+              Iniciar Sesión
+            </ButtonLink>
+          ) : (
+            <ButtonLink
+              to="/logout"
+              className="bg-tertiary text-white"
+              isActive={pathname === '/auth'}
+            >
+              Cerrar Sesión
+            </ButtonLink>
+          )}
+        </div>
       </nav>
     </>
   );
