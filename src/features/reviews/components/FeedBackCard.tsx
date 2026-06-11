@@ -10,7 +10,7 @@ export function FeedBackCard({ review }: { review: Review }) {
   const isUserReview = userId === review.userId;
 
   return (
-    <article className="w-full border-2 border-neutral p-2 shadow-auth">
+    <article className="relative w-full border-2 border-neutral p-2 shadow-auth">
       <div className="mt-2 flex items-center justify-between">
         <div className="flex items-center gap-4">
           <span
@@ -24,7 +24,11 @@ export function FeedBackCard({ review }: { review: Review }) {
         </div>
         <Stars rating={review.rating} />
         {isUserReview && (
-          <small className="text-sm text-neutral/60">Tu reseña</small>
+          <small
+            className={`absolute -top-4 right-2 text-sm text-neutral/60 ${randomColor} p-2 text-white`}
+          >
+            Tu reseña
+          </small>
         )}
       </div>
       <p className="mt-4 text-neutral/60 first-letter:uppercase">
