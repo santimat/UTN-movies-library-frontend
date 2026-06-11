@@ -15,7 +15,6 @@ export function ReviewList({ movieId }: { movieId: number }) {
     fetchReviews(movieId);
   }, [movieId, fetchReviews]);
 
-  console.log('a', reviews);
   return (
     <div>
       <h2 className="text-4xl uppercase">Reseñas</h2>
