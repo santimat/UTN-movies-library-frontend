@@ -14,8 +14,8 @@ export function useMovieSearchParams() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const genre = searchParams.get('genre') || undefined;
-  const sortBy = (searchParams.get('sortBy') as keyof Movie) || 'title';
-  const sortOrder = (searchParams.get('sortOrder') as 'ASC' | 'DESC') || 'ASC';
+  const sortBy = (searchParams.get('sortBy') as keyof Movie) || 'averageRating';
+  const sortOrder = (searchParams.get('sortOrder') as 'ASC' | 'DESC') || 'DESC';
   const page = searchParams.get('page') || '0';
   const searchText = searchParams.get('searchText') || '';
 
