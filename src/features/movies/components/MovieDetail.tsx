@@ -1,18 +1,16 @@
-import { type Movie } from '@/features/movies/types';
-
 import { Button } from '@/shared/components/ui/Button';
 import { PlayIcon } from '@/shared/components/icons/Play';
 import { RatingBadge } from '@/shared/components/ui/RatingBadge';
 import { MovieMetaItem } from '@/features/movies/components/MovieMetaItem';
-
 import { useAuthStore } from '@/features/auth/store/useAuthStore';
-type MovieDetailProps = {
-  movie: Movie;
-};
+import { useMoviesStore } from '@/features/movies/store/useMoviesStore';
 
-export function MovieDetail({ movie }: MovieDetailProps) {
+export function MovieDetail() {
   const email = useAuthStore((s) => s.user?.email);
+  const movie = useMoviesStore((s) => s.movie);
   const isAuthenticated = !!email;
+
+  if (!movie) return null;
 
   return (
     <article className="mx-auto mt-4 grid gap-6 font-headline font-bold md:grid-cols-2 md:grid-rows-3 md:gap-y-2">
@@ -29,7 +27,7 @@ export function MovieDetail({ movie }: MovieDetailProps) {
       </div>
       <div className="m-auto my-4 flex h-full items-center md:-order-1 md:row-span-3">
         <div className="relative">
-          <RatingBadge content={movie.averageRating} />
+          <RatingBadge content={movie?.averageRating} />
           <img
             src={movie?.posterUrl}
             alt={movie?.title}
@@ -56,7 +54,7 @@ export function MovieDetail({ movie }: MovieDetailProps) {
         </ul>
         <div className="mt-6 flex flex-col gap-4 md:flex-row">
           <a
-            className="flex flex-1 items-center justify-center gap-2 border-2 border-neutral bg-secondary p-2 text-xl text-white uppercase transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 active:scale-95"
+            className="flex flex-1 items-center justify-center gap-2 border-2 border-neutral bg-secondary p-2 text-xl text-white uppercase transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 hover:cursor-pointer active:scale-95"
             href={movie?.trailerUrl}
             target="_blank"
             rel="noopener noreferrer"
