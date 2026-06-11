@@ -23,6 +23,7 @@ export const movieService = {
 
       return {
         movies: data.content,
+        currentPage: data.page.number + 1,
         totalPages: data.page.totalPages,
         totalElements: data.page.totalElements,
       };

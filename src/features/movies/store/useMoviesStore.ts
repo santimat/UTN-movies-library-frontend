@@ -18,6 +18,7 @@ interface UseMoviesState {
   data: {
     totalPages?: number;
     totalElements?: number;
+    currentPage?: number;
   };
   fetchMovies: ({
     genre,
@@ -47,6 +48,7 @@ export const useMoviesStore = create<UseMoviesState>((set, get) => ({
         data,
         moviesLoading: false,
       });
+      console.log(data);
     } catch (error) {
       set({ moviesError: error as AppError, moviesLoading: false });
     }

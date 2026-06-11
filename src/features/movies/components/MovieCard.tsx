@@ -29,7 +29,9 @@ export function MovieCard({
         />
       </picture>
       <footer className="flex flex-1 flex-col justify-between gap-4 p-2">
-        <h3 className="line-clamp-2 font-semibold uppercase">{title}</h3>
+        <h3 title={title} className="line-clamp-1 font-semibold uppercase">
+          {title}
+        </h3>
         <div className="flex flex-col justify-end gap-2">
           <div className="flex items-center gap-2 font-semibold text-neutral/60 uppercase">
             <StarIcon className="w-6 fill-tertiary/70 stroke-tertiary/70" />
