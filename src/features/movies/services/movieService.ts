@@ -9,7 +9,11 @@ export const movieService = {
   getMovies: async (filters: GetMoviesProps) => {
     const url = new URL(URL_BASE);
     Object.entries(filters).forEach(([key, value]) => {
-      if (value) url.searchParams.append(key, value);
+      if (value)
+        url.searchParams.append(
+          key,
+          key === 'page' ? String(+value - 1) : String(value)
+        );
     });
 
     try {
