@@ -6,8 +6,8 @@ export function Pagination() {
   const currentPage = useMoviesStore((s) => s.data.currentPage);
   if (!totalPages || totalPages <= 1 || !currentPage) return null;
 
-  const start = Math.max(1, currentPage - 2);
-  const end = Math.min(totalPages, currentPage + 2);
+  const start = Math.max(1, currentPage - 3);
+  const end = Math.min(totalPages, currentPage + 3);
 
   const pages: number[] = [];
   for (let i = start; i <= end; i++) {
@@ -15,12 +15,15 @@ export function Pagination() {
   }
 
   return (
-    <ul className="mt-10 flex justify-center gap-2">
+    <ul className="mt-10 mb-6 flex justify-center gap-2">
       {pages.map((page) => {
         if (page <= end)
           return (
             <li key={`link-page-${page}`}>
-              <ButtonLink to={`?page=${page}`} className="py-1">
+              <ButtonLink
+                to={`?page=${page}`}
+                className={`py-1 ${currentPage === page ? 'bg-tertiary text-white' : ''}`}
+              >
                 {page}
               </ButtonLink>
             </li>
