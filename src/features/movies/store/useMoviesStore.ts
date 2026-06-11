@@ -52,6 +52,12 @@ export const useMoviesStore = create<UseMoviesState>((set, get) => ({
     }
   },
   fetchMovieById: async (id: number) => {
+    const { movies } = get();
+    const movie = movies.find((m) => m.id === id);
+
+    if (movie) {
+      return set({ movie, moviesLoading: false });
+    }
     try {
       const movie = await movieService.getMovieById(id);
       set({ movie, moviesLoading: false });

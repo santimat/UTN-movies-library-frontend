@@ -13,6 +13,7 @@ type MovieDetailProps = {
 export function MovieDetail({ movie }: MovieDetailProps) {
   const email = useAuthStore((s) => s.user?.email);
   const isAuthenticated = !!email;
+
   return (
     <article className="mx-auto mt-4 grid gap-6 font-headline font-bold md:grid-cols-2 md:grid-rows-3 md:gap-y-2">
       <div className="md:flex md:flex-col md:justify-center">
