@@ -27,9 +27,9 @@ export function MovieDetail({ movie }: MovieDetailProps) {
           </li>
         </ul>
       </div>
-      <div className="relative mx-auto mt-4 md:-order-1 md:row-span-3">
-        <RatingBadge content={movie.averageRating} />
+      <div className="m-auto my-4 flex h-full items-center md:-order-1 md:row-span-3">
         <div className="relative">
+          <RatingBadge content={movie.averageRating} />
           <img
             src={movie?.posterUrl}
             alt={movie?.title}
