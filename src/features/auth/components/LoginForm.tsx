@@ -20,12 +20,15 @@ export function LoginForm() {
 
   const handleSubmit = async (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const formData = new FormData(event.currentTarget);
     const form = event.currentTarget;
-
-    if (areMissingFields(formData, LOGIN_FIELDS)) return;
+    const formData = new FormData(form);
+    const loginData = {
+      ...Object.fromEntries(formData.entries()),
+      remember,
+    };
+    if (areMissingFields(loginData, LOGIN_FIELDS)) return;
     try {
-      await login(formData);
+      await login(loginData);
       navigate('/');
     } catch (err) {
       const { error } = err as AppError;

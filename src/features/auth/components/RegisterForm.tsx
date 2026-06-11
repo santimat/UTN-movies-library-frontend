@@ -6,6 +6,7 @@ import { AuthFormField } from '@/features/auth/components/AuthFormField';
 import { useAuthStore } from '@/features/auth/store/useAuthStore';
 import { areMissingFields } from '@/shared/utils/checkMissingFields';
 import { type AppError } from '@/shared/types';
+
 export function RegisterForm() {
   const register = useAuthStore((s) => s.register);
   const usernameId = useId();
@@ -14,12 +15,14 @@ export function RegisterForm() {
 
   const handleSubmit = async (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const formData = new FormData(event.currentTarget);
     const form = event.currentTarget;
+    const formData = new FormData(form);
+    const registerData = Object.fromEntries(formData.entries());
 
-    if (areMissingFields(formData, REGISTER_FIELDS)) return;
+    if (areMissingFields(registerData, REGISTER_FIELDS)) return;
+
     try {
-      await register(formData);
+      await register(registerData);
       toast.success('Registro exitoso. Ahora puedes iniciar sesión.');
     } catch (err) {
       const { error } = err as AppError;
@@ -41,7 +44,7 @@ export function RegisterForm() {
           label="Nombre de usuario"
           type="text"
           placeholder="pepegamer"
-          name="username"
+          name="name"
           required={false}
         />
         <AuthFormField
