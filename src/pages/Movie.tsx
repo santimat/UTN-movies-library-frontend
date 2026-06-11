@@ -40,7 +40,7 @@ export function Movie() {
 
   return (
     <>
-      <section className="mx-auto w-[95%] px-4">
+      <section className="mx-auto w-[95%] px-4 md:w-[80%]">
         <Link
           to="/"
           className={
@@ -54,7 +54,7 @@ export function Movie() {
         </Link>
         <MovieDetail movie={movie} />
       </section>
-      <div className="mx-auto mt-20 mb-10 h-2 w-[95%] bg-neutral"></div>
+      <div className="mx-auto mt-20 mb-10 h-2 w-[95%] bg-neutral md:w-[80%]"></div>
       <MovieFeedback movieId={movie.id} />
     </>
   );
