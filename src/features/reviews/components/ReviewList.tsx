@@ -16,12 +16,12 @@ export function ReviewList({ movieId }: { movieId: number }) {
   }, [movieId, fetchReviews]);
 
   return (
-    <div>
+    <div className="lg:-order-1 lg:flex-2">
       <h2 className="text-4xl uppercase">Reseñas</h2>
       {reviews.length ? (
-        <ul className="mt-4 flex max-h-100 flex-col gap-6 overflow-y-auto">
+        <ul className="mt-4 flex h-100 flex-col gap-6 overflow-x-hidden overflow-y-auto">
           {reviews.map((review) => (
-            <li key={`review-movie-${review.id}`}>
+            <li key={`review-movie-${review.id}`} className="m-1">
               <FeedBackCard review={review} />
             </li>
           ))}
