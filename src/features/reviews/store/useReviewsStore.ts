@@ -7,7 +7,7 @@ type ReviewsState = {
   fetchReviews: (movieId: number) => Promise<void>;
 };
 
-export const useReviewsStore = create<ReviewsState>((set, get) => ({
+export const useReviewsStore = create<ReviewsState>((set) => ({
   reviews: [],
   fetchReviews: async (movieId) => {
     try {

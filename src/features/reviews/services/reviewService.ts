@@ -10,7 +10,6 @@ export const reviewService = {
     try {
       const res = await fetch(`${BASE_URL}/${movieId}`);
       handleResponseErrors(res);
-
       const data: SpringPageResponse = await res.json();
       if (!data.page.totalElements)
         throw {
