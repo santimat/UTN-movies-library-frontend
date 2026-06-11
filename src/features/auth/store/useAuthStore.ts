@@ -1,5 +1,5 @@
 import { authService } from '@/features/auth/services/authService';
-import type { UserResponse } from '@/features/auth/types';
+import type { AuthRequest, UserResponse } from '@/features/auth/types';
 import type { AppError } from '@/shared/types';
 import { create } from 'zustand';
 
@@ -7,8 +7,8 @@ interface UseAuthStore {
   user: UserResponse | null;
   error: AppError | null;
   hydrateUser: (role?: 'admin' | 'me') => void;
-  login: (formData: FormData) => Promise<void>;
-  register: (formData: FormData) => Promise<void>;
+  login: (loginData: Partial<AuthRequest>) => Promise<void>;
+  register: (registerData: Partial<AuthRequest>) => Promise<void>;
   logout: () => Promise<void>;
 }
 
@@ -25,18 +25,18 @@ export const useAuthStore = create<UseAuthStore>((set) => ({
       set({ error: error as AppError, user: null });
     }
   },
-  login: async (formData: FormData) => {
+  login: async (loginData: Partial<AuthRequest>) => {
     try {
-      const user = await authService.login(formData);
+      const user = await authService.login(loginData);
       set({ user, error: null });
     } catch (error) {
       set({ error: error as AppError });
       throw error;
     }
   },
-  register: async (formData: FormData) => {
+  register: async (registerData: Partial<AuthRequest>) => {
     try {
-      await authService.register(formData);
+      await authService.register(registerData);
       set({ error: null });
     } catch (error) {
       set({ error: error as AppError });

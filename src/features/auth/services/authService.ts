@@ -1,9 +1,10 @@
 import { handleResponseErrors } from '@/shared/utils/handleResponseErrors';
 import { handleFetchErrors } from '@/shared/utils/handleFetchErrors';
+import type { AuthRequest } from '@/features/auth/types';
 
 const BASE_URL = `/api/auth`;
 
-const auth = async (endpoint: string, payload: object) => {
+const auth = async (endpoint: string, payload: Partial<AuthRequest>) => {
   try {
     const res = await fetch(`${BASE_URL}/${endpoint}`, {
       method: 'POST',
@@ -27,25 +28,15 @@ const auth = async (endpoint: string, payload: object) => {
 };
 
 export const authService = {
-  register: async (formData: FormData) => {
+  register: async (registerData: Partial<AuthRequest>) => {
     try {
-      const registerData = {
-        name: formData.get('username'),
-        email: formData.get('email'),
-        password: formData.get('password'),
-      };
       return await auth('register', registerData);
     } catch (error) {
       throw handleFetchErrors(error);
     }
   },
-  login: async (formData: FormData) => {
+  login: async (loginData: Partial<AuthRequest>) => {
     try {
-      const loginData = {
-        email: formData.get('email'),
-        password: formData.get('password'),
-        remember: formData.get('rememberMe') === 'on',
-      };
       return await auth('login', loginData);
     } catch (error) {
       throw handleFetchErrors(error);
