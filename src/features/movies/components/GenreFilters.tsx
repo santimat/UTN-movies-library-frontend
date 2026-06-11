@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import { useSearchParams } from 'react-router';
 import { Button } from '@/shared/components/ui/Button';
 import { useMoviesStore } from '@/features/movies/store/useMoviesStore';
 import { useShallow } from 'zustand/shallow';
