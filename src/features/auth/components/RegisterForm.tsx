@@ -2,7 +2,7 @@ import { useId, type SubmitEvent } from 'react';
 import { toast } from 'sonner';
 import { REGISTER_FIELDS } from '@/shared/utils/constants';
 import { AuthForm } from '@/features/auth/components/AuthForm';
-import { FormField } from '@/features/auth/components/FormField';
+import { FormField } from '@/features/auth/components/AuthFormField';
 import { useAuthStore } from '@/features/auth/store/useAuthStore';
 import { areMissingFields } from '@/shared/utils/checkMissingFields';
 import { type AppError } from '@/shared/types';

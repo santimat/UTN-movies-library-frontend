@@ -5,7 +5,7 @@ import { toast } from 'sonner';
 import { LOGIN_FIELDS } from '@/shared/utils/constants';
 import { areMissingFields } from '@/shared/utils/checkMissingFields';
 import { useAuthStore } from '@/features/auth/store/useAuthStore';
-import { FormField } from '@/features/auth/components/FormField';
+import { FormField } from '@/features/auth/components/AuthFormField';
 import { AuthForm } from '@/features/auth/components/AuthForm';
 import type { AppError } from '@/shared/types';
 
