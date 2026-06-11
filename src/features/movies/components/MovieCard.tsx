@@ -14,9 +14,10 @@ export function MovieCard({
 }: MovieCardProps & { idx: number }) {
   const showBadge = averageRating > 0;
   const animationDelay = `${idx * 100}ms`;
+
   return (
     <article
-      className="group relative flex animate-fade-in-up flex-col border-3 border-neutral text-neutral shadow-auth"
+      className="group relative flex max-w-80 animate-fade-in-up flex-col border-3 border-neutral text-neutral shadow-auth"
       style={{ animationDelay: animationDelay }}
     >
       {showBadge && <RatingBadge content={averageRating.toFixed(1)} />}
