@@ -1,10 +1,16 @@
 import type { SvgProps } from '@/shared/types';
 
-export function StarIcon({ className: classes }: SvgProps) {
+export function StarIcon({
+  className: classes,
+  width = 24,
+  height = 24,
+}: SvgProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
+      height={height}
+      width={width}
       stroke="currentColor"
       className={classes}
       strokeWidth={1.5}
