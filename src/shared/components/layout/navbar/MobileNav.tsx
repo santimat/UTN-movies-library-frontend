@@ -58,13 +58,21 @@ export function MobileNav({
             </li>
           ))}
         </ul>
-        {!isAuthenticated && (
+        {!isAuthenticated ? (
           <ButtonLink
             to="/auth"
             className="bg-tertiary text-white"
             isActive={pathname === '/auth'}
           >
             Iniciar Sesión
+          </ButtonLink>
+        ) : (
+          <ButtonLink
+            to="/logout"
+            className="bg-tertiary text-white"
+            isActive={pathname === '/auth'}
+          >
+            Cerrar Sesión
           </ButtonLink>
         )}
         {isAuthenticated && user?.role === 'ADMIN' && (
