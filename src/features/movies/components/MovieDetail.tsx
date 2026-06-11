@@ -27,13 +27,20 @@ export function MovieDetail({ movie }: MovieDetailProps) {
           </li>
         </ul>
       </div>
-      <div className="relative mx-auto md:-order-1 md:row-span-3">
+      <div className="relative mx-auto mt-4 md:-order-1 md:row-span-3">
         <RatingBadge content={movie.averageRating} />
-        <img
-          src={movie?.posterUrl}
-          alt={movie?.title}
-          className="w-100 border-3 border-neutral shadow-auth md:w-120"
-        />
+        <div className="relative">
+          <img
+            src={movie?.posterUrl}
+            alt={movie?.title}
+            className="w-100 border-3 border-neutral shadow-auth md:w-120"
+          />
+          <img
+            src={movie?.posterUrl}
+            alt={movie?.title}
+            className="absolute top-0 -z-10 w-150 border-3 border-neutral shadow-auth blur-md md:w-140"
+          />
+        </div>
       </div>
       <div className="mt-4 md:row-span-2 md:mt-0">
         <p className="border-l-4 border-neutral pl-2 font-body text-pretty text-neutral md:text-xl">
