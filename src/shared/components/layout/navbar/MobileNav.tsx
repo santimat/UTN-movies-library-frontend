@@ -60,11 +60,16 @@ export function MobileNav({
         </ul>
         {!isAuthenticated && (
           <ButtonLink
-            href="/auth"
+            to="/auth"
             className="bg-tertiary text-white"
             isActive={pathname === '/auth'}
           >
             Iniciar Sesión
+          </ButtonLink>
+        )}
+        {isAuthenticated && user?.role === 'ADMIN' && (
+          <ButtonLink to="/admin" className="bg-secondary text-white">
+            Panel de administración
           </ButtonLink>
         )}
       </nav>
