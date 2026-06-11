@@ -12,7 +12,7 @@ export function RatingInput({
 }: RatingInputProps) {
   return (
     <div>
-      <label className="text-xl">Rating</label>
+      <label className="text-2xl">Rating</label>
       <ul className="flex justify-around border-2 border-neutral p-2">
         {STARS.map((star) => (
           <li
