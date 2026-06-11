@@ -58,7 +58,7 @@ export function MovieDetail({ movie }: MovieDetailProps) {
             Ver trailer
           </a>
           {isAuthenticated && (
-            <Button className="bg-neutral/10 uppercase shadow-none">
+            <Button className="bg-neutral/20 uppercase shadow-none">
               Añadir a mi lista +
             </Button>
           )}
