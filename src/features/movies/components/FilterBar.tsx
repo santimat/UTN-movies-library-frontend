@@ -5,7 +5,7 @@ import { GenreFilters } from '@/features/movies/components/GenreFilters';
 export function Filters() {
   return (
     <form
-      className="flex flex-col gap-4 p-4 font-semibold"
+      className="mx-auto mb-4 flex w-[95%] flex-col gap-4 font-semibold"
       onSubmit={(e) => e.preventDefault()}
     >
       <div className="flex flex-col gap-4 md:flex-row">
