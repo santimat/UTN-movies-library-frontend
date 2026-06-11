@@ -27,7 +27,7 @@ export const useReviewsStore = create<ReviewsState>((set, get) => ({
   createReview: async (review: ReviewRequest) => {
     try {
       const newReview = await reviewService.createReview(review);
-      set((state) => ({ reviews: [...state.reviews, newReview] }));
+      set((state) => ({ reviews: [newReview, ...state.reviews] }));
     } catch (error) {
       set({ errorReview: error as AppError, isLoading: false });
     }

@@ -1,4 +1,4 @@
-import { FeedBackCard } from '@/features/reviews/components/FeedBackCard';
+import { FeedBackCard } from '@/features/reviews/components/ReviewCard';
 import { useReviewsStore } from '@/features/reviews/store/useReviewsStore';
 import { useEffect } from 'react';
 import { useShallow } from 'zustand/shallow';
@@ -19,7 +19,7 @@ export function ReviewList({ movieId }: { movieId: number }) {
     <div className="lg:-order-1 lg:flex-2">
       <h2 className="text-4xl uppercase">Reseñas</h2>
       {reviews.length ? (
-        <ul className="mt-4 flex h-100 flex-col gap-6 overflow-x-hidden overflow-y-auto">
+        <ul className="mt-4 flex max-h-110 scrollbar-thin flex-col gap-6 overflow-x-hidden overflow-y-auto pt-4">
           {reviews.map((review) => (
             <li key={`review-movie-${review.id}`} className="m-1">
               <FeedBackCard review={review} />

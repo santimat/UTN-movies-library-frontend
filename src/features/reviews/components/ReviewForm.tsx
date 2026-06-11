@@ -40,7 +40,6 @@ export function ReviewForm({ movieId }: { movieId: number }) {
       return toast.error(
         `Faltan los siguientes campos: ${missingFields.join(', ')}`
       );
-
     await createReview(reviewData);
     toast.success('Reseña creada con éxito');
     setRating(0);
@@ -50,7 +49,7 @@ export function ReviewForm({ movieId }: { movieId: number }) {
   if (!user?.email || alreadyReviewed || isLoading) return null;
 
   return (
-    <div className="mx-auto w-full border-2 border-neutral bg-neutral/20 p-4 shadow-auth xl:w-125">
+    <div className="mx-auto flex-2 border-2 border-neutral bg-neutral/20 p-4 shadow-auth lg:flex-1 xl:w-125">
       <h2 className="mb-4 text-left text-3xl uppercase">Deja tu reseña</h2>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <RatingInput onClick={handleClickStars} rating={rating} />
@@ -61,7 +60,7 @@ export function ReviewForm({ movieId }: { movieId: number }) {
           </label>
           <textarea
             className="w-full border-2 border-neutral p-2 text-xl"
-            rows={10}
+            rows={6}
             name="comment"
           ></textarea>
         </div>
