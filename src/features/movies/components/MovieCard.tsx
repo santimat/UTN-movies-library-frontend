@@ -17,7 +17,7 @@ export function MovieCard({
 
   return (
     <article
-      className="group relative flex max-w-80 animate-fade-in-up flex-col border-3 border-neutral text-neutral shadow-auth"
+      className="group relative flex animate-fade-in-up flex-col border-3 border-neutral text-neutral shadow-auth lg:max-w-100"
       style={{ animationDelay: animationDelay }}
     >
       {showBadge && <RatingBadge content={averageRating.toFixed(1)} />}

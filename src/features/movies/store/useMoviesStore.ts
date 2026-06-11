@@ -48,7 +48,6 @@ export const useMoviesStore = create<UseMoviesState>((set, get) => ({
         data,
         moviesLoading: false,
       });
-      console.log(data);
     } catch (error) {
       set({ moviesError: error as AppError, moviesLoading: false });
     }

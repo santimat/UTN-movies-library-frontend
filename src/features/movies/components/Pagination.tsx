@@ -8,7 +8,12 @@ export function Pagination() {
 
   const start = Math.max(1, currentPage - 2);
   const end = Math.min(totalPages, currentPage + 2);
-  const pages = Array.from({ length: totalPages }, (_, i = start) => i + 1);
+
+  const pages: number[] = [];
+  for (let i = start; i <= end; i++) {
+    pages[i] = i;
+  }
+
   return (
     <ul className="mt-10 flex justify-center gap-2">
       {pages.map((page) => {

@@ -58,8 +58,7 @@ export function useMovieSearchParams() {
     }, DEBOUNCE_TIME);
 
     return () => clearTimeout(timeoutRef.current);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [inputValue]);
+  }, [inputValue, updateSearchParam]);
 
   return {
     inputValue,
