@@ -1,16 +1,13 @@
-import { useEffect } from 'react';
-import { Link } from 'react-router';
+import { useEffect, lazy } from 'react';
+import { Link, useParams } from 'react-router';
 
 import type { Movie } from '@/features/movies/types';
 import { useMoviesStore } from '@/features/movies/store/useMoviesStore';
-
-import { lazy } from 'react';
 import { Loader } from '@/shared/components/ui/Loader';
 import { ArrowBackIcon } from '@/shared/components/icons/ArrowBack';
 import { MovieDetail } from '@/features/movies/components/MovieDetail';
 import { MovieFeedback } from '@/features/reviews/components/MovieFeedback';
 import { useShallow } from 'zustand/shallow';
-import { useParams } from 'react-router';
 
 const NotFound = lazy(() =>
   import('@/pages/NotFound').then((module) => ({
@@ -19,7 +16,7 @@ const NotFound = lazy(() =>
 );
 
 export function Movie() {
-  const { fetchMovieById, loading, error, movie } = useMoviesStore(
+  const { fetchMovieById, loading, error } = useMoviesStore(
     useShallow((s) => ({
       fetchMovieById: s.fetchMovieById,
       loading: s.moviesLoading,
@@ -35,7 +32,7 @@ export function Movie() {
     fetchMovieById(movieId);
   }, [fetchMovieById, movieId]);
 
-  if (loading || movie?.id !== movieId) return <Loader />;
+  if (loading) return <Loader />;
   if (error) return <NotFound />;
 
   return (
@@ -52,10 +49,10 @@ export function Movie() {
             Volver a la biblioteca
           </span>
         </Link>
-        <MovieDetail movie={movie} />
+        <MovieDetail />
       </section>
       <div className="mx-auto mt-20 mb-10 h-2 w-[95%] bg-neutral md:w-[80%]"></div>
-      <MovieFeedback movieId={movie.id} />
+      <MovieFeedback movieId={movieId} />
     </>
   );
 }
