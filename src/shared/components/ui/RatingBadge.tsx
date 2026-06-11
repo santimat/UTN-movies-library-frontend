@@ -5,6 +5,8 @@ export function RatingBadge({
   content: string | number;
   className?: string;
 }) {
+  if (content == 0) return null;
+
   return (
     <span
       className={`absolute top-2 right-2 z-10 border-3 border-neutral bg-secondary px-2 py-1 font-semibold text-white ${classes}`}

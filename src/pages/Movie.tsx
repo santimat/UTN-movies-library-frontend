@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useLocation, Link } from 'react-router';
+import { Link } from 'react-router';
 
 import type { Movie } from '@/features/movies/types';
 import { useMoviesStore } from '@/features/movies/store/useMoviesStore';
@@ -30,6 +30,7 @@ export function Movie() {
 
   const { id } = useParams<{ id: string }>();
   const movieId = Number(id);
+
   useEffect(() => {
     fetchMovieById(movieId);
   }, [fetchMovieById, movieId]);
