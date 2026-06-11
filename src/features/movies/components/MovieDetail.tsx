@@ -36,7 +36,7 @@ export function MovieDetail() {
           <img
             src={movie?.posterUrl}
             alt={movie?.title}
-            className="absolute top-0 -z-10 w-150 border-3 border-neutral shadow-auth blur-md md:w-140"
+            className="absolute inset-0 -z-10 border-3 border-neutral shadow-auth blur-md"
           />
         </div>
       </div>
@@ -52,7 +52,7 @@ export function MovieDetail() {
             <MovieMetaItem label="duración" value={`${movie?.duration} mins`} />
           </li>
         </ul>
-        <div className="mt-6 flex flex-col gap-4 md:flex-row">
+        <div className="mt-6 flex flex-col gap-4 lg:flex-row">
           <a
             className="flex flex-1 items-center justify-center gap-2 border-2 border-neutral bg-secondary p-2 text-xl text-white uppercase transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 hover:cursor-pointer active:scale-95"
             href={movie?.trailerUrl}
