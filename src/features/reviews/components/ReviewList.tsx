@@ -1,7 +1,21 @@
 import { FeedBackCard } from '@/features/reviews/components/FeedBackCard';
-import { type Review } from '@/features/reviews/types';
+import { useReviewsStore } from '@/features/reviews/store/useReviewsStore';
+import { useEffect } from 'react';
+import { useShallow } from 'zustand/shallow';
 
-export function ReviewList({ reviews }: { reviews: Review[] }) {
+export function ReviewList({ movieId }: { movieId: number }) {
+  const { fetchReviews, reviews } = useReviewsStore(
+    useShallow((s) => ({
+      fetchReviews: s.fetchReviews,
+      reviews: s.reviews,
+    }))
+  );
+
+  useEffect(() => {
+    fetchReviews(movieId);
+  }, [movieId, fetchReviews]);
+
+  console.log('a', reviews);
   return (
     <div>
       <h2 className="text-4xl uppercase">Reseñas</h2>
