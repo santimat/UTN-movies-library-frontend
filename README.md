@@ -2,7 +2,7 @@
 
 Una aplicación web completa de biblioteca de películas donde los usuarios pueden explorar, buscar, filtrar y reseñar películas. Desarrollada con React 19, TypeScript, Tailwind CSS v4 y Zustand. El backend es una API REST construida con Spring Boot (Java) y PostgreSQL (repositorio separado).
 
-**Autores:** Santino & Guido
+**Autores:** Santino Maturo & Guido Perroud
 
 ---
 
@@ -52,18 +52,18 @@ La aplicación se comunica con una API backend (Spring Boot + Java + PostgreSQL)
 
 ## Stack Tecnológico
 
-| Tecnología              | Versión | Propósito                                     |
-| ----------------------- | ------- | --------------------------------------------- |
-| **React**               | 19.2.6  | Framework de UI                               |
-| **TypeScript**          | ~6.0.3  | JavaScript con tipos                          |
-| **Vite**                | 8.0.12  | Herramienta de build y servidor de desarrollo |
-| **Tailwind CSS**        | 4.3.0   | Framework de estilos utility-first            |
-| **Zustand**             | 5.0.14  | Gestión de estado ligera                      |
-| **React Router**        | 7.15.1  | Enrutamiento del lado del cliente             |
-| **Sonner**              | 2.0.7   | Notificaciones toast                          |
-| **tailwind-animations** | 1.0.1   | Utilidades de animación                       |
-| **Prettier**            | 3.8.3   | Formateo de código                            |
-| **ESLint**              | 10.3.0  | Linting de código                             |
+| Tecnología              | Propósito                                     |
+| ----------------------- | --------------------------------------------- |
+| **React**               | Framework de UI                               |
+| **TypeScript**          | JavaScript con tipos                          |
+| **Vite**                | Herramienta de build y servidor de desarrollo |
+| **Tailwind CSS**        | Framework de estilos utility-first            |
+| **Zustand**             | Gestión de estado ligera                      |
+| **React Router**        | Enrutamiento del lado del cliente             |
+| **Sonner**              | Notificaciones toast                          |
+| **tailwind-animations** | Utilidades de animación                       |
+| **Prettier**            | Formateo de código                            |
+| **ESLint**              | Linting de código                             |
 
 **Backend (repositorio separado):** Spring Boot, Java, Jakarta EE, PostgreSQL
 
@@ -328,7 +328,7 @@ El código compartido (layout, primitivos UI, iconos, utilidades) vive en `share
 
 ### Gestión de Estado
 
-La app usa **Zustand** (v5) con tres stores independientes:
+La app usa **Zustand** con tres stores independientes:
 
 #### `useAuthStore`
 
@@ -486,12 +486,6 @@ El proyecto usa **Tailwind CSS v4** con el plugin `@tailwindcss/vite`. Los valor
 - **Animaciones Escalonadas** — Las tarjetas de películas aparecen con un fade-in escalonado según su índice
 - **Fuentes Custom** — Space Grotesk para títulos/etiquetas, Geist para cuerpo de texto (cargadas como woff2)
 
-### Breakpoints Responsivos
-
-- Enfoque **mobile-first** con breakpoints `md:` (768px) y `lg:`
-- La navegación cambia entre nav horizontal de escritorio y menú hamburguesa móvil en 768px
-- La cuadrícula de películas se adapta de 1 columna (móvil) a 3+ columnas (escritorio)
-
 ---
 
 ## Referencia de Componentes
@@ -579,7 +573,6 @@ El proyecto está configurado para despliegue en **Vercel**:
 - [ ] **Gestión de Usuarios (Admin)** — Tabla con lista de usuarios, cambios de rol y eliminación
 - [ ] **Función "Mi Lista"** — Lista personalizada de películas para usuarios autenticados
 - [ ] **Vistas Modal** — Usando `createPortal` para modales de detalle de películas
-- [ ] **Optimización de Rendimiento** — `memo()` para componentes hijos y evitar re-renders innecesarios
 - [ ] **Búsqueda Mejorada** — Búsqueda basada en palabras clave para mejores resultados
 - [ ] **ABM de Películas (Admin)** — Formularios para agregar, editar y eliminar películas
 - [ ] **AdminPanel responsivo** — Tabla de admin amigable en móvil
