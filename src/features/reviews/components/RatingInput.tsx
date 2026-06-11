@@ -16,7 +16,7 @@ export function RatingInput({
       <ul className="flex justify-around border-2 border-neutral p-2">
         {STARS.map((star) => (
           <li
-            className="active:scale-95"
+            className="transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 hover:cursor-pointer active:scale-95"
             key={`star-input-${star}`}
             onClick={() => handleClick(star)}
           >
