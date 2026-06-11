@@ -32,7 +32,7 @@ export function DesktopNav({
       <div className="flex gap-4">
         {isAdmin && (
           <ButtonLink
-            href="/admin"
+            to="/admin"
             className="bg-tertiary text-white"
             isActive={pathname === '/admin'}
           >
@@ -41,7 +41,7 @@ export function DesktopNav({
         )}
         {!isAuthenticated ? (
           <ButtonLink
-            href="/auth"
+            to="/auth"
             className="bg-tertiary text-white"
             isActive={pathname === '/auth'}
           >
@@ -49,7 +49,7 @@ export function DesktopNav({
           </ButtonLink>
         ) : (
           <ButtonLink
-            href="/logout"
+            to="/logout"
             className="bg-secondary text-white"
             isActive={pathname === '/logout'}
           >
