@@ -1,10 +1,11 @@
 import { type Review } from '@/features/reviews/types';
 import { Stars } from '@/features/reviews/components/Stars';
 
-const COLORS = ['bg-secondary', 'bg-tertiary', 'bg-neutral'];
+const COLORS = ['bg-secondary', 'bg-tertiary', 'bg-neutral', 'bg-gray-900'];
 
 export function FeedBackCard({ review }: { review: Review }) {
   const randomColor = COLORS[review.id % COLORS.length];
+
   return (
     <article className="w-full border-2 border-neutral p-2 shadow-auth">
       <div className="mt-2 flex items-center justify-between">
