@@ -1,5 +1,5 @@
 import { SearchIcon } from '@/shared/components/icons/Search';
-import { useMovieSearchParams } from '../hooks/useMovieSearchParams';
+import { useMovieSearchParams } from '@/features/movies/hooks/useMovieSearchParams';
 
 export function SearchInput() {
   const { inputValue, handleSearchChange } = useMovieSearchParams();

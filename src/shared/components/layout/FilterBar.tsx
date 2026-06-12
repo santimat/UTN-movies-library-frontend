@@ -1,6 +1,6 @@
-import { SearchInput } from '@/features/movies/components/SearchInput';
-import { SortSelect } from '@/features/movies/components/SortSelect';
-import { GenreFilters } from '@/features/movies/components/GenreFilters';
+import { SearchInput } from '@/shared/components/ui/SearchInput';
+import { SortSelect } from '@/shared/components/ui/SortSelect';
+import { GenreFilters } from '@/shared/components/ui/GenreFilters';
 
 export function Filters() {
   return (

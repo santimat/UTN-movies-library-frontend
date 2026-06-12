@@ -1,9 +1,9 @@
 import { MovieList } from '@/features/movies/components/MovieList';
-import { Filters } from '@/features/movies/components/FilterBar';
+import { Filters } from '@/shared/components/layout/FilterBar';
 import { lazy } from 'react';
 
 const Pagination = lazy(() =>
-  import('@/features/movies/components/Pagination').then((module) => ({
+  import('@/shared/components/ui/Pagination').then((module) => ({
     default: module.Pagination,
   }))
 );

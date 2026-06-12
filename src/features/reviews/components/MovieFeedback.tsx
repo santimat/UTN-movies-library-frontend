@@ -2,7 +2,7 @@ import { ReviewList } from '@/features/reviews/components/ReviewList';
 import { ReviewForm } from '@/features/reviews/components/ReviewForm';
 export function MovieFeedback({ movieId }: { movieId: number }) {
   return (
-    <section className="flex flex-col gap-10 p-4 font-headline font-bold text-neutral md:w-[80%] lg:flex-row">
+    <section className="mx-auto flex flex-col gap-10 p-4 font-headline font-bold text-neutral md:w-[80%] lg:flex-row">
       <ReviewForm movieId={movieId} />
       <ReviewList movieId={movieId} />
     </section>

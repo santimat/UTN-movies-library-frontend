@@ -36,7 +36,7 @@ export function MovieDetail() {
           <img
             src={movie?.posterUrl}
             alt={movie?.title}
-            className="absolute inset-0 -z-10 border-3 border-neutral shadow-auth blur-md"
+            className="absolute inset-0 -z-10 border-3 border-neutral shadow-auth blur-lg"
           />
         </div>
       </div>

@@ -37,7 +37,7 @@ export function Movie() {
 
   return (
     <>
-      <section className="px-4 md:w-[80%]">
+      <section className="mx-auto px-4 md:w-[80%]">
         <Link
           to="/"
           className={
