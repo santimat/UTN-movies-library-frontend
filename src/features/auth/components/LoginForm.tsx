@@ -1,21 +1,21 @@
 import { useId, useState, type SubmitEvent } from 'react';
-import { useNavigate } from 'react-router';
+import { useNavigate, Link } from 'react-router';
 import { toast } from 'sonner';
 
-import { LOGIN_FIELDS } from '@/shared/utils/constants';
-import { areMissingFields } from '@/shared/utils/checkMissingFields';
-import { useAuthStore } from '@/features/auth/store/useAuthStore';
-import { AuthFormField } from '@/features/auth/components/AuthFormField';
-import { AuthForm } from '@/features/auth/components/AuthForm';
 import type { AppError } from '@/shared/types';
+import { LOGIN_FIELDS } from '@/shared/utils/constants';
+import { CheckBox } from '@/shared/components/icons/CheckBox';
+import { AuthForm } from '@/features/auth/components/AuthForm';
+import { useAuthStore } from '@/features/auth/store/useAuthStore';
+import { areMissingFields } from '@/shared/utils/checkMissingFields';
+import { AuthFormField } from '@/features/auth/components/AuthFormField';
 
 export function LoginForm() {
   const [remember, setRemember] = useState(false);
   const login = useAuthStore((s) => s.login);
+  const navigate = useNavigate();
   const emailId = useId();
   const passwordId = useId();
-  const navigate = useNavigate();
-
   const handleRemember = () => setRemember((prev) => !prev);
 
   const handleSubmit = async (event: SubmitEvent<HTMLFormElement>) => {
@@ -44,10 +44,7 @@ export function LoginForm() {
         onSubmit={handleSubmit}
         title="Iniciar Sesión"
         submitLabel="iniciar sesión"
-        onRememberMeChange={handleRemember}
-        rememberMe={remember}
-        showForgotPassword
-        showRememberMe
+        className='[&>input[type="submit"]]:bg-secondary'
       >
         <AuthFormField
           id={emailId}
@@ -63,6 +60,24 @@ export function LoginForm() {
           type="password"
           placeholder="***********"
         />
+        <label className="flex items-center gap-2 font-semibold select-none">
+          <input
+            type="checkbox"
+            name="rememberMe"
+            className="peer sr-only"
+            onChange={handleRemember}
+          />
+          <span className="transition-transform peer-focus-visible:ring-2 peer-focus-visible:ring-tertiary hover:scale-105 hover:cursor-pointer active:scale-95">
+            {remember ? <CheckBox /> : <CheckBox empty />}
+          </span>
+          <span>Mantener la sesión iniciada</span>
+        </label>
+        <Link
+          to={'/forgot-password'}
+          className={'mt-4 ml-auto w-fit text-secondary hover:underline'}
+        >
+          Olvidaste tu contraseña?
+        </Link>
       </AuthForm>
       <div className="relative bottom-0 mx-auto mt-10 flex w-4/5 items-center">
         <div className="absolute w-full bg-neutral p-1"></div>

@@ -38,6 +38,7 @@ export function RegisterForm() {
         title="Regístrate"
         submitLabel="Registrarse"
         onSubmit={handleSubmit}
+        className='[&>input[type="submit"]]:bg-tertiary'
       >
         <AuthFormField
           id={usernameId}
