@@ -1,8 +1,18 @@
 import { lazy } from 'react';
 import { Routes, Route, Outlet } from 'react-router';
 import { GuardRoute } from '@/routes/GuardRoute';
-import { AdminRoute } from '@/routes/AdminRoute';
 import { Layout } from '@/shared/components/layout/Layout';
+
+const Logout = lazy(() =>
+  import('@/routes/Logout').then((module) => ({
+    default: module.Logout,
+  }))
+);
+const AdminRoute = lazy(() =>
+  import('@/routes/AdminRoute').then((module) => ({
+    default: module.AdminRoute,
+  }))
+);
 
 const Home = lazy(() =>
   import('@/pages/Home').then((module) => ({ default: module.Home }))
@@ -24,11 +34,6 @@ const Admin = lazy(() =>
 const NotFound = lazy(() =>
   import('@/pages/NotFound').then((module) => ({
     default: module.NotFound,
-  }))
-);
-const Logout = lazy(() =>
-  import('@/routes/Logout').then((module) => ({
-    default: module.Logout,
   }))
 );
 

@@ -1,14 +1,11 @@
-import { useMoviesStore } from '@/features/movies/store/useMoviesStore';
 import { ButtonLink } from '@/shared/components/ui/ButtonLink';
-import { useShallow } from 'zustand/shallow';
 
-export function Pagination() {
-  const { totalPages, currentPage } = useMoviesStore(
-    useShallow((s) => ({
-      totalPages: s.data.totalPages,
-      currentPage: s.data.currentPage,
-    }))
-  );
+type PaginationProps = {
+  totalPages: number;
+  currentPage: number;
+};
+
+export function Pagination({ totalPages, currentPage }: PaginationProps) {
   if (!totalPages || totalPages <= 1 || !currentPage) return null;
   const start = Math.max(1, currentPage - 2);
   const end = Math.min(totalPages, currentPage + 2);

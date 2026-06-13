@@ -16,9 +16,9 @@ interface UseMoviesState {
   moviesLoading: boolean;
   genresLoading: boolean;
   data: {
-    totalPages?: number;
-    totalElements?: number;
-    currentPage?: number;
+    totalPages: number;
+    totalElements: number;
+    currentPage: number;
   };
   fetchMovies: ({
     genre,
@@ -36,7 +36,11 @@ export const useMoviesStore = create<UseMoviesState>((set, get) => ({
   movie: null,
   moviesLoading: true,
   moviesError: null,
-  data: {},
+  data: {
+    totalPages: 0,
+    totalElements: 0,
+    currentPage: 0,
+  },
   genres: [],
   genresError: null,
   genresLoading: true,

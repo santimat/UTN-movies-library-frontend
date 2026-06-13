@@ -1,9 +1,16 @@
+import { lazy } from 'react';
 import { Loader } from '@/shared/components/ui/Loader';
 import { useMovies } from '@/features/movies/hooks/useMovies';
 import { MovieCard } from '@/features/movies/components/MovieCard';
 
+const Pagination = lazy(() =>
+  import('@/shared/components/ui/Pagination').then((module) => ({
+    default: module.Pagination,
+  }))
+);
+
 export function MovieList() {
-  const { movies, loading, error } = useMovies();
+  const { movies, loading, error, currentPage, totalPages } = useMovies();
 
   if (loading) {
     return <Loader />;
@@ -28,10 +35,15 @@ export function MovieList() {
     );
 
   return (
-    <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-4 pb-8">
-      {movies.map((movie, idx) => (
-        <MovieCard key={`movie-card-${movie.id}`} {...movie} idx={idx} />
-      ))}
-    </div>
+    <>
+      <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-4 pb-8">
+        {movies.map((movie, idx) => (
+          <MovieCard key={`movie-card-${movie.id}`} {...movie} idx={idx} />
+        ))}
+      </div>
+      {totalPages > 1 && (
+        <Pagination totalPages={totalPages} currentPage={currentPage} />
+      )}
+    </>
   );
 }
