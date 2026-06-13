@@ -3,6 +3,7 @@ import { useMediaQuery } from '@/shared/hooks/useMediaQuery';
 
 export function MovieAdminPanel() {
   const isDesktop = useMediaQuery('(min-width:768px)');
+
   return (
     <section className="mx-auto mt-10 w-[80%] text-neutral">
       <div className="flex flex-col items-center justify-between">

@@ -1,8 +1,8 @@
 import { lazy, useState } from 'react';
-import { useSort } from '@/features/movies/hooks/useSort';
 import { Button } from '@/shared/components/ui/Button';
 import { ArrowDownIcon } from '@/shared/components/icons/ArrowDown';
 import { SortAscending } from '@/shared/components/icons/SortAscending';
+import { useMovieSearchParams } from '@/features/movies/hooks/useMovieSearchParams';
 
 const SortDescending = lazy(() =>
   import('@/shared/components/icons/SortDescending').then((module) => ({
@@ -12,7 +12,16 @@ const SortDescending = lazy(() =>
 
 export function SortSelect() {
   const [isSelectOpen, setIsSelectOpen] = useState(false);
-  const { sortBy, sortOrder, setSortBy, setSortOrder } = useSort();
+  const { updateSearchParam, sortOrder, sortBy } = useMovieSearchParams();
+
+  const setSortBy = (value: string) => {
+    updateSearchParam({ sortBy: value });
+  };
+
+  const setSortOrder = () => {
+    const value = sortOrder === 'ASC' ? 'DESC' : 'ASC';
+    updateSearchParam({ sortOrder: value });
+  };
 
   return (
     <div className="flex items-center gap-2">
