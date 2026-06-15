@@ -8,8 +8,8 @@ export function useMovieSearchParams() {
   const genre = searchParams.get('genre') || undefined;
   const sortBy = (searchParams.get('sortBy') as keyof Movie) || 'averageRating';
   const sortOrder = (searchParams.get('sortOrder') as 'ASC' | 'DESC') || 'DESC';
-  const page = searchParams.get('page') || '1';
   const searchText = searchParams.get('searchText')?.toLowerCase() || '';
+  const page = searchParams.get('page') || '1';
 
   const updateSearchParam = useCallback(
     (filter: Record<string, string>) => {

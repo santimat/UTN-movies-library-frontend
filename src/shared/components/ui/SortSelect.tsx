@@ -15,12 +15,12 @@ export function SortSelect() {
   const { updateSearchParam, sortOrder, sortBy } = useMovieSearchParams();
 
   const setSortBy = (value: string) => {
-    updateSearchParam({ sortBy: value });
+    updateSearchParam({ sortBy: value, page: '1' });
   };
 
   const setSortOrder = () => {
     const value = sortOrder === 'ASC' ? 'DESC' : 'ASC';
-    updateSearchParam({ sortOrder: value });
+    updateSearchParam({ sortOrder: value, page: '1' });
   };
 
   return (

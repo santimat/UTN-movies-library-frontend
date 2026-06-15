@@ -12,16 +12,20 @@ export function SearchInput() {
     setInputValue(event.target.value);
   };
 
-  useEffect(() => {
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    timeoutRef.current = setTimeout(() => {
-      updateSearchParam({ searchText: inputValue });
-    }, DEBOUNCE_TIME);
-
-    return () => {
+  useEffect(
+    () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    };
-  }, [inputValue, updateSearchParam]);
+      timeoutRef.current = setTimeout(() => {
+        updateSearchParam({ searchText: inputValue, page: '1' });
+      }, DEBOUNCE_TIME);
+
+      return () => {
+        if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      };
+    },
+    //eslint-disable-next-line react-hooks/exhaustive-deps
+    [inputValue]
+  );
 
   return (
     <label className="group relative flex items-center border-2 border-neutral shadow-auth md:w-80">

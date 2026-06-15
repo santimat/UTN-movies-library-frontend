@@ -37,6 +37,7 @@ export function NavBar() {
         : 'text-neutral hover:bg-neutral/50 hover:text-white transition-colors'
     }`;
   };
+
   if (isDesktop)
     return (
       <DesktopNav

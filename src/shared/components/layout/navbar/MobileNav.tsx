@@ -1,10 +1,10 @@
 import { useState, type MouseEvent } from 'react';
 import { Link } from 'react-router';
 import { BurguerIcon } from '@/shared/components/icons/Burguer';
-import { ButtonLink } from '@/shared/components/ui/ButtonLink';
 import { type HeaderNavItem } from '@/shared/components/layout/navbar/types';
 import { useAuthStore } from '@/features/auth/store/useAuthStore';
 import { useShallow } from 'zustand/shallow';
+import { AuthButton } from '../../ui/AuthButton';
 
 interface MobileNavProps {
   navItems: HeaderNavItem[];
@@ -18,7 +18,6 @@ export function MobileNav({
   pathname,
 }: MobileNavProps) {
   const user = useAuthStore(useShallow((s) => s.user));
-  const isAuthenticated = !!user?.email;
 
   const [isOpen, setIsOpen] = useState(false);
   const showNav = isOpen ? '' : 'translate-x-full';
@@ -67,28 +66,7 @@ export function MobileNav({
           ))}
         </ul>
         <div className="flex flex-col gap-4 text-center">
-          {isAuthenticated && user?.role === 'ADMIN' && (
-            <ButtonLink to="/admin" className="bg-secondary text-white">
-              Panel de administración
-            </ButtonLink>
-          )}
-          {!isAuthenticated ? (
-            <ButtonLink
-              to="/auth"
-              className="bg-tertiary text-white"
-              isActive={pathname === '/auth'}
-            >
-              Iniciar Sesión
-            </ButtonLink>
-          ) : (
-            <ButtonLink
-              to="/logout"
-              className="bg-tertiary text-white"
-              isActive={pathname === '/auth'}
-            >
-              Cerrar Sesión
-            </ButtonLink>
-          )}
+          <AuthButton pathname={pathname} />
         </div>
       </nav>
     </>

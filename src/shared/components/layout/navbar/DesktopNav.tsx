@@ -2,6 +2,7 @@ import { ButtonLink } from '@/shared/components/ui/ButtonLink';
 import { Link } from 'react-router';
 import { useAuthStore } from '@/features/auth/store/useAuthStore';
 import { type HeaderNavItem } from '@/shared/components/layout/navbar/types';
+import { AuthButton } from '../../ui/AuthButton';
 
 interface DesktopNavProps {
   navItems: HeaderNavItem[];
@@ -14,10 +15,6 @@ export function DesktopNav({
   handleIsActive,
   pathname,
 }: DesktopNavProps) {
-  const user = useAuthStore((s) => s.user);
-  const isAuthenticated = !!user?.email;
-  const isAdmin = user?.role === 'ADMIN';
-
   return (
     <nav className="flex flex-1 items-center justify-end gap-10">
       <ul className="flex gap-4 font-label text-xl font-semibold">
@@ -30,32 +27,7 @@ export function DesktopNav({
         ))}
       </ul>
       <div className="flex gap-4">
-        {isAdmin && (
-          <ButtonLink
-            to="/admin"
-            className="bg-tertiary text-white"
-            isActive={pathname === '/admin'}
-          >
-            Panel de administración
-          </ButtonLink>
-        )}
-        {!isAuthenticated ? (
-          <ButtonLink
-            to="/auth"
-            className="bg-tertiary text-white"
-            isActive={pathname === '/auth'}
-          >
-            Iniciar Sesión
-          </ButtonLink>
-        ) : (
-          <ButtonLink
-            to="/logout"
-            className="bg-secondary text-white"
-            isActive={pathname === '/logout'}
-          >
-            Cerrar Sesión
-          </ButtonLink>
-        )}
+        <AuthButton pathname={pathname} />
       </div>
     </nav>
   );

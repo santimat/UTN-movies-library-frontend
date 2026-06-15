@@ -16,9 +16,9 @@ export function GenreFilters() {
 
   const handleClick = (genre: string) => {
     if (genreFromParam === genre) {
-      return updateSearchParam({ genre: '' });
+      return updateSearchParam({ genre: '', page: '1' });
     }
-    updateSearchParam({ genre: genre });
+    updateSearchParam({ genre: genre, page: '1' });
   };
 
   useEffect(() => {
