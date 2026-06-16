@@ -7,7 +7,7 @@ export function MovieCard({
   id,
   title,
   genre,
-  year,
+  releaseYear,
   posterUrl,
   averageRating,
   idx,
@@ -37,7 +37,7 @@ export function MovieCard({
             <StarIcon className="w-6 fill-tertiary/70 stroke-tertiary/70" />
             <span>{genre}</span>
             <span>&diams;</span>
-            <span>{year}</span>
+            <span>{releaseYear}</span>
           </div>
           <ButtonLink
             to={`/movie/${id}`}

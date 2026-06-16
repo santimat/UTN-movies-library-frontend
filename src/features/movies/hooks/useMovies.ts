@@ -3,7 +3,7 @@ import { useShallow } from 'zustand/shallow';
 import { useMoviesStore } from '@/features/movies/store/useMoviesStore';
 import { useMovieSearchParams } from '@/features/movies/hooks/useMovieSearchParams';
 
-export function useMovies() {
+export function useMovies(limit = '5') {
   const { genre, sortBy, sortOrder, searchText, page } = useMovieSearchParams();
   const { movies, fetchMovies, loading, error, currentPage, totalPages } =
     useMoviesStore(
@@ -18,8 +18,15 @@ export function useMovies() {
     );
 
   useEffect(() => {
-    fetchMovies({ genre, sortBy, sortOrder, searchText, page });
-  }, [searchText, genre, sortBy, sortOrder, fetchMovies, page]);
+    fetchMovies({
+      genre,
+      sortBy,
+      sortOrder,
+      searchText,
+      page,
+      size: limit,
+    });
+  }, [searchText, genre, sortBy, sortOrder, fetchMovies, page, limit]);
 
   return { movies, loading, error, totalPages, currentPage };
 }

@@ -4,7 +4,7 @@ export type Movie = {
   director: string;
   genre: string;
   synopsis: string;
-  year: number;
+  releaseYear: number;
   averageRating: number;
   duration: number;
   posterUrl: string;
@@ -26,4 +26,5 @@ export type GetMoviesProps = {
   sortOrder?: 'ASC' | 'DESC';
   searchText?: string;
   page?: string;
+  size?: string;
 };
