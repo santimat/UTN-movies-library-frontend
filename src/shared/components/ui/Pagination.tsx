@@ -30,7 +30,7 @@ export function Pagination({ totalPages, currentPage }: PaginationProps) {
             <li key={`link-page-${page}`}>
               <Button
                 onClick={() => handlePageClick(page)}
-                className={`py-1 ${currentPage === page ? 'bg-tertiary text-white' : ''}`}
+                className={`py-1 font-bold ${currentPage === page ? 'bg-tertiary text-white' : ''}`}
               >
                 {page}
               </Button>
