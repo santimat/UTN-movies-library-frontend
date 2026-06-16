@@ -46,7 +46,7 @@ export function SortSelect() {
           <option value={'title'}>Titulo</option>
           <option value={'genre'}>Genero</option>
           <option value={'averageRating'}>Rating</option>
-          <option value={'year'}>Año</option>
+          <option value={'releaseYear'}>Año</option>
         </select>
       </label>
       <Button onClick={setSortOrder} className="p-0!">

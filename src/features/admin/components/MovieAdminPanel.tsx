@@ -1,36 +1,24 @@
+import { useMovies } from '@/features/movies/hooks/useMovies';
+import { AddIcon } from '@/shared/components/icons/Add';
 import { Button } from '@/shared/components/ui/Button';
-import { useMediaQuery } from '@/shared/hooks/useMediaQuery';
+import { Pagination } from '@/shared/components/ui/Pagination';
+import { MoviesManagementList } from '@/features/admin/components/MoviesManagementList';
 
 export function MovieAdminPanel() {
-  const isDesktop = useMediaQuery('(min-width:768px)');
-
+  const { movies, totalPages, currentPage } = useMovies('3');
   return (
-    <section className="mx-auto mt-10 w-[80%] text-neutral">
-      <div className="flex flex-col items-center justify-between">
-        <h2 className="text-lg text-balance">Administración de películas</h2>
-        <Button className="bg-tertiary font-bold text-white uppercase">
-          Añadir
+    <section className="mx-auto mt-10 w-[90%]">
+      <div className="flex items-center justify-between">
+        <h2 className="px-2 text-center text-xl font-bold uppercase">
+          Películas
+        </h2>
+        <Button className="flex items-center justify-center gap-2 bg-tertiary text-sm font-bold text-white uppercase">
+          <AddIcon width={24} height={24} />
+          Añadir película
         </Button>
       </div>
-      <div role="table" className="mt-10 border-2 border-neutral uppercase">
-        <div
-          role="rowgroup"
-          className="grid grid-cols-2 bg-neutral/60 p-2 font-bold text-white md:grid-cols-6"
-        >
-          <h4 role="columnheader" className="lg:col-span-2">
-            Título
-          </h4>
-          {isDesktop && (
-            <>
-              <h4 role="columnheader">Genre</h4>
-              <h4 role="columnheader">Year</h4>
-              <h4 role="columnheader">Rating</h4>
-            </>
-          )}
-          <h4 role="columnheader">Actions</h4>
-        </div>
-        <div></div>
-      </div>
+      <MoviesManagementList movies={movies} />
+      <Pagination totalPages={totalPages} currentPage={currentPage} />
     </section>
   );
 }
