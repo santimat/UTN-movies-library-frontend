@@ -7,8 +7,5 @@ export type Review = {
   comment: string;
   movieId: number;
 };
-export type ReviewRequest = Omit<
-  Review,
-  'id' | 'username' | 'movieTitle' | 'userId'
->;
+export type ReviewRequest = Pick<Review, 'movieId' | 'rating' | 'comment'>;
 export type ReviewResponse = Review;
