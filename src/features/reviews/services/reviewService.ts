@@ -9,7 +9,7 @@ const BASE_URL = `${API_URL}/reviews`;
 export const reviewService = {
   getReviewsByMovieId: async (movieId: number) => {
     try {
-      const res = await fetch(`${API_URL}/movies/reviews/${movieId}`);
+      const res = await fetch(`${BASE_URL}?movieId=${movieId}`);
       handleResponseErrors(res);
       const data: SpringPageResponse = await res.json();
       if (!data.page.totalElements)
