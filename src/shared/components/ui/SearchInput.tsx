@@ -8,6 +8,18 @@ export function SearchInput() {
   const [inputValue, setInputValue] = useState<string>('');
   const timeoutRef = useRef<number>(0);
 
+  const normalizeSearch = (text: string) => {
+    return (
+      text
+        .normalize('NFD')
+        // Regex for accents keeping 'ñ'
+        .replace(/[\u0300-\u0302\u0304-\u036f]/g, '')
+        .toLowerCase()
+    );
+  };
+
+  normalizeSearch('canción');
+
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
   };
@@ -16,7 +28,10 @@ export function SearchInput() {
     () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
       timeoutRef.current = setTimeout(() => {
-        updateSearchParam({ searchText: inputValue, page: '1' });
+        updateSearchParam({
+          searchText: normalizeSearch(inputValue),
+          page: '1',
+        });
       }, DEBOUNCE_TIME);
 
       return () => {
