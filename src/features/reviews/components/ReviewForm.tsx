@@ -10,7 +10,7 @@ import { useShallow } from 'zustand/shallow';
 
 export function ReviewForm({ movieId }: { movieId: number }) {
   const commentId = useId();
-  const [rating, setRating] = useState<number>(0);
+  const [rating, setRating] = useState(0);
 
   const user = useAuthStore((s) => s.user);
   const { createReview, isLoading, alreadyReviewed } = useReviewsStore(

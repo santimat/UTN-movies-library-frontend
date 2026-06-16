@@ -2,7 +2,6 @@ export type User = {
   id: number;
   name: string;
   email: string;
-  password: string;
   role: 'ADMIN' | 'USER';
 };
 
@@ -13,4 +12,4 @@ export type AuthRequest = {
   remember: boolean;
 };
 
-export type UserResponse = Omit<User, 'password'>;
+export type UserResponse = User;

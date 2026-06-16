@@ -1,3 +1,4 @@
+import { SORT_FIELDS } from '@/shared/utils/constants';
 export type Movie = {
   id: number;
   title: string;
@@ -22,7 +23,7 @@ export type Genre = {
 
 export type GetMoviesProps = {
   genre?: string;
-  sortBy?: keyof Movie | undefined;
+  sortBy?: keyof typeof SORT_FIELDS;
   sortOrder?: 'ASC' | 'DESC';
   searchText?: string;
   page?: string;

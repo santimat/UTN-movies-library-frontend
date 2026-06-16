@@ -5,8 +5,8 @@ import { DEBOUNCE_TIME } from '@/shared/utils/constants';
 
 export function SearchInput() {
   const { updateSearchParam } = useMovieSearchParams();
-  const [inputValue, setInputValue] = useState<string>('');
-  const timeoutRef = useRef<number>(0);
+  const [inputValue, setInputValue] = useState('');
+  const timeoutRef = useRef(0);
 
   const normalizeSearch = (text: string) => {
     return (

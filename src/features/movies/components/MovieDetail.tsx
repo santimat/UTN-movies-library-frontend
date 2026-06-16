@@ -18,7 +18,9 @@ export function MovieDetail() {
         <h1 className="text-5xl uppercase">{movie?.title}</h1>
         <ul className="mt-4 flex gap-4 font-body text-white uppercase">
           <li>
-            <span className="border-none bg-neutral p-2">{movie?.year}</span>
+            <span className="border-none bg-neutral p-2">
+              {movie?.releaseYear}
+            </span>
           </li>
           <li>
             <span className="border-none bg-tertiary p-2">{movie?.genre}</span>

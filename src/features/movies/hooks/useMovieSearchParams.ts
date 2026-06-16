@@ -1,12 +1,13 @@
 import { useCallback } from 'react';
 import { useSearchParams } from 'react-router';
-import { type Movie } from '@/features/movies/types';
+import type { SORT_FIELDS } from '@/shared/utils/constants';
 
 export function useMovieSearchParams() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const genre = searchParams.get('genre') || undefined;
-  const sortBy = (searchParams.get('sortBy') as keyof Movie) || 'averageRating';
+  const sortBy =
+    (searchParams.get('sortBy') as keyof typeof SORT_FIELDS) || 'averageRating';
   const sortOrder = (searchParams.get('sortOrder') as 'ASC' | 'DESC') || 'DESC';
   const searchText = searchParams.get('searchText')?.toLowerCase() || '';
   const page = searchParams.get('page') || '1';
