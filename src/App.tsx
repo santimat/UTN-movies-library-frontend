@@ -37,6 +37,12 @@ const NotFound = lazy(() =>
   }))
 );
 
+const Modal = lazy(() =>
+  import('@/shared/components/ui/Modal').then((module) => ({
+    default: module.Modal,
+  }))
+);
+
 function App() {
   return (
     <>
@@ -61,6 +67,7 @@ function App() {
           </Route>
         </Route>
       </Routes>
+      <Modal />
     </>
   );
 }
