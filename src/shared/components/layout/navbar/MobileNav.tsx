@@ -27,10 +27,11 @@ export function MobileNav({
   };
 
   // close navbar when user navigates
-  const handleNavClick = (event: MouseEvent<HTMLUListElement>) => {
-    const target = event.target as HTMLLIElement;
+  const handleNavClick = (event: MouseEvent<HTMLDivElement>) => {
+    const target = event.target as HTMLElement;
     const isLink = target.tagName === 'A';
-    if (isLink) {
+    const isOutside = !(target.tagName === 'NAV');
+    if (isLink || isOutside) {
       window.document.body.style.overflow = 'auto';
       setIsOpen(false);
     }
@@ -44,31 +45,33 @@ export function MobileNav({
       >
         <BurguerIcon className="pointer-events-none w-8" />
       </button>
-      <nav
-        className={`fixed right-0 bottom-0 z-40 flex h-dvh w-3/4 flex-col items-center justify-evenly bg-white/80 backdrop-blur-md transition-transform duration-500 ${showNav}`}
+      <div
+        className={`fixed inset-0 z-40 transition-transform duration-500 ${showNav} w-full`}
         onClick={handleNavClick}
       >
-        {user?.email && (
-          <p className="text-center font-semibold text-neutral">
-            Nombre de usuario:
-            <span className="block text-2xl font-bold first-letter:capitalize">
-              {user?.name}
-            </span>
-          </p>
-        )}
-        <ul className="grid gap-6 text-center text-2xl">
-          {navItems.map(({ text, href }) => (
-            <li key={href}>
-              <Link className={handleIsActive(href)} to={href}>
-                {text}
-              </Link>
-            </li>
-          ))}
-        </ul>
-        <div className="flex flex-col gap-4 text-center">
-          <AuthButton pathname={pathname} />
-        </div>
-      </nav>
+        <nav className="ml-auto flex h-dvh w-3/4 flex-col items-center justify-evenly bg-white/80 backdrop-blur-md">
+          {user?.email && (
+            <p className="text-center font-semibold text-neutral">
+              Nombre de usuario:
+              <span className="block text-2xl font-bold first-letter:capitalize">
+                {user?.name}
+              </span>
+            </p>
+          )}
+          <ul className="grid gap-6 text-center text-2xl">
+            {navItems.map(({ text, href }) => (
+              <li key={href}>
+                <Link className={handleIsActive(href)} to={href}>
+                  {text}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <div className="flex flex-col gap-4 text-center">
+            <AuthButton pathname={pathname} />
+          </div>
+        </nav>
+      </div>
     </>
   );
 }
