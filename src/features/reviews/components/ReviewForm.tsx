@@ -4,7 +4,7 @@ import { Button } from '@/shared/components/ui/Button';
 import { useAuthStore } from '@/features/auth/store/useAuthStore';
 import { areMissingFields } from '@/shared/utils/checkMissingFields';
 import { REVIEW_FIELDS } from '@/shared/utils/constants';
-import { toast } from 'sonner';
+import { sileo } from 'sileo';
 import { useReviewsStore } from '@/features/reviews/store/useReviewsStore';
 import { useShallow } from 'zustand/shallow';
 
@@ -37,11 +37,15 @@ export function ReviewForm({ movieId }: { movieId: number }) {
 
     const missingFields = areMissingFields(reviewData, REVIEW_FIELDS);
     if (missingFields?.length)
-      return toast.error(
-        `Faltan los siguientes campos: ${missingFields.join(', ')}`
-      );
+      return sileo.error({
+        title: 'Campos incompletos',
+        description: `Por favor, completa todos los campos requeridos:  ${missingFields.join(', ')}`,
+      });
     await createReview(reviewData);
-    toast.success('Reseña creada con éxito');
+    sileo.success({
+      title: 'Reseña creada con éxito',
+      description: 'Gracias por compartir tu opinión sobre la película.',
+    });
     setRating(0);
     form.reset();
   };

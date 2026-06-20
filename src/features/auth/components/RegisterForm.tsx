@@ -1,5 +1,5 @@
 import { useId, type SubmitEvent } from 'react';
-import { toast } from 'sonner';
+import { sileo } from 'sileo';
 import { REGISTER_FIELDS } from '@/shared/utils/constants';
 import { AuthForm } from '@/features/auth/components/AuthForm';
 import { AuthFormField } from '@/features/auth/components/AuthFormField';
@@ -23,10 +23,16 @@ export function RegisterForm() {
 
     try {
       await register(registerData);
-      toast.success('Registro exitoso. Ahora puedes iniciar sesión.');
+      sileo.success({
+        title: 'Registro exitoso',
+        description: 'Ahora puedes iniciar sesión con tus credenciales.',
+      });
     } catch (err) {
       const { error } = err as AppError;
-      toast.error(error);
+      sileo.error({
+        title: 'Error al registrarse',
+        description: error,
+      });
     } finally {
       form.reset();
     }

@@ -12,7 +12,7 @@ export function PenIcon({
       stroke="currentColor"
       strokeLinecap="round"
       strokeLinejoin="round"
-      strokeWidth="1"
+      strokeWidth="2"
       aria-hidden="true"
       className={classes}
       height={height}

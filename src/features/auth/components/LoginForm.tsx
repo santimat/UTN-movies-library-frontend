@@ -1,6 +1,5 @@
 import { useId, useState, type SubmitEvent } from 'react';
 import { useNavigate, Link } from 'react-router';
-import { toast } from 'sonner';
 
 import type { AppError } from '@/shared/types';
 import { LOGIN_FIELDS } from '@/shared/utils/constants';
@@ -9,6 +8,7 @@ import { AuthForm } from '@/features/auth/components/AuthForm';
 import { useAuthStore } from '@/features/auth/store/useAuthStore';
 import { areMissingFields } from '@/shared/utils/checkMissingFields';
 import { AuthFormField } from '@/features/auth/components/AuthFormField';
+import { sileo } from 'sileo';
 
 export function LoginForm() {
   const [remember, setRemember] = useState(false);
@@ -32,7 +32,10 @@ export function LoginForm() {
       navigate('/');
     } catch (err) {
       const { error } = err as AppError;
-      toast.error(error);
+      sileo.error({
+        title: 'Error al iniciar sesión',
+        description: error,
+      });
     } finally {
       form.reset();
     }
