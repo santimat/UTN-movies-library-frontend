@@ -12,6 +12,7 @@ createRoot(document.getElementById('root')!).render(
       position="top-center"
       options={{
         fill: 'black',
+        duration: 800,
         styles: {
           title: 'text-lg! normal-case!',
           description: 'font-bold! text-white! text-pretty!',
