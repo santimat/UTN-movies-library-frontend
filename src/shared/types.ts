@@ -18,3 +18,16 @@ export type AppError = {
   code: string;
   error: string;
 };
+
+export type Movie = {
+  id: number;
+  title: string;
+  director: string;
+  genre: string;
+  synopsis: string;
+  releaseYear: number;
+  averageRating: number;
+  duration: number;
+  posterUrl: string;
+  trailerUrl: string;
+};

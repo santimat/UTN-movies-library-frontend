@@ -1,16 +1,5 @@
 import { SORT_FIELDS } from '@/shared/utils/constants';
-export type Movie = {
-  id: number;
-  title: string;
-  director: string;
-  genre: string;
-  synopsis: string;
-  releaseYear: number;
-  averageRating: number;
-  duration: number;
-  posterUrl: string;
-  trailerUrl: string;
-};
+import { type Movie } from '@/shared/types';
 
 export type MovieRequest = Omit<Movie, 'id'>;
 export type MovieResponse = Movie;

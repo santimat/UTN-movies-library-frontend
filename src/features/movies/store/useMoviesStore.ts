@@ -1,9 +1,6 @@
 import { create } from 'zustand';
-import {
-  type Movie,
-  type Genre,
-  type GetMoviesProps,
-} from '@/features/movies/types';
+import { type Genre, type GetMoviesProps } from '@/features/movies/types';
+import { type Movie } from '@/shared/types';
 import { movieService } from '@/features/movies/services/movieService';
 import type { AppError } from '@/shared/types';
 
