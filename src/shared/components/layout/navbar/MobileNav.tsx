@@ -4,7 +4,7 @@ import { BurguerIcon } from '@/shared/components/icons/Burguer';
 import { type HeaderNavItem } from '@/shared/components/layout/navbar/types';
 import { useAuthStore } from '@/features/auth/store/useAuthStore';
 import { useShallow } from 'zustand/shallow';
-import { AuthButton } from '../../ui/AuthButton';
+import { AuthButton } from '@/shared/components/ui/NavBarActions';
 
 interface MobileNavProps {
   navItems: HeaderNavItem[];

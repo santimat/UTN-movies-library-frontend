@@ -1,8 +1,6 @@
-import { ButtonLink } from '@/shared/components/ui/ButtonLink';
 import { Link } from 'react-router';
-import { useAuthStore } from '@/features/auth/store/useAuthStore';
 import { type HeaderNavItem } from '@/shared/components/layout/navbar/types';
-import { AuthButton } from '../../ui/AuthButton';
+import { AuthButton } from '@/shared/components/ui/NavBarActions';
 
 interface DesktopNavProps {
   navItems: HeaderNavItem[];
