@@ -4,7 +4,7 @@ import { REGISTER_FIELDS } from '@/shared/utils/constants';
 import { AuthForm } from '@/features/auth/components/AuthForm';
 import { AuthFormField } from '@/features/auth/components/AuthFormField';
 import { useAuthStore } from '@/features/auth/store/useAuthStore';
-import { areMissingFields } from '@/shared/utils/checkMissingFields';
+import { getMissingFields } from '@/shared/utils/checkMissingFields';
 import { type AppError } from '@/shared/types';
 
 export function RegisterForm() {
@@ -19,7 +19,14 @@ export function RegisterForm() {
     const formData = new FormData(form);
     const registerData = Object.fromEntries(formData.entries());
 
-    if (areMissingFields(registerData, REGISTER_FIELDS)) return;
+    const missingFields = getMissingFields(registerData, REGISTER_FIELDS);
+
+    if (missingFields) {
+      return sileo.warning({
+        title: 'Campos faltantes',
+        description: `Por favor, completa ${missingFields}`,
+      });
+    }
 
     try {
       await register(registerData);
@@ -52,7 +59,6 @@ export function RegisterForm() {
           type="text"
           placeholder="pepegamer"
           name="name"
-          required={false}
         />
         <AuthFormField
           id={emailId}
@@ -60,6 +66,7 @@ export function RegisterForm() {
           type="email"
           placeholder="user@example.com"
           name="email"
+          required={false}
         />
         <AuthFormField
           id={passwordId}

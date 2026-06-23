@@ -1,6 +1,6 @@
-export const areMissingFields = (
+export const getMissingFields = (
   payload: Record<string, unknown>,
-  FIELDS_DICTIONARY: Record<string, string>
+  FIELDS_DICTIONARY: Record<string, string | boolean>
 ) => {
   const missingFields = Object.keys(payload).filter((field) => {
     const value = payload[field];
@@ -9,8 +9,10 @@ export const areMissingFields = (
   });
 
   if (missingFields.length) {
-    return missingFields.map((field) => {
+    const parsedMissingFields = missingFields.map((field) => {
       return FIELDS_DICTIONARY[field as keyof typeof FIELDS_DICTIONARY];
     });
+
+    return `${parsedMissingFields.length > 1 ? 'los siguientes campos: ' : 'el campo: '} ${parsedMissingFields.join(', ')}`;
   }
 };

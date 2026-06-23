@@ -6,7 +6,7 @@ import { LOGIN_FIELDS } from '@/shared/utils/constants';
 import { CheckBox } from '@/shared/components/icons/CheckBox';
 import { AuthForm } from '@/features/auth/components/AuthForm';
 import { useAuthStore } from '@/features/auth/store/useAuthStore';
-import { areMissingFields } from '@/shared/utils/checkMissingFields';
+import { getMissingFields } from '@/shared/utils/checkMissingFields';
 import { AuthFormField } from '@/features/auth/components/AuthFormField';
 import { sileo } from 'sileo';
 
@@ -26,7 +26,15 @@ export function LoginForm() {
       ...Object.fromEntries(formData.entries()),
       remember,
     };
-    if (areMissingFields(loginData, LOGIN_FIELDS)) return;
+
+    const missingFields = getMissingFields(loginData, LOGIN_FIELDS);
+    if (missingFields) {
+      return sileo.warning({
+        title: 'Campos faltantes',
+        description: `Por favor, completa ${missingFields}`,
+      });
+    }
+
     try {
       await login(loginData);
       navigate('/');

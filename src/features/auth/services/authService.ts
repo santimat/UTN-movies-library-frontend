@@ -30,7 +30,9 @@ const auth = async (endpoint: string, payload: Partial<AuthRequest>) => {
 export const authService = {
   register: async (registerData: Partial<AuthRequest>) => {
     try {
-      return await auth('register', registerData);
+      //eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { remember, ...dataToSend } = registerData;
+      return await auth('register', dataToSend);
     } catch (error) {
       throw handleFetchErrors(error);
     }
