@@ -11,7 +11,7 @@ export function Modal() {
 
   return createPortal(
     <div
-      className="fixed inset-0 z-50 backdrop-blur-md"
+      className="fixed inset-0 z-60 backdrop-blur-md"
       onClick={handleClickModal}
     >
       {modalContent}
