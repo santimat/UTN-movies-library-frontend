@@ -28,29 +28,14 @@ export const useAuthStore = create<UseAuthStore>((set) => ({
     }
   },
   login: async (loginData: Partial<AuthRequest>) => {
-    try {
-      const user = await authService.login(loginData);
-      set({ user, error: null });
-    } catch (error) {
-      set({ error: error as AppError });
-      throw error;
-    }
+    const user = await authService.login(loginData);
+    set({ user, error: null });
   },
   register: async (registerData: Partial<AuthRequest>) => {
-    try {
-      await authService.register(registerData);
-      set({ error: null });
-    } catch (error) {
-      set({ error: error as AppError });
-      throw error;
-    }
+    await authService.register(registerData);
   },
   logout: async () => {
-    try {
-      await authService.logout();
-      set({ user: null });
-    } catch (error) {
-      set({ error: error as AppError });
-    }
+    await authService.logout();
+    set({ user: null });
   },
 }));
