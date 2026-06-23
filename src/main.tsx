@@ -12,10 +12,10 @@ createRoot(document.getElementById('root')!).render(
       position="top-center"
       options={{
         fill: 'black',
-        duration: 800,
+        duration: 3000,
         styles: {
-          title: 'text-lg! normal-case!',
-          description: 'font-bold! text-white! text-pretty!',
+          title: 'text-lg! normal-case! font-bold!',
+          description: 'font-semibold! text-white! text-pretty! font-body!',
         },
       }}
     />
