@@ -1,4 +1,4 @@
-import { useId, useState, type SubmitEvent } from 'react';
+import { useCallback, useId, useState, type SubmitEvent } from 'react';
 import { useNavigate, Link } from 'react-router';
 
 import type { AppError } from '@/shared/types';
@@ -7,23 +7,36 @@ import { CheckBox } from '@/shared/components/icons/CheckBox';
 import { AuthForm } from '@/features/auth/components/AuthForm';
 import { useAuthStore } from '@/features/auth/store/useAuthStore';
 import { getMissingFields } from '@/shared/utils/checkMissingFields';
-import { AuthFormField } from '@/features/auth/components/AuthFormField';
+import { FormField } from '@/shared/components/ui/FormField';
 import { sileo } from 'sileo';
 
 export function LoginForm() {
-  const [remember, setRemember] = useState(false);
-  const login = useAuthStore((s) => s.login);
-  const navigate = useNavigate();
   const emailId = useId();
   const passwordId = useId();
-  const handleRemember = () => setRemember((prev) => !prev);
+  const navigate = useNavigate();
+
+  const [remember, setRemember] = useState(false);
+  const [loginData, setLoginData] = useState({
+    email: '',
+    password: '',
+  });
+
+  const login = useAuthStore((s) => s.login);
+  const handleRemember = useCallback(() => setRemember((prev) => !prev), []);
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target as HTMLInputElement;
+    const newValue = {
+      [name]: value,
+    };
+    setLoginData((prev) => ({ ...prev, ...newValue }));
+  };
 
   const handleSubmit = async (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
-    const formData = new FormData(form);
-    const loginData = {
-      ...Object.fromEntries(formData.entries()),
+    const dataToSend = {
+      ...loginData,
       remember,
     };
 
@@ -36,7 +49,7 @@ export function LoginForm() {
     }
 
     try {
-      await login(loginData);
+      await login(dataToSend);
       navigate('/');
     } catch (err) {
       const { error } = err as AppError;
@@ -57,19 +70,23 @@ export function LoginForm() {
         submitLabel="iniciar sesión"
         className='[&>input[type="submit"]]:bg-secondary'
       >
-        <AuthFormField
+        <FormField
           id={emailId}
           label="email"
           type="email"
           name="email"
           placeholder="user@example.com"
+          value={loginData.email}
+          onChangeValue={handleChange}
         />
-        <AuthFormField
+        <FormField
           name="password"
           id={passwordId}
           label="contraseña"
           type="password"
           placeholder="***********"
+          value={loginData.password}
+          onChangeValue={handleChange}
         />
         <label className="flex items-center gap-2 font-semibold select-none">
           <input

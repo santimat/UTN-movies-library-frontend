@@ -1,24 +1,26 @@
-import { useId, type SubmitEvent } from 'react';
+import { useId, useState, type SubmitEvent } from 'react';
 import { sileo } from 'sileo';
 import { REGISTER_FIELDS } from '@/shared/utils/constants';
 import { AuthForm } from '@/features/auth/components/AuthForm';
-import { AuthFormField } from '@/features/auth/components/AuthFormField';
+import { FormField } from '@/shared/components/ui/FormField';
 import { useAuthStore } from '@/features/auth/store/useAuthStore';
 import { getMissingFields } from '@/shared/utils/checkMissingFields';
 import { type AppError } from '@/shared/types';
 
 export function RegisterForm() {
-  const register = useAuthStore((s) => s.register);
   const usernameId = useId();
   const emailId = useId();
   const passwordId = useId();
+  const register = useAuthStore((s) => s.register);
+  const [registerData, setRegisterData] = useState({
+    name: '',
+    email: '',
+    password: '',
+  });
 
   const handleSubmit = async (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
-    const formData = new FormData(form);
-    const registerData = Object.fromEntries(formData.entries());
-
     const missingFields = getMissingFields(registerData, REGISTER_FIELDS);
 
     if (missingFields) {
@@ -45,6 +47,13 @@ export function RegisterForm() {
     }
   };
 
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target as HTMLInputElement;
+    const newValue = {
+      [name]: value,
+    };
+    setRegisterData((prev) => ({ ...prev, ...newValue }));
+  };
   return (
     <>
       <AuthForm
@@ -53,27 +62,30 @@ export function RegisterForm() {
         onSubmit={handleSubmit}
         className='[&>input[type="submit"]]:bg-tertiary'
       >
-        <AuthFormField
+        <FormField
           id={usernameId}
           label="Nombre de usuario"
           type="text"
           placeholder="pepegamer"
           name="name"
+          onChangeValue={handleChange}
         />
-        <AuthFormField
+        <FormField
           id={emailId}
           label="Correo electrónico"
           type="email"
           placeholder="user@example.com"
           name="email"
           required={false}
+          onChangeValue={handleChange}
         />
-        <AuthFormField
+        <FormField
           id={passwordId}
           label="Contraseña"
           type="password"
           placeholder="***********"
           name="password"
+          onChangeValue={handleChange}
         />
       </AuthForm>
     </>
