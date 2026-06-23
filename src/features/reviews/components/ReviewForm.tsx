@@ -2,7 +2,7 @@ import { useId, useState, type SubmitEvent } from 'react';
 import { RatingInput } from '@/features/reviews/components/RatingInput';
 import { Button } from '@/shared/components/ui/Button';
 import { useAuthStore } from '@/features/auth/store/useAuthStore';
-import { areMissingFields } from '@/shared/utils/checkMissingFields';
+import { getMissingFields } from '@/shared/utils/checkMissingFields';
 import { REVIEW_FIELDS } from '@/shared/utils/constants';
 import { sileo } from 'sileo';
 import { useReviewsStore } from '@/features/reviews/store/useReviewsStore';
@@ -35,11 +35,11 @@ export function ReviewForm({ movieId }: { movieId: number }) {
       movieId,
     };
 
-    const missingFields = areMissingFields(reviewData, REVIEW_FIELDS);
+    const missingFields = getMissingFields(reviewData, REVIEW_FIELDS);
     if (missingFields?.length)
       return sileo.error({
         title: 'Campos incompletos',
-        description: `Por favor, completa todos los campos requeridos:  ${missingFields.join(', ')}`,
+        description: `Por favor, completa ${missingFields}`,
       });
     await createReview(reviewData);
     sileo.success({
