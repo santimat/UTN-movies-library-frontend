@@ -1,4 +1,4 @@
-import { useCallback, useId, useState, type SubmitEvent } from 'react';
+import { useCallback, useState, type SubmitEvent } from 'react';
 import { useNavigate, Link } from 'react-router';
 
 import type { AppError } from '@/shared/types';
@@ -11,8 +11,6 @@ import { FormField } from '@/shared/components/ui/FormField';
 import { sileo } from 'sileo';
 
 export function LoginForm() {
-  const emailId = useId();
-  const passwordId = useId();
   const navigate = useNavigate();
 
   const [remember, setRemember] = useState(false);
@@ -71,7 +69,6 @@ export function LoginForm() {
         className='[&>input[type="submit"]]:bg-secondary'
       >
         <FormField
-          id={emailId}
           label="email"
           type="email"
           name="email"
@@ -81,7 +78,6 @@ export function LoginForm() {
         />
         <FormField
           name="password"
-          id={passwordId}
           label="contraseña"
           type="password"
           placeholder="***********"

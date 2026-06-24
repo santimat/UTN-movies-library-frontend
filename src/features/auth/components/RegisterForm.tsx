@@ -1,4 +1,4 @@
-import { useId, useState, type SubmitEvent } from 'react';
+import { useState, type SubmitEvent } from 'react';
 import { sileo } from 'sileo';
 import { REGISTER_FIELDS } from '@/shared/utils/constants';
 import { AuthForm } from '@/features/auth/components/AuthForm';
@@ -8,9 +8,6 @@ import { getMissingFields } from '@/shared/utils/checkMissingFields';
 import { type AppError } from '@/shared/types';
 
 export function RegisterForm() {
-  const usernameId = useId();
-  const emailId = useId();
-  const passwordId = useId();
   const register = useAuthStore((s) => s.register);
   const [registerData, setRegisterData] = useState({
     name: '',
@@ -63,7 +60,6 @@ export function RegisterForm() {
         className='[&>input[type="submit"]]:bg-tertiary'
       >
         <FormField
-          id={usernameId}
           label="Nombre de usuario"
           type="text"
           placeholder="pepegamer"
@@ -71,7 +67,6 @@ export function RegisterForm() {
           onChangeValue={handleChange}
         />
         <FormField
-          id={emailId}
           label="Correo electrónico"
           type="email"
           placeholder="user@example.com"
@@ -80,7 +75,6 @@ export function RegisterForm() {
           onChangeValue={handleChange}
         />
         <FormField
-          id={passwordId}
           label="Contraseña"
           type="password"
           placeholder="***********"
