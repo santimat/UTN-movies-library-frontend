@@ -1,5 +1,4 @@
 interface FormFieldProps {
-  id: string;
   label: string;
   type?: string;
   placeholder?: string;
@@ -10,7 +9,6 @@ interface FormFieldProps {
 }
 
 export function FormField({
-  id,
   label,
   type = 'text',
   placeholder,
@@ -20,13 +18,9 @@ export function FormField({
   value: inputValue = '',
 }: FormFieldProps) {
   return (
-    <label
-      htmlFor={id}
-      className="flex flex-col font-semibold tracking-wide uppercase outline-tertiary has-focus:text-tertiary"
-    >
+    <label className="flex flex-col font-semibold tracking-wide uppercase outline-tertiary has-focus:text-tertiary">
       {label}
       <input
-        id={id}
         type={type}
         required={required}
         name={name}
