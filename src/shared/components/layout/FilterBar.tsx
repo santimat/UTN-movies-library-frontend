@@ -2,7 +2,7 @@ import { SearchInput } from '@/shared/components/ui/SearchInput';
 import { SortSelect } from '@/shared/components/ui/SortSelect';
 import { GenreFilters } from '@/shared/components/ui/GenreFilters';
 
-export function Filters() {
+export function FilterBar() {
   return (
     <form
       className="mb-4 flex flex-col gap-4 font-semibold"
