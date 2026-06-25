@@ -1,4 +1,4 @@
-import { useState, type SubmitEvent } from 'react';
+import { type SubmitEvent } from 'react';
 import { sileo } from 'sileo';
 import { REGISTER_FIELDS } from '@/shared/utils/constants';
 import { AuthForm } from '@/features/auth/components/AuthForm';
@@ -9,15 +9,15 @@ import { type AppError } from '@/shared/types';
 
 export function RegisterForm() {
   const register = useAuthStore((s) => s.register);
-  const [registerData, setRegisterData] = useState({
-    name: '',
-    email: '',
-    password: '',
-  });
 
   const handleSubmit = async (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
+    const formData = new FormData(form);
+    const registerData = {
+      ...Object.fromEntries(formData.entries()),
+    };
+
     const missingFields = getMissingFields(registerData, REGISTER_FIELDS);
 
     if (missingFields) {
@@ -44,13 +44,6 @@ export function RegisterForm() {
     }
   };
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target as HTMLInputElement;
-    const newValue = {
-      [name]: value,
-    };
-    setRegisterData((prev) => ({ ...prev, ...newValue }));
-  };
   return (
     <>
       <AuthForm
@@ -64,7 +57,6 @@ export function RegisterForm() {
           type="text"
           placeholder="pepegamer"
           name="name"
-          onChangeValue={handleChange}
         />
         <FormField
           label="Correo electrónico"
@@ -72,14 +64,12 @@ export function RegisterForm() {
           placeholder="user@example.com"
           name="email"
           required={false}
-          onChangeValue={handleChange}
         />
         <FormField
           label="Contraseña"
           type="password"
           placeholder="***********"
           name="password"
-          onChangeValue={handleChange}
         />
       </AuthForm>
     </>

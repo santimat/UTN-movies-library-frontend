@@ -14,30 +14,19 @@ export function LoginForm() {
   const navigate = useNavigate();
 
   const [remember, setRemember] = useState(false);
-  const [loginData, setLoginData] = useState({
-    email: '',
-    password: '',
-  });
 
   const login = useAuthStore((s) => s.login);
   const handleRemember = useCallback(() => setRemember((prev) => !prev), []);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target as HTMLInputElement;
-    const newValue = {
-      [name]: value,
-    };
-    setLoginData((prev) => ({ ...prev, ...newValue }));
-  };
-
   const handleSubmit = async (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
-    const dataToSend = {
-      ...loginData,
+    const formData = new FormData(form);
+
+    const loginData = {
+      ...Object.fromEntries(formData.entries()),
       remember,
     };
-
     const missingFields = getMissingFields(loginData, LOGIN_FIELDS);
     if (missingFields) {
       return sileo.warning({
@@ -47,7 +36,7 @@ export function LoginForm() {
     }
 
     try {
-      await login(dataToSend);
+      await login(loginData);
       navigate('/');
     } catch (err) {
       const { error } = err as AppError;
@@ -73,16 +62,12 @@ export function LoginForm() {
           type="email"
           name="email"
           placeholder="user@example.com"
-          value={loginData.email}
-          onChangeValue={handleChange}
         />
         <FormField
           name="password"
           label="contraseña"
           type="password"
           placeholder="***********"
-          value={loginData.password}
-          onChangeValue={handleChange}
         />
         <label className="flex items-center gap-2 font-semibold select-none">
           <input
