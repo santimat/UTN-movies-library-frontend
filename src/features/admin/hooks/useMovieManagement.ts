@@ -8,6 +8,7 @@ export const useMovieManagement = () => {
       setMovieForm: s.setMovieForm,
     }))
   );
+
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {

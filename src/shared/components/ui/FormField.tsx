@@ -7,6 +7,7 @@ interface FormFieldProps {
   onChangeValue?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   value?: string;
   className?: string;
+  disabled?: boolean;
 }
 
 export function FormField({
@@ -15,6 +16,7 @@ export function FormField({
   placeholder,
   required = true,
   name,
+  disabled = false,
   onChangeValue,
   value: inputValue,
   className: classes,
@@ -28,6 +30,7 @@ export function FormField({
     >
       {label}
       <input
+        disabled={disabled}
         type={type}
         required={required}
         name={name}

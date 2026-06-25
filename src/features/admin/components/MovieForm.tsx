@@ -5,6 +5,7 @@ import { useModal } from '@/shared/hooks/useModal';
 import { useMovieManagement } from '@/features/admin/hooks/useMovieManagement';
 import { GenreInput } from '@/features/admin/components/GenreInput';
 import { CloseIcon } from '@/shared/components/icons/Close';
+import { UploadFile } from '@/features/admin/components/UploadFile';
 
 export function MovieForm() {
   const { closeModal } = useModal();
@@ -46,6 +47,25 @@ export function MovieForm() {
           genre={movieForm?.genre ?? 'placeholder'}
           handleChange={handleChange}
         />
+        <div className="grid grid-cols-2 gap-2">
+          <FormField
+            label="Año"
+            type="number"
+            name="releaseYear"
+            value={movieForm?.releaseYear.toString()}
+            onChangeValue={handleChange}
+            placeholder="1950"
+          />
+          <FormField
+            label="Duración (min)"
+            type="number"
+            name="duration"
+            value={movieForm?.duration.toString()}
+            onChangeValue={handleChange}
+            placeholder="120"
+          />
+        </div>
+        <UploadFile />
       </form>
     </div>
   );
