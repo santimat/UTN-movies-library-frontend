@@ -5,12 +5,16 @@ import { Pagination } from '@/shared/components/ui/Pagination';
 import { MoviesManagementList } from '@/features/admin/components/MoviesManagementList';
 import { MovieForm } from '@/features/admin/components/MovieForm';
 import { useModal } from '@/shared/hooks/useModal';
+import { useMovieManagementStore } from '@/features/admin/store/useMovieManagementStore';
 
 export function MovieAdminPanel() {
   const { movies, totalPages, currentPage } = useMovies('3');
+
+  const setMovieForm = useMovieManagementStore((s) => s.setMovieForm);
   const { openModal } = useModal();
 
   const handleAddMovie = () => {
+    setMovieForm(null);
     openModal(<MovieForm />);
   };
 
