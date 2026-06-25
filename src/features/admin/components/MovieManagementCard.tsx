@@ -2,16 +2,16 @@ import { PenIcon } from '@/shared/components/icons/Pen';
 import { StarIcon } from '@/shared/components/icons/Star';
 import { TrashIcon } from '@/shared/components/icons/Trash';
 import { Button } from '@/shared/components/ui/Button';
-import { useModalStore } from '@/shared/store/useModalStore';
 import { type Movie } from '@/shared/types';
 import { MovieForm } from '@/features/admin/components/MovieForm';
 import { useMovieManagementStore } from '@/features/admin/store/useMovieManagementStore';
+import { useModal } from '@/shared/hooks/useModal';
 type MovieManagementCardProps = {
   movie: Movie;
 };
 
 export function MovieManagementCard({ movie }: MovieManagementCardProps) {
-  const openModal = useModalStore((s) => s.openModal);
+  const { openModal } = useModal();
   const setMovieForm = useMovieManagementStore((s) => s.setMovieForm);
   const handleEdit = () => {
     setMovieForm(movie);

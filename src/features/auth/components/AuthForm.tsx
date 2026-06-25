@@ -1,4 +1,4 @@
-import { AuthSubmitButton } from '@/features/auth/components/AuthSubmitButton';
+import { SubmitButton } from '@/features/auth/components/SubmitButton';
 import type { ReactNode, SubmitEvent } from 'react';
 
 interface AuthFormProps {
@@ -23,7 +23,7 @@ export function AuthForm({
       <form onSubmit={onSubmit} className={formClasses}>
         <div className="flex flex-col gap-6">{fields}</div>
 
-        <AuthSubmitButton value={submitLabel} />
+        <SubmitButton value={submitLabel} />
       </form>
     </div>
   );

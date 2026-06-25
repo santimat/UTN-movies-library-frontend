@@ -3,12 +3,12 @@ import { AddIcon } from '@/shared/components/icons/Add';
 import { Button } from '@/shared/components/ui/Button';
 import { Pagination } from '@/shared/components/ui/Pagination';
 import { MoviesManagementList } from '@/features/admin/components/MoviesManagementList';
-import { useModalStore } from '@/shared/store/useModalStore';
 import { MovieForm } from '@/features/admin/components/MovieForm';
+import { useModal } from '@/shared/hooks/useModal';
 
 export function MovieAdminPanel() {
   const { movies, totalPages, currentPage } = useMovies('3');
-  const openModal = useModalStore((s) => s.openModal);
+  const { openModal } = useModal();
 
   const handleAddMovie = () => {
     openModal(<MovieForm />);

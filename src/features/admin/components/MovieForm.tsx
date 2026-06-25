@@ -3,16 +3,18 @@ import { useMovieManagementStore } from '@/features/admin/store/useMovieManageme
 import { FormField } from '@/shared/components/ui/FormField';
 import { MovieIcon } from '@/shared/components/icons/Movie';
 import { Button } from '@/shared/components/ui/Button';
-import { useModalStore } from '@/shared/store/useModalStore';
 import { ArrowDownIcon } from '@/shared/components/icons/ArrowDown';
 import { AddIcon } from '@/shared/components/icons/Add';
 import { useGenres } from '@/features/genres/hooks/useGenres';
+import { CreateGenre } from '@/features/genres/components/CreateGenre';
+import { useModal } from '@/shared/hooks/useModal';
 
 export function MovieForm() {
   const selectGenreId = useId();
   const movieForm = useMovieManagementStore((s) => s.movieForm);
   const setMovieForm = useMovieManagementStore((s) => s.setMovieForm);
-  const closeModal = useModalStore((s) => s.closeModal);
+  const { closeModal, openModal } = useModal();
+
   const { genres } = useGenres();
 
   const handleChange = (
@@ -22,12 +24,15 @@ export function MovieForm() {
     setMovieForm({ [name]: value });
   };
 
-  const h2Text = movieForm?.id ? 'Editar Película' : 'Añadir Película';
-
   const handleSubmit = (event: React.SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
   };
 
+  const handleAddGenre = () => {
+    openModal(<CreateGenre />);
+  };
+
+  const h2Text = movieForm?.id ? 'Editar Película' : 'Añadir Película';
   return (
     <div className="h-full bg-white p-4">
       <div className="mb-6 flex items-center gap-2">
@@ -83,7 +88,10 @@ export function MovieForm() {
                 width={24}
               />
             </div>
-            <Button className="border-b-4 border-neutral/60 border-b-neutral shadow-none">
+            <Button
+              className="border-b-4 border-neutral/60 border-b-neutral shadow-none"
+              onClick={handleAddGenre}
+            >
               <AddIcon width={24} height={24} />
             </Button>
           </div>
