@@ -4,6 +4,7 @@ import { Button } from '@/shared/components/ui/Button';
 import { useModal } from '@/shared/hooks/useModal';
 import { useMovieManagement } from '@/features/admin/hooks/useMovieManagement';
 import { GenreInput } from '@/features/admin/components/GenreInput';
+import { CloseIcon } from '@/shared/components/icons/Close';
 
 export function MovieForm() {
   const { closeModal } = useModal();
@@ -17,10 +18,10 @@ export function MovieForm() {
         <MovieIcon width={30} height={30} />
         <h2 className="text-2xl font-bold text-neutral uppercase">{h2Text}</h2>
         <Button
-          className="ml-auto bg-secondary py-0! font-headline font-bold text-white"
+          className="ml-auto bg-secondary p-1! font-headline font-bold text-white"
           onClick={closeModal}
         >
-          X
+          <CloseIcon />
         </Button>
       </div>
       <form
