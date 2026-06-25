@@ -39,6 +39,9 @@ export function GenreInput({ genre, handleChange }: GenreInputProps) {
               onChange={handleChange}
               name="genre"
             >
+              <option value={'placeholder'} disabled>
+                Seleccione el genero
+              </option>
               {genres.map(({ id, name }) => (
                 <option key={`genre-management-${id}`} value={name}>
                   {name}

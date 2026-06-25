@@ -43,7 +43,7 @@ export function MovieForm() {
           onChangeValue={handleChange}
         />
         <GenreInput
-          genre={movieForm?.genre ?? ''}
+          genre={movieForm?.genre ?? 'placeholder'}
           handleChange={handleChange}
         />
       </form>
