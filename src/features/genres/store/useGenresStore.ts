@@ -8,6 +8,7 @@ type UseGenresStoreState = {
   loading: boolean;
   error: AppError | null;
   fetchGenres: () => void;
+  createGenre: (name: string) => Promise<void>;
 };
 
 export const useGenresStore = create<UseGenresStoreState>((set, get) => ({
@@ -23,5 +24,9 @@ export const useGenresStore = create<UseGenresStoreState>((set, get) => ({
     } catch (error) {
       set({ error: error as AppError, loading: false });
     }
+  },
+  createGenre: async (name: string) => {
+    const genre = await genreService.createGenre(name);
+    set((state) => ({ genres: [...state.genres, genre] }));
   },
 }));

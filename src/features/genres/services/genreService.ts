@@ -15,4 +15,20 @@ export const genreService = {
       throw handleFetchErrors(error);
     }
   },
+  createGenre: async (name: string) => {
+    try {
+      const res = await fetch(`${BASE_URL}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name }),
+      });
+      handleResponseErrors(res);
+      const { content: genre } = await res.json();
+      return genre;
+    } catch (error) {
+      throw handleFetchErrors(error);
+    }
+  },
 };
