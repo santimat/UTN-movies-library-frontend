@@ -4,6 +4,7 @@ import { ArrowDownIcon } from '@/shared/components/icons/ArrowDown';
 import { Button } from '@/shared/components/ui/Button';
 import { AddIcon } from '@/shared/components/icons/Add';
 import { FormField } from '@/shared/components/ui/FormField';
+import { CloseIcon } from '@/shared/components/icons/Close';
 
 type GenreInputProps = {
   genre: string;
@@ -16,7 +17,10 @@ export function GenreInput({ genre, handleChange }: GenreInputProps) {
   const [isNewGenre, setIsNewGenre] = useState(false);
 
   return (
-    <div className="flex flex-col gap-2 font-semibold">
+    <div className="flex flex-col font-semibold">
+      <label htmlFor={selectGenreId} className="uppercase">
+        Genero
+      </label>
       <div className="flex items-center gap-2">
         {isNewGenre ? (
           <FormField
@@ -28,9 +32,6 @@ export function GenreInput({ genre, handleChange }: GenreInputProps) {
           />
         ) : (
           <div className="relative flex flex-1 items-center">
-            <label htmlFor={selectGenreId} className="uppercase">
-              Genero
-            </label>
             <select
               id={selectGenreId}
               className="w-full border-2 border-b-4 border-neutral/60 border-b-neutral p-2 focus:border-tertiary focus-visible:outline-none"
@@ -52,10 +53,14 @@ export function GenreInput({ genre, handleChange }: GenreInputProps) {
           </div>
         )}
         <Button
-          className="border-b-4 border-neutral/60 border-b-neutral shadow-none"
+          className={`border-b-4 border-neutral/60 border-b-neutral shadow-none ${isNewGenre ? 'bg-secondary' : ''}`}
           onClick={() => setIsNewGenre((prev) => !prev)}
         >
-          <AddIcon width={24} height={24} />
+          {isNewGenre ? (
+            <CloseIcon className="text-white" />
+          ) : (
+            <AddIcon width={24} height={24} />
+          )}
         </Button>
       </div>
     </div>
