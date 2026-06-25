@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 interface FormFieldProps {
   label: string;
   type?: string;
@@ -15,8 +17,11 @@ export function FormField({
   required = true,
   name,
   onChangeValue,
-  value: inputValue = '',
+  value: inputValue,
 }: FormFieldProps) {
+  const controlledInputValue = inputValue ? { value: inputValue } : {};
+  const defaultHandler = onChangeValue ? { onChange: onChangeValue } : {};
+
   return (
     <label className="flex flex-col font-semibold tracking-wide uppercase outline-tertiary has-focus:text-tertiary">
       {label}
@@ -26,8 +31,8 @@ export function FormField({
         name={name}
         className="border-2 border-b-4 border-neutral/60 border-b-neutral p-2 outline-tertiary placeholder:text-neutral/40 focus:border-tertiary focus:outline-0"
         placeholder={placeholder}
-        value={inputValue}
-        onChange={onChangeValue}
+        {...controlledInputValue}
+        {...defaultHandler}
       />
     </label>
   );
