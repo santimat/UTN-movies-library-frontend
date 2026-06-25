@@ -3,13 +3,14 @@ import { MovieIcon } from '@/shared/components/icons/Movie';
 import { Button } from '@/shared/components/ui/Button';
 import { useModal } from '@/shared/hooks/useModal';
 import { useMovieManagement } from '@/features/admin/hooks/useMovieManagement';
-import { GenreSelect } from '@/features/admin/components/GenreSelect';
+import { GenreInput } from '@/features/admin/components/GenreInput';
 
 export function MovieForm() {
   const { closeModal } = useModal();
   const { movieForm, handleChange, handleSubmit } = useMovieManagement();
 
   const h2Text = movieForm?.id ? 'Editar Película' : 'Añadir Película';
+
   return (
     <div className="h-full bg-white p-4">
       <div className="mb-6 flex items-center gap-2">
@@ -40,7 +41,7 @@ export function MovieForm() {
           value={movieForm?.director}
           onChangeValue={handleChange}
         />
-        <GenreSelect
+        <GenreInput
           genre={movieForm?.genre ?? ''}
           handleChange={handleChange}
         />

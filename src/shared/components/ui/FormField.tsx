@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 interface FormFieldProps {
   label: string;
   type?: string;
@@ -8,6 +6,7 @@ interface FormFieldProps {
   name: string;
   onChangeValue?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   value?: string;
+  className?: string;
 }
 
 export function FormField({
@@ -18,12 +17,15 @@ export function FormField({
   name,
   onChangeValue,
   value: inputValue,
+  className: classes,
 }: FormFieldProps) {
   const controlledInputValue = inputValue ? { value: inputValue } : {};
   const defaultHandler = onChangeValue ? { onChange: onChangeValue } : {};
 
   return (
-    <label className="flex flex-col font-semibold tracking-wide uppercase outline-tertiary has-focus:text-tertiary">
+    <label
+      className={`flex flex-col font-semibold tracking-wide uppercase outline-tertiary has-focus:text-tertiary ${classes}`}
+    >
       {label}
       <input
         type={type}
