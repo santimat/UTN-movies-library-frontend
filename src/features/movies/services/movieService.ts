@@ -2,8 +2,9 @@ import { API_URL } from '@/shared/utils/constants';
 import type { SpringPageResponse } from '@/shared/types';
 import { handleFetchErrors } from '@/shared/utils/handleFetchErrors';
 import { handleResponseErrors } from '@/shared/utils/handleResponseErrors';
-const URL_BASE = `${API_URL}/movies`;
 import { type GetMoviesProps } from '@/features/movies/types';
+
+const URL_BASE = `${API_URL}/movies`;
 
 export const movieService = {
   getMovies: async (filters: GetMoviesProps) => {
@@ -38,16 +39,6 @@ export const movieService = {
 
       const data = await res.json();
       return data;
-    } catch (error) {
-      throw handleFetchErrors(error);
-    }
-  },
-  getGenres: async () => {
-    try {
-      const res = await fetch(`${API_URL}/genres`);
-      handleResponseErrors(res);
-      const { content: genres } = await res.json();
-      return genres;
     } catch (error) {
       throw handleFetchErrors(error);
     }

@@ -1,18 +1,11 @@
-import { useEffect } from 'react';
 import { Button } from '@/shared/components/ui/Button';
-import { useMoviesStore } from '@/features/movies/store/useMoviesStore';
-import { useShallow } from 'zustand/shallow';
 import { useMovieSearchParams } from '@/features/movies/hooks/useMovieSearchParams';
+import { useGenres } from '@/features/genres/hooks/useGenres';
 
 export function GenreFilters() {
   const { updateSearchParam, genre: genreFromParam } = useMovieSearchParams();
-  const { genres, fetchGenres, error } = useMoviesStore(
-    useShallow((state) => ({
-      genres: state.genres,
-      fetchGenres: state.fetchGenres,
-      error: state.genresError,
-    }))
-  );
+
+  const { genres, error } = useGenres();
 
   const handleClick = (genre: string) => {
     if (genreFromParam === genre) {
@@ -20,10 +13,6 @@ export function GenreFilters() {
     }
     updateSearchParam({ genre: genre, page: '1' });
   };
-
-  useEffect(() => {
-    fetchGenres();
-  }, [fetchGenres]);
 
   return (
     <ul className="flex scrollbar-thin gap-4 overflow-x-auto p-2">

@@ -4,18 +4,29 @@ import { FormField } from '@/shared/components/ui/FormField';
 import { MovieIcon } from '@/shared/components/icons/Movie';
 import { Button } from '@/shared/components/ui/Button';
 import { useModalStore } from '@/shared/store/useModalStore';
+import { ArrowDownIcon } from '@/shared/components/icons/ArrowDown';
+import { AddIcon } from '@/shared/components/icons/Add';
+import { useGenres } from '@/features/genres/hooks/useGenres';
+
 export function MovieForm() {
+  const selectGenreId = useId();
   const movieForm = useMovieManagementStore((s) => s.movieForm);
   const setMovieForm = useMovieManagementStore((s) => s.setMovieForm);
   const closeModal = useModalStore((s) => s.closeModal);
-  const idTitle = useId();
+  const { genres } = useGenres();
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = event.target;
     setMovieForm({ [name]: value });
   };
 
   const h2Text = movieForm?.id ? 'Editar Película' : 'Añadir Película';
+
+  const handleSubmit = (event: React.SubmitEvent<HTMLFormElement>) => {
+    event.preventDefault();
+  };
 
   return (
     <div className="h-full bg-white p-4">
@@ -29,9 +40,11 @@ export function MovieForm() {
           X
         </Button>
       </div>
-      <form className="text-body grid w-3/4 place-content-center gap-4 text-neutral [&>label]:w-full">
+      <form
+        className="text-body mx-auto grid w-[90%] gap-4 text-neutral"
+        onSubmit={handleSubmit}
+      >
         <FormField
-          id={idTitle}
           label="Title"
           placeholder="toy story 5"
           name="title"
@@ -39,13 +52,42 @@ export function MovieForm() {
           onChangeValue={handleChange}
         />
         <FormField
-          id={idTitle}
           label="Director"
           placeholder="Andrew Stanton"
           name="director"
           value={movieForm?.director}
           onChangeValue={handleChange}
         />
+        <div>
+          <label htmlFor={selectGenreId} className="uppercase">
+            Genero
+          </label>
+          <div className="flex items-center gap-2 font-semibold">
+            <div className="relative flex flex-1 items-center">
+              <select
+                id={selectGenreId}
+                className="w-full border-2 border-b-4 border-neutral/60 border-b-neutral p-2 focus:border-tertiary focus-visible:outline-none"
+                value={movieForm?.genre}
+                onChange={handleChange}
+                name="genre"
+              >
+                {genres.map(({ id, name }) => (
+                  <option key={`genre-management-${id}`} value={name}>
+                    {name}
+                  </option>
+                ))}
+              </select>
+              <ArrowDownIcon
+                className="pointer-events-none absolute right-2"
+                height={24}
+                width={24}
+              />
+            </div>
+            <Button className="border-b-4 border-neutral/60 border-b-neutral shadow-none">
+              <AddIcon width={24} height={24} />
+            </Button>
+          </div>
+        </div>
       </form>
     </div>
   );

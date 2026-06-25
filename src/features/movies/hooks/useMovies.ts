@@ -10,8 +10,8 @@ export function useMovies(limit = '5') {
       useShallow((state) => ({
         movies: state.movies,
         fetchMovies: state.fetchMovies,
-        loading: state.moviesLoading,
-        error: state.moviesError,
+        loading: state.loading,
+        error: state.error,
         totalPages: state.data.totalPages,
         currentPage: state.data.currentPage,
       }))
