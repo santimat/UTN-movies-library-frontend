@@ -31,3 +31,8 @@ export type Movie = {
   posterUrl: string;
   trailerUrl: string;
 };
+
+export type FileInfo = {
+  name: string;
+  size: string;
+};
