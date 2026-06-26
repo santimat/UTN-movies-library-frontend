@@ -14,7 +14,7 @@ export function MovieForm() {
   const h2Text = movieForm?.id ? 'Editar Película' : 'Añadir Película';
 
   return (
-    <div className="h-full bg-white p-4">
+    <div className="h-full overflow-auto bg-white p-4">
       <div className="mb-6 flex items-center gap-2">
         <MovieIcon width={30} height={30} />
         <h2 className="text-2xl font-bold text-neutral uppercase">{h2Text}</h2>
@@ -65,7 +65,7 @@ export function MovieForm() {
             placeholder="120"
           />
         </div>
-        <UploadFile />
+        <UploadFile existingPoster={movieForm?.posterUrl} />
       </form>
     </div>
   );
