@@ -38,6 +38,10 @@
 body {
   overflow-x: hidden;
 }
+
+body:has(.modal-portal) {
+  overflow: hidden;
+}
 select {
   -webkit-appearance: none;
 }
