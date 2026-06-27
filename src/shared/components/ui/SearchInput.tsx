@@ -18,8 +18,6 @@ export function SearchInput() {
     );
   };
 
-  normalizeSearch('canción');
-
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
   };

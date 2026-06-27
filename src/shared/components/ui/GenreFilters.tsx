@@ -3,7 +3,10 @@ import { useMovieSearchParams } from '@/features/movies/hooks/useMovieSearchPara
 import { useGenres } from '@/features/genres/hooks/useGenres';
 
 export function GenreFilters() {
-  const { updateSearchParam, genre: genreFromParam } = useMovieSearchParams();
+  const {
+    updateSearchParam,
+    filters: { genre: genreFromParam },
+  } = useMovieSearchParams();
 
   const { genres, error } = useGenres();
 

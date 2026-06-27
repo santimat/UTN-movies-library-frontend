@@ -1,10 +1,9 @@
 import { useEffect } from 'react';
 import { useShallow } from 'zustand/shallow';
 import { useMoviesStore } from '@/features/movies/store/useMoviesStore';
-import { useMovieSearchParams } from '@/features/movies/hooks/useMovieSearchParams';
+import type { DEFAULT_MOVIE_FILTERS } from '@/shared/utils/constants';
 
-export function useMovies(limit = '5') {
-  const { genre, sortBy, sortOrder, searchText, page } = useMovieSearchParams();
+export function useMovies(filters: typeof DEFAULT_MOVIE_FILTERS, limit = '3') {
   const {
     movies,
     fetchMovies,
@@ -27,14 +26,10 @@ export function useMovies(limit = '5') {
 
   useEffect(() => {
     fetchMovies({
-      genre,
-      sortBy,
-      sortOrder,
-      searchText,
-      page,
+      ...filters,
       size: limit,
     });
-  }, [searchText, genre, sortBy, sortOrder, fetchMovies, page, limit]);
+  }, [filters, fetchMovies, limit]);
 
   return { movies, loading, error, totalPages, currentPage, createMovie };
 }

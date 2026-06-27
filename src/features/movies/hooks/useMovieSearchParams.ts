@@ -1,16 +1,23 @@
 import { useCallback } from 'react';
 import { useSearchParams } from 'react-router';
-import type { SORT_FIELDS } from '@/shared/utils/dictionaries';
+import { SORT_FIELDS } from '@/shared/utils/dictionaries';
+import { DEFAULT_MOVIE_FILTERS } from '@/shared/utils/constants';
 
 export function useMovieSearchParams() {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const genre = searchParams.get('genre') || undefined;
-  const sortBy =
-    (searchParams.get('sortBy') as keyof typeof SORT_FIELDS) || 'averageRating';
-  const sortOrder = (searchParams.get('sortOrder') as 'ASC' | 'DESC') || 'DESC';
-  const searchText = searchParams.get('searchText')?.toLowerCase() || '';
-  const page = searchParams.get('page') || '1';
+  const filters = {
+    genre: searchParams.get('genre') || DEFAULT_MOVIE_FILTERS.genre,
+    sortBy:
+      (searchParams.get('sortBy') as keyof typeof SORT_FIELDS) ||
+      DEFAULT_MOVIE_FILTERS.sortBy,
+    sortOrder:
+      (searchParams.get('sortOrder') as 'ASC' | 'DESC') ||
+      DEFAULT_MOVIE_FILTERS.sortOrder,
+    searchText:
+      searchParams.get('searchText') || DEFAULT_MOVIE_FILTERS.searchText,
+    page: searchParams.get('page') || DEFAULT_MOVIE_FILTERS.page,
+  };
 
   const updateSearchParam = useCallback(
     (filter: Record<string, string>) => {
@@ -28,11 +35,7 @@ export function useMovieSearchParams() {
   );
 
   return {
-    searchText,
-    page,
-    genre,
-    sortBy,
-    sortOrder,
+    filters,
     updateSearchParam,
   };
 }

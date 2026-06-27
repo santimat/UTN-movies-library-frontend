@@ -6,13 +6,21 @@ export const initialMovieForm = {
   id: 0,
   title: '',
   director: '',
-  genre: '',
+  genre: 'placeholder',
   synopsis: '',
-  releaseYear: 0,
-  averageRating: 0,
-  duration: 0,
+  releaseYear: '',
+  averageRating: '',
+  duration: '',
   posterFile: null,
   posterUrl: '',
   trailerUrl: '',
   watchUrl: '',
+};
+
+export const DEFAULT_MOVIE_FILTERS = {
+  genre: '',
+  sortBy: 'averageRating',
+  sortOrder: 'DESC' as 'ASC' | 'DESC',
+  searchText: '',
+  page: '1',
 };

@@ -13,7 +13,10 @@ const SortDescending = lazy(() =>
 
 export function SortSelect() {
   const [isSelectOpen, setIsSelectOpen] = useState(false);
-  const { updateSearchParam, sortOrder, sortBy } = useMovieSearchParams();
+  const {
+    updateSearchParam,
+    filters: { sortOrder, sortBy },
+  } = useMovieSearchParams();
 
   const setSortBy = (value: string) => {
     updateSearchParam({ sortBy: value, page: '1' });
