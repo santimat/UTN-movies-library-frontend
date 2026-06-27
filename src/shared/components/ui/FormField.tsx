@@ -5,7 +5,7 @@ interface FormFieldProps {
   required?: boolean;
   name: string;
   onChangeValue?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  value?: string | null;
+  value?: string | number | null;
   className?: string;
   disabled?: boolean;
 }
@@ -21,8 +21,9 @@ export function FormField({
   value: inputValue,
   className: classes,
 }: FormFieldProps) {
-  const controlledInputValue = inputValue ? { value: inputValue } : {};
-  const defaultHandler = onChangeValue ? { onChange: onChangeValue } : {};
+  const controlledInputValue = inputValue != null ? { value: inputValue } : {};
+  const defaultHandler =
+    onChangeValue != null ? { onChange: onChangeValue } : {};
 
   return (
     <label
