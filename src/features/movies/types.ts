@@ -1,4 +1,3 @@
-import { SORT_FIELDS } from '@/shared/utils/dictionaries';
 import { type Movie } from '@/shared/types';
 
 export type MovieResponse = Movie;
@@ -11,7 +10,7 @@ export type Genre = {
 
 export type GetMoviesProps = {
   genre?: string;
-  sortBy?: keyof typeof SORT_FIELDS;
+  sortBy?: string;
   sortOrder?: 'ASC' | 'DESC';
   searchText?: string;
   page?: string;

@@ -25,9 +25,9 @@ export type Movie = {
   director: string;
   genre: string;
   synopsis: string;
-  releaseYear: number;
-  averageRating: number;
-  duration: number;
+  releaseYear: number | string;
+  averageRating: number | string;
+  duration: number | string;
   posterUrl: string;
   trailerUrl: string;
   watchUrl: string;
