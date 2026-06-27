@@ -3,9 +3,12 @@ export const getMissingFields = (
   FIELDS_DICTIONARY: Record<string, string | boolean>
 ) => {
   const missingFields = Object.keys(payload).filter((field) => {
-    const value = payload[field];
-    if (typeof value === 'boolean') return false;
-    return !value || value.toString().trim() === '';
+    if (FIELDS_DICTIONARY[field]) {
+      const value = payload[field];
+      console.log(field, value);
+      if (typeof value === 'boolean') return false;
+      return !value || value.toString().trim() === '';
+    }
   });
 
   if (missingFields.length) {

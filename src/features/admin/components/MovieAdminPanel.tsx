@@ -9,7 +9,7 @@ import { useMovieManagementStore } from '@/features/admin/store/useMovieManageme
 import { initialMovieForm } from '@/shared/utils/constants';
 
 export function MovieAdminPanel() {
-  const { movies, totalPages, currentPage } = useMovies('3');
+  const { movies, totalPages, currentPage } = useMovies();
 
   const setMovieForm = useMovieManagementStore((s) => s.setMovieForm);
   const { openModal } = useModal();

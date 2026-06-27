@@ -7,8 +7,6 @@ type useMovieManagementState = {
   setMovieForm: (updatedFields: Partial<MovieRequest>) => void;
 };
 
-// TODO: WORK WITH INITIAL STATE AND REMOVE SET MOVIEFORM TO NULL ON CREATE MOVIE
-
 export const useMovieManagementStore = create<useMovieManagementState>(
   (set, get) => ({
     movieForm: initialMovieForm,
