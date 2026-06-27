@@ -16,6 +16,7 @@ createRoot(document.getElementById('root')!).render(
         styles: {
           title: 'text-lg! normal-case! font-bold!',
           description: 'font-semibold! text-white! text-pretty! font-body!',
+          badge: 'z-70!',
         },
       }}
     />
