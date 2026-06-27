@@ -1,4 +1,4 @@
-import { SubmitButton } from '@/features/auth/components/SubmitButton';
+import { SubmitButton } from '@/shared/components/ui/SubmitButton';
 import type { ReactNode, SubmitEvent } from 'react';
 
 interface AuthFormProps {

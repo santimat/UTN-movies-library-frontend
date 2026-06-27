@@ -2,7 +2,7 @@ import { useCallback, useState, type SubmitEvent } from 'react';
 import { useNavigate, Link } from 'react-router';
 
 import type { AppError } from '@/shared/types';
-import { LOGIN_FIELDS } from '@/shared/utils/constants';
+import { LOGIN_FIELDS } from '@/shared/utils/dictionaries';
 import { CheckBox } from '@/shared/components/icons/CheckBox';
 import { AuthForm } from '@/features/auth/components/AuthForm';
 import { useAuthStore } from '@/features/auth/store/useAuthStore';

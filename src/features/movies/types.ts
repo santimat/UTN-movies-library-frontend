@@ -1,4 +1,4 @@
-import { SORT_FIELDS } from '@/shared/utils/constants';
+import { SORT_FIELDS } from '@/shared/utils/dictionaries';
 import { type Movie } from '@/shared/types';
 
 export type MovieResponse = Movie;

@@ -1,6 +1,6 @@
 import { type SubmitEvent } from 'react';
 import { sileo } from 'sileo';
-import { REGISTER_FIELDS } from '@/shared/utils/constants';
+import { REGISTER_FIELDS } from '@/shared/utils/dictionaries';
 import { AuthForm } from '@/features/auth/components/AuthForm';
 import { FormField } from '@/shared/components/ui/FormField';
 import { useAuthStore } from '@/features/auth/store/useAuthStore';

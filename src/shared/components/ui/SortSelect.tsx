@@ -3,7 +3,7 @@ import { Button } from '@/shared/components/ui/Button';
 import { ArrowDownIcon } from '@/shared/components/icons/ArrowDown';
 import { SortAscending } from '@/shared/components/icons/SortAscending';
 import { useMovieSearchParams } from '@/features/movies/hooks/useMovieSearchParams';
-import { SORT_FIELDS } from '@/shared/utils/constants';
+import { SORT_FIELDS } from '@/shared/utils/dictionaries';
 
 const SortDescending = lazy(() =>
   import('@/shared/components/icons/SortDescending').then((module) => ({

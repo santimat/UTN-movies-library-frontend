@@ -3,7 +3,7 @@ import { RatingInput } from '@/features/reviews/components/RatingInput';
 import { Button } from '@/shared/components/ui/Button';
 import { useAuthStore } from '@/features/auth/store/useAuthStore';
 import { getMissingFields } from '@/shared/utils/checkMissingFields';
-import { REVIEW_FIELDS } from '@/shared/utils/constants';
+import { REVIEW_FIELDS } from '@/shared/utils/dictionaries';
 import { sileo } from 'sileo';
 import { useReviewsStore } from '@/features/reviews/store/useReviewsStore';
 import { useShallow } from 'zustand/shallow';
