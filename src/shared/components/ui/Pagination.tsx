@@ -4,11 +4,14 @@ import { Button } from '@/shared/components/ui/Button';
 type PaginationProps = {
   totalPages: number;
   currentPage: number;
+  updatePage: (page: string) => void;
 };
 
-export function Pagination({ totalPages, currentPage }: PaginationProps) {
-  const { updateSearchParam } = useMovieSearchParams();
-
+export function Pagination({
+  totalPages,
+  currentPage,
+  updatePage,
+}: PaginationProps) {
   if (!totalPages || totalPages <= 1 || !currentPage) return null;
   const start = Math.max(1, currentPage - 2);
   const end = Math.min(totalPages, currentPage + 2);
@@ -19,7 +22,7 @@ export function Pagination({ totalPages, currentPage }: PaginationProps) {
   }
 
   const handlePageClick = (page: number) => {
-    updateSearchParam({ page: page.toString() });
+    updatePage(page.toString());
   };
 
   return (

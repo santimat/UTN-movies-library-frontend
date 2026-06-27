@@ -11,11 +11,14 @@ const Pagination = lazy(() =>
 );
 
 export function MovieList() {
-  const { filters } = useMovieSearchParams();
+  const { filters, updateSearchParam } = useMovieSearchParams();
   const { movies, loading, error, currentPage, totalPages } = useMovies(
     filters,
     '5'
   );
+  const handleUpdatePage = (page: string) => {
+    updateSearchParam({ page });
+  };
 
   if (loading) {
     return <Loader />;
@@ -47,7 +50,11 @@ export function MovieList() {
         ))}
       </div>
       {totalPages > 1 && (
-        <Pagination totalPages={totalPages} currentPage={currentPage} />
+        <Pagination
+          totalPages={totalPages}
+          currentPage={currentPage}
+          updatePage={handleUpdatePage}
+        />
       )}
     </>
   );
