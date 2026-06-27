@@ -43,14 +43,12 @@ export const movieService = {
       throw handleFetchErrors(error);
     }
   },
-  createMovie: async (movieData: MovieRequest) => {
+  createMovie: async (movieData: FormData) => {
     try {
       const res = await fetch(URL_BASE, {
         method: 'POST',
-        body: JSON.stringify(movieData),
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        credentials: 'include',
+        body: movieData,
       });
       handleResponseErrors(res);
       const data = await res.json();
