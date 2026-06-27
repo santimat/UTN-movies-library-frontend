@@ -15,9 +15,10 @@ export function GenreInput({ genre, handleChange }: GenreInputProps) {
   const selectGenreId = useId();
   const { genres } = useGenres();
   const [isNewGenre, setIsNewGenre] = useState(false);
+  const [isSelectOpen, setIsSelectOpen] = useState(false);
 
   return (
-    <div className="flex flex-col font-semibold">
+    <div className="flex flex-col font-semibold has-focus:[&>label]:text-tertiary">
       <label htmlFor={selectGenreId} className="uppercase">
         Genero
       </label>
@@ -34,22 +35,28 @@ export function GenreInput({ genre, handleChange }: GenreInputProps) {
           <div className="relative flex flex-1 items-center">
             <select
               id={selectGenreId}
-              className="w-full border-2 border-b-4 border-neutral/60 border-b-neutral p-2 focus:border-tertiary focus-visible:outline-none"
+              className="peer w-full border-2 border-b-4 border-neutral/60 border-b-neutral p-2 focus:border-tertiary focus:text-tertiary focus-visible:outline-none"
               value={genre}
               onChange={handleChange}
               name="genre"
+              onBlur={() => setIsSelectOpen(false)}
+              onClick={() => setIsSelectOpen((prev) => !prev)}
             >
               <option value={'placeholder'} disabled>
                 Seleccione el genero
               </option>
               {genres.map(({ id, name }) => (
-                <option key={`genre-management-${id}`} value={name}>
+                <option
+                  key={`genre-management-${id}`}
+                  value={name}
+                  className="text-primary"
+                >
                   {name}
                 </option>
               ))}
             </select>
             <ArrowDownIcon
-              className="pointer-events-none absolute right-2"
+              className={`pointer-events-none absolute right-2 rotate-90 transition-transform peer-focus:stroke-tertiary ${isSelectOpen ? 'rotate-0!' : ''}`}
               height={24}
               width={24}
             />

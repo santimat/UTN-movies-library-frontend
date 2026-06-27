@@ -20,11 +20,9 @@ export function UploadFile({ existingPoster }: UploadFileProps) {
     event.currentTarget.classList.remove('border-tertiary');
   };
 
-  const bgImage = !fileInfo
-    ? {
-        backgroundImage: `url(${existingPoster})`,
-      }
-    : {};
+  const bgImage = {
+    backgroundImage: `url(${fileInfo?.bufferUrl || existingPoster || 'public/placeholder.webp'})`,
+  };
 
   return (
     <div className="grid gap-2">
@@ -35,7 +33,7 @@ export function UploadFile({ existingPoster }: UploadFileProps) {
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
       >
-        <div className="flex h-full w-full flex-col items-center justify-center border-2 border-dashed border-neutral backdrop-blur-[2px] text-shadow-primary text-shadow-xs">
+        <div className="backdrop flex h-full w-full flex-col items-center justify-center border-2 border-dashed border-neutral bg-white/50">
           <span>
             <UploadIcon />
           </span>

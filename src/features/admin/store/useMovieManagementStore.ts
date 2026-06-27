@@ -1,18 +1,19 @@
-import type { MovieRequest } from '@/features/admin/types.d.ts';
 import { create } from 'zustand';
+import type { MovieRequest } from '@/shared/types.ts';
+import { initialMovieForm } from '@/shared/utils/constants';
 
 type useMovieManagementState = {
-  movieForm: MovieRequest | null;
-  setMovieForm: (updatedFields: Partial<MovieRequest> | null) => void;
+  movieForm: MovieRequest;
+  setMovieForm: (updatedFields: Partial<MovieRequest>) => void;
 };
+
+// TODO: WORK WITH INITIAL STATE AND REMOVE SET MOVIEFORM TO NULL ON CREATE MOVIE
 
 export const useMovieManagementStore = create<useMovieManagementState>(
   (set, get) => ({
-    movieForm: null,
-    setMovieForm: (updatedFields: Partial<MovieRequest> | null) => {
+    movieForm: initialMovieForm,
+    setMovieForm: (updatedFields: Partial<MovieRequest>) => {
       const prevMovie = get().movieForm;
-
-      if (!updatedFields) return set({ movieForm: null });
       set({ movieForm: { ...prevMovie, ...updatedFields } as MovieRequest });
     },
   })

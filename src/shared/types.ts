@@ -30,9 +30,13 @@ export type Movie = {
   duration: number;
   posterUrl: string;
   trailerUrl: string;
+  watchUrl: string;
 };
+
+export type MovieRequest = Movie & { posterFile: File | null };
 
 export type FileInfo = {
   name: string;
   size: string;
+  bufferUrl?: string;
 };

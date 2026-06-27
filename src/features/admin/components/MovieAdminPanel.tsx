@@ -6,6 +6,7 @@ import { MoviesManagementList } from '@/features/admin/components/MoviesManageme
 import { MovieForm } from '@/features/admin/components/MovieForm';
 import { useModal } from '@/shared/hooks/useModal';
 import { useMovieManagementStore } from '@/features/admin/store/useMovieManagementStore';
+import { initialMovieForm } from '@/shared/utils/constants';
 
 export function MovieAdminPanel() {
   const { movies, totalPages, currentPage } = useMovies('3');
@@ -14,7 +15,7 @@ export function MovieAdminPanel() {
   const { openModal } = useModal();
 
   const handleAddMovie = () => {
-    setMovieForm(null);
+    setMovieForm(initialMovieForm);
     openModal(<MovieForm />);
   };
 

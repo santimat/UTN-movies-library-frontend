@@ -1,5 +1,5 @@
 import { API_URL } from '@/shared/utils/constants';
-import type { SpringPageResponse } from '@/shared/types';
+import type { SpringPageResponse, MovieRequest } from '@/shared/types';
 import { handleFetchErrors } from '@/shared/utils/handleFetchErrors';
 import { handleResponseErrors } from '@/shared/utils/handleResponseErrors';
 import { type GetMoviesProps } from '@/features/movies/types';
@@ -37,6 +37,22 @@ export const movieService = {
       const res = await fetch(`${URL_BASE}/${id}`);
       handleResponseErrors(res);
 
+      const data = await res.json();
+      return data;
+    } catch (error) {
+      throw handleFetchErrors(error);
+    }
+  },
+  createMovie: async (movieData: MovieRequest) => {
+    try {
+      const res = await fetch(URL_BASE, {
+        method: 'POST',
+        body: JSON.stringify(movieData),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      handleResponseErrors(res);
       const data = await res.json();
       return data;
     } catch (error) {

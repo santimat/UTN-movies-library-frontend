@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { useSearchParams } from 'react-router';
-import type { SORT_FIELDS } from '@/shared/utils/constants';
+import type { SORT_FIELDS } from '@/shared/utils/dictionaries';
 
 export function useMovieSearchParams() {
   const [searchParams, setSearchParams] = useSearchParams();

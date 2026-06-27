@@ -5,17 +5,25 @@ import { useMovieSearchParams } from '@/features/movies/hooks/useMovieSearchPara
 
 export function useMovies(limit = '5') {
   const { genre, sortBy, sortOrder, searchText, page } = useMovieSearchParams();
-  const { movies, fetchMovies, loading, error, currentPage, totalPages } =
-    useMoviesStore(
-      useShallow((state) => ({
-        movies: state.movies,
-        fetchMovies: state.fetchMovies,
-        loading: state.loading,
-        error: state.error,
-        totalPages: state.data.totalPages,
-        currentPage: state.data.currentPage,
-      }))
-    );
+  const {
+    movies,
+    fetchMovies,
+    loading,
+    error,
+    currentPage,
+    totalPages,
+    createMovie,
+  } = useMoviesStore(
+    useShallow((state) => ({
+      movies: state.movies,
+      fetchMovies: state.fetchMovies,
+      loading: state.loading,
+      error: state.error,
+      totalPages: state.data.totalPages,
+      currentPage: state.data.currentPage,
+      createMovie: state.createMovie,
+    }))
+  );
 
   useEffect(() => {
     fetchMovies({
@@ -28,5 +36,5 @@ export function useMovies(limit = '5') {
     });
   }, [searchText, genre, sortBy, sortOrder, fetchMovies, page, limit]);
 
-  return { movies, loading, error, totalPages, currentPage };
+  return { movies, loading, error, totalPages, currentPage, createMovie };
 }

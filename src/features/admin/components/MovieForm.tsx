@@ -1,3 +1,4 @@
+import { sileo } from 'sileo';
 import { FormField } from '@/shared/components/ui/FormField';
 import { MovieIcon } from '@/shared/components/icons/Movie';
 import { Button } from '@/shared/components/ui/Button';
@@ -6,12 +7,40 @@ import { useMovieManagement } from '@/features/admin/hooks/useMovieManagement';
 import { GenreInput } from '@/features/admin/components/GenreInput';
 import { CloseIcon } from '@/shared/components/icons/Close';
 import { UploadFile } from '@/features/admin/components/UploadFile';
+import { getMissingFields } from '@/shared/utils/checkMissingFields';
+import { MOVIE_FIELDS } from '@/shared/utils/dictionaries';
+import { useMovies } from '@/features/movies/hooks/useMovies';
+import type { AppError } from '@/shared/types';
 
 export function MovieForm() {
   const { closeModal } = useModal();
-  const { movieForm, handleChange, handleSubmit } = useMovieManagement();
+  const { createMovie } = useMovies();
+  const { movieForm, handleChange } = useMovieManagement();
 
   const h2Text = movieForm?.id ? 'Editar Película' : 'Añadir Película';
+
+  const handleSubmit = (event: React.SubmitEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const missingFields = getMissingFields(movieForm, MOVIE_FIELDS);
+
+    if (missingFields) {
+      return sileo.warning({
+        title: 'Campos faltantes',
+        description: `Por favor complete ${missingFields} antes de continuar.`,
+      });
+    }
+    try {
+      if (!movieForm?.id) {
+        createMovie(movieForm);
+      }
+    } catch (err) {
+      const { error } = err as AppError;
+      sileo.error({
+        title: 'Ha ocurrido un error',
+        description: error,
+      });
+    }
+  };
 
   return (
     <div className="h-full overflow-auto bg-white p-4">
@@ -31,7 +60,7 @@ export function MovieForm() {
       >
         <FormField
           label="Title"
-          placeholder="toy story 5"
+          placeholder="Toy Story 5"
           name="title"
           value={movieForm?.title}
           onChangeValue={handleChange}
@@ -52,7 +81,7 @@ export function MovieForm() {
             label="Año"
             type="number"
             name="releaseYear"
-            value={movieForm?.releaseYear.toString()}
+            value={movieForm?.releaseYear}
             onChangeValue={handleChange}
             placeholder="1950"
           />
@@ -60,12 +89,41 @@ export function MovieForm() {
             label="Duración (min)"
             type="number"
             name="duration"
-            value={movieForm?.duration.toString()}
+            value={movieForm?.duration}
             onChangeValue={handleChange}
             placeholder="120"
           />
         </div>
         <UploadFile existingPoster={movieForm?.posterUrl} />
+        <label className="flex flex-col font-semibold uppercase">
+          Sinopsis
+          <textarea
+            className="border-2 border-b-4 border-neutral bg-white p-2 text-neutral"
+            placeholder="Esta pelicula es hacer sobre unos juguetes..."
+            name="synopsis"
+            rows={5}
+            value={movieForm?.synopsis}
+            onChange={handleChange}
+          />
+        </label>
+        <FormField
+          label="Trailer URL"
+          name="trailerUrl"
+          placeholder="https://youtube.com/trailer+spiderman"
+          value={movieForm?.trailerUrl}
+          onChangeValue={handleChange}
+        />
+        <FormField
+          label="Pelicula URL"
+          name="watchUrl"
+          placeholder="https://youtube.com/watch+spiderman"
+          value={movieForm?.watchUrl}
+          onChangeValue={handleChange}
+          required={false}
+        />
+        <Button className="font-bold">
+          {movieForm ? 'Actualizar Película' : 'Añadir Película'}
+        </Button>
       </form>
     </div>
   );

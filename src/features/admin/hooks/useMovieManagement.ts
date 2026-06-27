@@ -11,7 +11,9 @@ export const useMovieManagement = () => {
   );
 
   const handleChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    event: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
   ) => {
     const { name, value } = event.target;
     setMovieForm({ [name]: value });
@@ -30,6 +32,7 @@ export const useMovieManagement = () => {
       ? {
           name: uploadedFile.name,
           size: `${(uploadedFile.size / 1024).toFixed(2)} KB`,
+          bufferUrl: URL.createObjectURL(uploadedFile),
         }
       : null;
   };
@@ -44,17 +47,13 @@ export const useMovieManagement = () => {
       ? {
           name: uploadedFile?.name,
           size: `${(uploadedFile.size / 1024).toFixed(2)} KB`,
+          bufferUrl: URL.createObjectURL(uploadedFile),
         }
       : null;
   };
 
-  const handleSubmit = (event: React.SubmitEvent<HTMLFormElement>) => {
-    event.preventDefault();
-  };
-
   return {
     handleChange,
-    handleSubmit,
     movieForm,
     handleDrop,
     handleFileChange,

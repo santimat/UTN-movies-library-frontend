@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { type GetMoviesProps } from '@/features/movies/types';
 import { type Movie } from '@/shared/types';
 import { movieService } from '@/features/movies/services/movieService';
-import type { AppError } from '@/shared/types';
+import type { AppError, MovieRequest } from '@/shared/types';
 
 interface UseMoviesState {
   movies: Movie[];
@@ -22,6 +22,7 @@ interface UseMoviesState {
     page,
   }: GetMoviesProps) => void;
   fetchMovieById: (id: number) => void;
+  createMovie: (movieData: MovieRequest) => Promise<void>;
 }
 
 export const useMoviesStore = create<UseMoviesState>((set, get) => ({
@@ -60,5 +61,11 @@ export const useMoviesStore = create<UseMoviesState>((set, get) => ({
     } catch (error) {
       set({ error: error as AppError, loading: false });
     }
+  },
+  createMovie: async (movieData: MovieRequest) => {
+    const newMovie = await movieService.createMovie(movieData);
+    set((state) => ({
+      movies: [...state.movies, newMovie],
+    }));
   },
 }));
