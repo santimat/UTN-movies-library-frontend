@@ -2,6 +2,7 @@ import { lazy } from 'react';
 import { Loader } from '@/shared/components/ui/Loader';
 import { useMovies } from '@/features/movies/hooks/useMovies';
 import { MovieCard } from '@/features/movies/components/MovieCard';
+import { useMovieSearchParams } from '../hooks/useMovieSearchParams';
 
 const Pagination = lazy(() =>
   import('@/shared/components/ui/Pagination').then((module) => ({
@@ -10,7 +11,11 @@ const Pagination = lazy(() =>
 );
 
 export function MovieList() {
-  const { movies, loading, error, currentPage, totalPages } = useMovies();
+  const { filters } = useMovieSearchParams();
+  const { movies, loading, error, currentPage, totalPages } = useMovies(
+    filters,
+    '5'
+  );
 
   if (loading) {
     return <Loader />;
