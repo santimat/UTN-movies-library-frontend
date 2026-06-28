@@ -1,4 +1,5 @@
 import { MovieAdminPanel } from '@/features/admin/components/MovieAdminPanel';
+import { UserAdminPanel } from '@/features/admin/components/UserAdminPanel';
 export function Admin() {
   return (
     <>
@@ -6,6 +7,7 @@ export function Admin() {
         Panel de administración
       </h1>
       <MovieAdminPanel />
+      <UserAdminPanel />
     </>
   );
 }

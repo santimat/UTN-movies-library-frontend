@@ -4,27 +4,17 @@ import { useMoviesStore } from '@/features/movies/store/useMoviesStore';
 import type { DEFAULT_MOVIE_FILTERS } from '@/shared/utils/constants';
 
 export function useMovies(filters?: typeof DEFAULT_MOVIE_FILTERS, limit = '3') {
-  const {
-    movies,
-    fetchMovies,
-    loading,
-    error,
-    currentPage,
-    totalPages,
-    createMovie,
-    updateMovie,
-  } = useMoviesStore(
-    useShallow((state) => ({
-      movies: state.movies,
-      fetchMovies: state.fetchMovies,
-      loading: state.loading,
-      error: state.error,
-      totalPages: state.data.totalPages,
-      currentPage: state.data.currentPage,
-      createMovie: state.createMovie,
-      updateMovie: state.updateMovie,
-    }))
-  );
+  const { movies, fetchMovies, loading, error, currentPage, totalPages } =
+    useMoviesStore(
+      useShallow((state) => ({
+        movies: state.movies,
+        fetchMovies: state.fetchMovies,
+        loading: state.loading,
+        error: state.error,
+        totalPages: state.data.totalPages,
+        currentPage: state.data.currentPage,
+      }))
+    );
 
   useEffect(() => {
     fetchMovies({
@@ -39,7 +29,5 @@ export function useMovies(filters?: typeof DEFAULT_MOVIE_FILTERS, limit = '3') {
     error,
     totalPages,
     currentPage,
-    createMovie,
-    updateMovie,
   };
 }

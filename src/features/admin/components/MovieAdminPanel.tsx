@@ -41,7 +41,7 @@ export function MovieAdminPanel() {
           Añadir película
         </Button>
       </div>
-      <div className="font-semibold">
+      <div className="my-6 font-semibold">
         <SearchInput updateText={updateFilters} />
         <GenreFilters updateGenre={updateFilters} genre={filters.genre} />
       </div>

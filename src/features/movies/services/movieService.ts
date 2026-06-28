@@ -72,4 +72,15 @@ export const movieService = {
       throw handleFetchErrors(error);
     }
   },
+  deleteMovie: async (id: number) => {
+    try {
+      const res = await fetch(`${URL_BASE}/${id}`, {
+        method: 'DELETE',
+        credentials: 'include',
+      });
+      handleResponseErrors(res);
+    } catch (error) {
+      throw handleFetchErrors(error);
+    }
+  },
 };

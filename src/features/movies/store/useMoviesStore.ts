@@ -24,6 +24,7 @@ interface UseMoviesState {
   fetchMovieById: (id: number) => void;
   createMovie: (movieData: FormData) => Promise<void>;
   updateMovie: (movieData: FormData, id: number) => Promise<void>;
+  deleteMovie: (id: number) => Promise<void>;
 }
 
 export const useMoviesStore = create<UseMoviesState>((set, get) => ({
@@ -75,6 +76,12 @@ export const useMoviesStore = create<UseMoviesState>((set, get) => ({
       movies: state.movies.map((movie) =>
         movie.id === id ? updatedMovie : movie
       ),
+    }));
+  },
+  deleteMovie: async (id: number) => {
+    await movieService.deleteMovie(id);
+    set((state) => ({
+      movies: state.movies.filter((movie) => movie.id !== id),
     }));
   },
 }));

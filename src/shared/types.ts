@@ -40,3 +40,11 @@ export type FileInfo = {
   size: string;
   bufferUrl?: string;
 };
+
+export type User = {
+  id: number;
+  name: string;
+  email: string;
+  role: string;
+  pfpUrl?: string;
+};

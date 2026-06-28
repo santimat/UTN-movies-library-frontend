@@ -9,12 +9,12 @@ import { CloseIcon } from '@/shared/components/icons/Close';
 import { UploadFile } from '@/features/admin/components/UploadFile';
 import { getMissingFields } from '@/shared/utils/checkMissingFields';
 import { MOVIE_FIELDS } from '@/shared/utils/dictionaries';
-import { useMovies } from '@/features/movies/hooks/useMovies';
+import { useMovieActions } from '@/features/movies/hooks/useMovieActions';
 import type { AppError } from '@/shared/types';
 
 export function MovieForm() {
   const { closeModal } = useModal();
-  const { createMovie, updateMovie } = useMovies();
+  const { createMovie, updateMovie } = useMovieActions();
   const { movieForm, handleChange } = useMovieManagement();
 
   const h2Text = movieForm?.id ? 'Editar Película' : 'Añadir Película';

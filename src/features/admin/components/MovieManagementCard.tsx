@@ -2,10 +2,12 @@ import { PenIcon } from '@/shared/components/icons/Pen';
 import { StarIcon } from '@/shared/components/icons/Star';
 import { TrashIcon } from '@/shared/components/icons/Trash';
 import { Button } from '@/shared/components/ui/Button';
-import { type Movie } from '@/shared/types';
+import { type AppError, type Movie } from '@/shared/types';
 import { MovieForm } from '@/features/admin/components/MovieForm';
 import { useMovieManagementStore } from '@/features/admin/store/useMovieManagementStore';
 import { useModal } from '@/shared/hooks/useModal';
+import { sileo } from 'sileo';
+import { useMovieActions } from '@/features/movies/hooks/useMovieActions';
 type MovieManagementCardProps = {
   movie: Movie;
 };
@@ -13,9 +15,38 @@ type MovieManagementCardProps = {
 export function MovieManagementCard({ movie }: MovieManagementCardProps) {
   const { openModal } = useModal();
   const setMovieForm = useMovieManagementStore((s) => s.setMovieForm);
+  const { deleteMovie } = useMovieActions();
   const handleEdit = () => {
     setMovieForm(movie);
     openModal(<MovieForm />);
+  };
+
+  const handleDeleteMovie = async () => {
+    try {
+      sileo.clear();
+      await sileo.promise(deleteMovie(movie.id), {
+        loading: { title: 'Eliminando...' },
+        success: { title: 'Película eliminada' },
+        error: { title: 'Error al eliminar' },
+      });
+    } catch (err) {
+      const { error } = err as AppError;
+      sileo.error({
+        title: 'Error al eliminar la película',
+        description: error,
+      });
+    }
+  };
+
+  const handleDelete = () => {
+    sileo.action({
+      title: 'Eliminar película',
+      description: `¿Estás seguro de que deseas eliminar la película "${movie.title}"? Esta acción no se puede deshacer.`,
+      button: {
+        title: 'Eliminar',
+        onClick: handleDeleteMovie,
+      },
+    });
   };
 
   return (
@@ -51,7 +82,10 @@ export function MovieManagementCard({ movie }: MovieManagementCardProps) {
             height={20}
           />
         </Button>
-        <Button className="flex items-center justify-center gap-2 font-bold uppercase shadow-none">
+        <Button
+          className="flex items-center justify-center gap-2 font-bold uppercase shadow-none"
+          onClick={handleDelete}
+        >
           Eliminar
           <TrashIcon
             width={20}
