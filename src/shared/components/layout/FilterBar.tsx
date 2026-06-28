@@ -4,17 +4,10 @@ import { GenreFilters } from '@/shared/components/ui/GenreFilters';
 import { useMovieSearchParams } from '@/features/movies/hooks/useMovieSearchParams';
 
 export function FilterBar() {
-  const { updateSearchParam } = useMovieSearchParams();
-
-  const handleUpdateFilters = ({
-    searchText,
-    page,
-  }: {
-    searchText: string;
-    page: string;
-  }) => {
-    updateSearchParam({ searchText, page });
-  };
+  const {
+    updateSearchParam,
+    filters: { genre },
+  } = useMovieSearchParams();
 
   return (
     <form
@@ -22,10 +15,10 @@ export function FilterBar() {
       onSubmit={(e) => e.preventDefault()}
     >
       <div className="flex flex-col gap-4 md:flex-row">
-        <SearchInput updateFilters={handleUpdateFilters} />
+        <SearchInput updateText={updateSearchParam} />
         <SortSelect />
       </div>
-      <GenreFilters />
+      <GenreFilters updateGenre={updateSearchParam} genre={genre} />
     </form>
   );
 }

@@ -11,10 +11,12 @@ import {
   initialMovieForm,
 } from '@/shared/utils/constants';
 import { useFilters } from '@/shared/hooks/useFilters';
+import { SearchInput } from '@/shared/components/ui/SearchInput';
+import { GenreFilters } from '@/shared/components/ui/GenreFilters';
 
 export function MovieAdminPanel() {
   const { filters, updateFilters } = useFilters(DEFAULT_MOVIE_FILTERS);
-  const { movies, totalPages, currentPage } = useMovies(filters);
+  const { movies, totalPages, currentPage } = useMovies(filters, '3');
 
   const setMovieForm = useMovieManagementStore((s) => s.setMovieForm);
   const { openModal } = useModal();
@@ -24,12 +26,12 @@ export function MovieAdminPanel() {
     openModal(<MovieForm />);
   };
 
-  const handleUpdatePage = (page: string) => {
-    updateFilters({ ...filters, page });
-  };
-
   return (
     <section className="mx-auto mt-10 w-[90%]">
+      <div className="font-semibold">
+        <SearchInput updateText={updateFilters} />
+        <GenreFilters updateGenre={updateFilters} genre={filters.genre} />
+      </div>
       <div className="flex items-center justify-between">
         <h2 className="px-2 text-center text-xl font-bold uppercase">
           Películas
@@ -46,7 +48,7 @@ export function MovieAdminPanel() {
       <Pagination
         totalPages={totalPages}
         currentPage={currentPage}
-        updatePage={handleUpdatePage}
+        updatePage={updateFilters}
       />
     </section>
   );

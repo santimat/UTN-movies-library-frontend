@@ -3,7 +3,7 @@ import { SearchIcon } from '@/shared/components/icons/Search';
 import { DEBOUNCE_TIME } from '@/shared/utils/constants';
 
 type SearchInputProps = {
-  updateFilters: ({
+  updateText: ({
     searchText,
     page,
   }: {
@@ -12,7 +12,7 @@ type SearchInputProps = {
   }) => void;
 };
 
-export function SearchInput({ updateFilters }: SearchInputProps) {
+export function SearchInput({ updateText }: SearchInputProps) {
   const [inputValue, setInputValue] = useState('');
   const timeoutRef = useRef(0);
 
@@ -34,7 +34,7 @@ export function SearchInput({ updateFilters }: SearchInputProps) {
     () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
       timeoutRef.current = setTimeout(() => {
-        updateFilters({
+        updateText({
           searchText: normalizeSearch(inputValue),
           page: '1',
         });

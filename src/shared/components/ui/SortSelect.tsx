@@ -13,6 +13,7 @@ const SortDescending = lazy(() =>
 
 export function SortSelect() {
   const [isSelectOpen, setIsSelectOpen] = useState(false);
+
   const {
     updateSearchParam,
     filters: { sortOrder, sortBy },

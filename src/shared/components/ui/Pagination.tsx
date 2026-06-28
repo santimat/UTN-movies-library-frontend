@@ -1,10 +1,9 @@
-import { useMovieSearchParams } from '@/features/movies/hooks/useMovieSearchParams';
 import { Button } from '@/shared/components/ui/Button';
 
 type PaginationProps = {
   totalPages: number;
   currentPage: number;
-  updatePage: (page: string) => void;
+  updatePage: ({ page }: { page: string }) => void;
 };
 
 export function Pagination({
@@ -21,10 +20,6 @@ export function Pagination({
     pages.push(i);
   }
 
-  const handlePageClick = (page: number) => {
-    updatePage(page.toString());
-  };
-
   return (
     <ul className="mt-10 mb-6 flex justify-center gap-2">
       {pages.map((page) => {
@@ -32,7 +27,7 @@ export function Pagination({
           return (
             <li key={`link-page-${page}`}>
               <Button
-                onClick={() => handlePageClick(page)}
+                onClick={() => updatePage({ page: page.toString() })}
                 className={`py-1 font-bold ${currentPage === page ? 'bg-tertiary text-white' : ''}`}
               >
                 {page}
