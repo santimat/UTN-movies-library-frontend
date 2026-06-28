@@ -28,14 +28,11 @@ export function MovieAdminPanel() {
 
   return (
     <section className="mx-auto mt-10 w-[90%]">
-      <div className="font-semibold">
-        <SearchInput updateText={updateFilters} />
-        <GenreFilters updateGenre={updateFilters} genre={filters.genre} />
-      </div>
       <div className="flex items-center justify-between">
         <h2 className="px-2 text-center text-xl font-bold uppercase">
           Películas
         </h2>
+
         <Button
           onClick={handleAddMovie}
           className="flex items-center justify-center gap-2 bg-tertiary text-sm font-bold text-white uppercase"
@@ -43,6 +40,10 @@ export function MovieAdminPanel() {
           <AddIcon width={24} height={24} />
           Añadir película
         </Button>
+      </div>
+      <div className="font-semibold">
+        <SearchInput updateText={updateFilters} />
+        <GenreFilters updateGenre={updateFilters} genre={filters.genre} />
       </div>
       <MoviesManagementList movies={movies} />
       <Pagination

@@ -23,17 +23,23 @@ export function Pagination({
   return (
     <ul className="mt-10 mb-6 flex justify-center gap-2">
       {pages.map((page) => {
-        if (page <= end)
+        if (page <= end) {
+          const isCurrentPage = page === currentPage;
           return (
             <li key={`link-page-${page}`}>
               <Button
-                onClick={() => updatePage({ page: page.toString() })}
+                onClick={() =>
+                  !isCurrentPage
+                    ? updatePage({ page: page.toString() })
+                    : undefined
+                }
                 className={`py-1 font-bold ${currentPage === page ? 'bg-tertiary text-white' : ''}`}
               >
                 {page}
               </Button>
             </li>
           );
+        }
       })}
     </ul>
   );

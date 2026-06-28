@@ -23,6 +23,7 @@ interface UseMoviesState {
   }: GetMoviesProps) => void;
   fetchMovieById: (id: number) => void;
   createMovie: (movieData: FormData) => Promise<void>;
+  updateMovie: (movieData: FormData, id: number) => Promise<void>;
 }
 
 export const useMoviesStore = create<UseMoviesState>((set, get) => ({
@@ -66,6 +67,14 @@ export const useMoviesStore = create<UseMoviesState>((set, get) => ({
     const newMovie = await movieService.createMovie(movieData);
     set((state) => ({
       movies: [...state.movies, newMovie],
+    }));
+  },
+  updateMovie: async (movieData: FormData, id: number) => {
+    const updatedMovie = await movieService.updateMovie(movieData, id);
+    set((state) => ({
+      movies: state.movies.map((movie) =>
+        movie.id === id ? updatedMovie : movie
+      ),
     }));
   },
 }));

@@ -5,7 +5,6 @@ export const getMissingFields = (
   const missingFields = Object.keys(payload).filter((field) => {
     if (FIELDS_DICTIONARY[field]) {
       const value = payload[field];
-      console.log(field, value);
       if (typeof value === 'boolean') return false;
       return !value || value.toString().trim() === '';
     }

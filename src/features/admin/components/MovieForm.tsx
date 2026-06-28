@@ -14,13 +14,13 @@ import type { AppError } from '@/shared/types';
 
 export function MovieForm() {
   const { closeModal } = useModal();
-  const { createMovie } = useMovies();
+  const { createMovie, updateMovie } = useMovies();
   const { movieForm, handleChange } = useMovieManagement();
 
   const h2Text = movieForm?.id ? 'Editar Película' : 'Añadir Película';
-
   const handleSubmit = (event: React.SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
+
     const form = event.currentTarget;
     const missingFields = getMissingFields(movieForm, MOVIE_FIELDS);
 
@@ -34,12 +34,19 @@ export function MovieForm() {
       const formData = new FormData(form);
       if (!movieForm?.id) {
         createMovie(formData);
-        closeModal();
         sileo.success({
           title: 'Película añadida',
           description: `${movieForm?.title} ha sido añadida correctamente.`,
         });
+      } else {
+        updateMovie(formData, movieForm?.id);
+        sileo.success({
+          title: 'Película actualizada',
+          description: `${movieForm?.title} ha sido actualizada correctamente.`,
+        });
       }
+
+      closeModal();
     } catch (err) {
       const { error } = err as AppError;
       sileo.error({
@@ -51,7 +58,7 @@ export function MovieForm() {
 
   return (
     <div className="flex h-full items-center justify-center">
-      <div className="flex-1 scrollbar-none overflow-auto rounded-lg bg-white px-4 lg:h-[90%] lg:max-w-5xl">
+      <div className="h-full flex-1 scrollbar-none overflow-auto rounded-lg bg-white px-4 lg:h-[90%] lg:max-w-5xl">
         <div className="flex items-center gap-2 p-4">
           <MovieIcon width={30} height={30} />
           <h2 className="text-2xl font-bold text-neutral uppercase">
@@ -128,7 +135,10 @@ export function MovieForm() {
             onChangeValue={handleChange}
             required={false}
           />
-          <Button className="mt-4 bg-tertiary font-bold text-white">
+          <Button
+            type="submit"
+            className="mt-4 bg-tertiary font-bold text-white"
+          >
             {movieForm?.id ? 'Actualizar Película' : 'Añadir Película'}
           </Button>
         </form>

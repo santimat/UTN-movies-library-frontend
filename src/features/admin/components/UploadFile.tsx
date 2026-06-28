@@ -27,7 +27,7 @@ export function UploadFile({ existingPoster }: UploadFileProps) {
   return (
     <div className="grid gap-2">
       <label
-        className="min-h-50 overflow-hidden bg-cover bg-center"
+        className="min-h-50 overflow-hidden bg-cover bg-center hover:cursor-pointer"
         style={bgImage}
         onDrop={(e) => setFileInfo(handleDrop(e))}
         onDragOver={handleDragOver}

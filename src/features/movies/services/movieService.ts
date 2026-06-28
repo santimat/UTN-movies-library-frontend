@@ -57,4 +57,19 @@ export const movieService = {
       throw handleFetchErrors(error);
     }
   },
+  updateMovie: async (movieData: FormData, id: number) => {
+    try {
+      const res = await fetch(`${URL_BASE}/${id}`, {
+        method: 'PUT',
+        credentials: 'include',
+        body: movieData,
+      });
+      handleResponseErrors(res);
+
+      const data = await res.json();
+      return data;
+    } catch (error) {
+      throw handleFetchErrors(error);
+    }
+  },
 };
