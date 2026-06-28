@@ -6,10 +6,15 @@ import { MoviesManagementList } from '@/features/admin/components/MoviesManageme
 import { MovieForm } from '@/features/admin/components/MovieForm';
 import { useModal } from '@/shared/hooks/useModal';
 import { useMovieManagementStore } from '@/features/admin/store/useMovieManagementStore';
-import { initialMovieForm } from '@/shared/utils/constants';
+import {
+  DEFAULT_MOVIE_FILTERS,
+  initialMovieForm,
+} from '@/shared/utils/constants';
+import { useFilters } from '@/shared/hooks/useFilters';
 
 export function MovieAdminPanel() {
-  const { movies, totalPages, currentPage } = useMovies();
+  const { filters, updateFilters } = useFilters(DEFAULT_MOVIE_FILTERS);
+  const { movies, totalPages, currentPage } = useMovies(filters);
 
   const setMovieForm = useMovieManagementStore((s) => s.setMovieForm);
   const { openModal } = useModal();
@@ -17,6 +22,10 @@ export function MovieAdminPanel() {
   const handleAddMovie = () => {
     setMovieForm(initialMovieForm);
     openModal(<MovieForm />);
+  };
+
+  const handleUpdatePage = (page: string) => {
+    updateFilters({ ...filters, page });
   };
 
   return (
@@ -34,7 +43,11 @@ export function MovieAdminPanel() {
         </Button>
       </div>
       <MoviesManagementList movies={movies} />
-      <Pagination totalPages={totalPages} currentPage={currentPage} />
+      <Pagination
+        totalPages={totalPages}
+        currentPage={currentPage}
+        updatePage={handleUpdatePage}
+      />
     </section>
   );
 }

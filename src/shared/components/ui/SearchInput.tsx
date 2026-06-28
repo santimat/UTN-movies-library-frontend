@@ -1,10 +1,18 @@
 import { useEffect, useState, useRef, type ChangeEvent } from 'react';
 import { SearchIcon } from '@/shared/components/icons/Search';
-import { useMovieSearchParams } from '@/features/movies/hooks/useMovieSearchParams';
 import { DEBOUNCE_TIME } from '@/shared/utils/constants';
 
-export function SearchInput() {
-  const { updateSearchParam } = useMovieSearchParams();
+type SearchInputProps = {
+  updateFilters: ({
+    searchText,
+    page,
+  }: {
+    searchText: string;
+    page: string;
+  }) => void;
+};
+
+export function SearchInput({ updateFilters }: SearchInputProps) {
   const [inputValue, setInputValue] = useState('');
   const timeoutRef = useRef(0);
 
@@ -26,7 +34,7 @@ export function SearchInput() {
     () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
       timeoutRef.current = setTimeout(() => {
-        updateSearchParam({
+        updateFilters({
           searchText: normalizeSearch(inputValue),
           page: '1',
         });

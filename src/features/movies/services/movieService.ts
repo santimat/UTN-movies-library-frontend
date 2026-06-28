@@ -1,5 +1,5 @@
 import { API_URL } from '@/shared/utils/constants';
-import type { SpringPageResponse, MovieRequest } from '@/shared/types';
+import type { SpringPageResponse } from '@/shared/types';
 import { handleFetchErrors } from '@/shared/utils/handleFetchErrors';
 import { handleResponseErrors } from '@/shared/utils/handleResponseErrors';
 import { type GetMoviesProps } from '@/features/movies/types';
