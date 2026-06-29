@@ -1,21 +1,23 @@
+import { sileo } from 'sileo';
 import { PenIcon } from '@/shared/components/icons/Pen';
 import { StarIcon } from '@/shared/components/icons/Star';
 import { TrashIcon } from '@/shared/components/icons/Trash';
 import { Button } from '@/shared/components/ui/Button';
 import { type AppError, type Movie } from '@/shared/types';
 import { MovieForm } from '@/features/admin/components/MovieForm';
-import { useMovieManagementStore } from '@/features/admin/store/useMovieManagementStore';
 import { useModal } from '@/shared/hooks/useModal';
-import { sileo } from 'sileo';
 import { useMovieActions } from '@/features/movies/hooks/useMovieActions';
+import { useMovieManagement } from '@/features/admin/hooks/useMovieManagement';
+
 type MovieManagementCardProps = {
   movie: Movie;
 };
 
 export function MovieManagementCard({ movie }: MovieManagementCardProps) {
   const { openModal } = useModal();
-  const setMovieForm = useMovieManagementStore((s) => s.setMovieForm);
+  const { setMovieForm } = useMovieManagement();
   const { deleteMovie } = useMovieActions();
+
   const handleEdit = () => {
     setMovieForm(movie);
     openModal(<MovieForm />);

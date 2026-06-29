@@ -57,5 +57,6 @@ export const useMovieManagement = () => {
     movieForm,
     handleDrop,
     handleFileChange,
+    setMovieForm,
   };
 };

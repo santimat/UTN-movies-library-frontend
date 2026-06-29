@@ -22,15 +22,18 @@ const MovieDetail = lazy(() =>
     default: module.Movie,
   }))
 );
-const Test = lazy(() =>
-  import('@/pages/Test').then((module) => ({ default: module.Test }))
-);
 const Auth = lazy(() =>
   import('@/pages/Auth').then((module) => ({ default: module.Auth }))
+);
+const SavedMovies = lazy(() =>
+  import('@/pages/SavedMovies').then((module) => ({
+    default: module.SavedMovies,
+  }))
 );
 const Admin = lazy(() =>
   import('@/pages/Admin').then((module) => ({ default: module.Admin }))
 );
+
 const NotFound = lazy(() =>
   import('@/pages/NotFound').then((module) => ({
     default: module.NotFound,
@@ -57,8 +60,8 @@ function App() {
           >
             <Route index element={<Home />} />
             <Route path="movie/:id" element={<MovieDetail />} />
-            <Route path="test" element={<Test />} />
             <Route path="auth" element={<Auth />} />
+            <Route path="my-list" element={<SavedMovies />} />
             <Route element={<AdminRoute />}>
               <Route path="admin" element={<Admin />} />
             </Route>

@@ -12,7 +12,7 @@ export function MovieCard({
   averageRating,
   idx,
 }: MovieCardProps & { idx: number }) {
-  const showBadge = averageRating > 0;
+  const showBadge = Number(averageRating) > 0;
   const animationDelay = `${idx * 100}ms`;
 
   return (
@@ -20,7 +20,7 @@ export function MovieCard({
       className="group relative flex animate-fade-in-up flex-col border-3 border-neutral text-neutral shadow-auth lg:max-w-100"
       style={{ animationDelay: animationDelay }}
     >
-      {showBadge && <RatingBadge content={averageRating.toFixed(1)} />}
+      {showBadge && <RatingBadge content={Number(averageRating).toFixed(1)} />}
       <picture>
         <img
           className="block h-100 w-full object-cover object-top grayscale transition-all duration-500 group-has-hover:grayscale-0"

@@ -11,14 +11,14 @@ import { getMissingFields } from '@/shared/utils/checkMissingFields';
 import { MOVIE_FIELDS } from '@/shared/utils/dictionaries';
 import { useMovieActions } from '@/features/movies/hooks/useMovieActions';
 import type { AppError } from '@/shared/types';
+import { initialMovieForm } from '@/shared/utils/constants';
 
 export function MovieForm() {
   const { closeModal } = useModal();
   const { createMovie, updateMovie } = useMovieActions();
-  const { movieForm, handleChange } = useMovieManagement();
-
+  const { movieForm, handleChange, setMovieForm } = useMovieManagement();
   const h2Text = movieForm?.id ? 'Editar Película' : 'Añadir Película';
-  const handleSubmit = (event: React.SubmitEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const form = event.currentTarget;
@@ -32,22 +32,28 @@ export function MovieForm() {
     }
     try {
       const formData = new FormData(form);
+      if (movieForm?.posterFile) {
+        formData.set('posterFile', movieForm.posterFile);
+      }
+
       if (!movieForm?.id) {
-        createMovie(formData);
+        await createMovie(formData);
+
         sileo.success({
           title: 'Película añadida',
           description: `${movieForm?.title} ha sido añadida correctamente.`,
         });
       } else {
-        updateMovie(formData, movieForm?.id);
+        await updateMovie(formData, movieForm?.id);
         sileo.success({
           title: 'Película actualizada',
           description: `${movieForm?.title} ha sido actualizada correctamente.`,
         });
       }
-
+      setMovieForm(initialMovieForm);
       closeModal();
     } catch (err) {
+      closeModal();
       const { error } = err as AppError;
       sileo.error({
         title: 'Ha ocurrido un error',

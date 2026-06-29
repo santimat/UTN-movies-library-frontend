@@ -1,5 +1,7 @@
 import { type AppError } from '@/shared/types';
+
 const DEFAULT_HTTP_ERRORS: Partial<Record<number, AppError>> = {
+  400: { code: 'BAD_REQUEST', error: 'Solicitud incorrecta.' },
   401: { code: 'INVALID_CREDENTIALS', error: 'Contraseña incorrecta.' },
   403: {
     code: 'FORBIDDEN',
