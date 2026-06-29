@@ -20,7 +20,13 @@ export const initialMovieForm = {
 export const DEFAULT_MOVIE_FILTERS = {
   genre: '',
   sortBy: 'averageRating',
-  sortOrder: 'DESC' as 'ASC' | 'DESC',
+  sortOrder: 'DESC',
+  searchText: '',
+  page: '1',
+};
+
+export const DEFAULT_USER_FILTERS = {
+  role: '',
   searchText: '',
   page: '1',
 };

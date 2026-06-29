@@ -1,9 +1,8 @@
 import { useEffect } from 'react';
 import { useShallow } from 'zustand/shallow';
 import { useMoviesStore } from '@/features/movies/store/useMoviesStore';
-import type { DEFAULT_MOVIE_FILTERS } from '@/shared/utils/constants';
 
-export function useMovies(filters?: typeof DEFAULT_MOVIE_FILTERS, limit = '3') {
+export function useMovies(filters?: Record<string, string>, limit = '3') {
   const { movies, fetchMovies, loading, error, currentPage, totalPages } =
     useMoviesStore(
       useShallow((state) => ({

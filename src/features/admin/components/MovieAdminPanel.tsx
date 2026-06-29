@@ -42,7 +42,7 @@ export function MovieAdminPanel() {
         </Button>
       </div>
       <div className="my-6 font-semibold">
-        <SearchInput updateText={updateFilters} />
+        <SearchInput updateText={updateFilters} placeholder="Spiderman" />
         <GenreFilters updateGenre={updateFilters} genre={filters.genre} />
       </div>
       <MoviesManagementList movies={movies} />

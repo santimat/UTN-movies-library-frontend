@@ -45,6 +45,7 @@ export type User = {
   id: number;
   name: string;
   email: string;
-  role: string;
-  pfpUrl?: string;
+  role: 'USER' | 'ADMIN';
+  pfpUrl: string;
+  pfpFile?: File | null;
 };

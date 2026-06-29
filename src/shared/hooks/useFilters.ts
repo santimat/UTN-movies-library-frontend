@@ -1,10 +1,9 @@
 import { useState } from 'react';
-import type { DEFAULT_MOVIE_FILTERS } from '@/shared/utils/constants';
 
-export function useFilters(defaults: typeof DEFAULT_MOVIE_FILTERS) {
+export function useFilters(defaults: Record<string, string>) {
   const [filters, setFilters] = useState(defaults);
 
-  const updateFilters = (newFilters: Partial<typeof DEFAULT_MOVIE_FILTERS>) => {
+  const updateFilters = (newFilters: Record<string, string>) => {
     setFilters((prevFilters) => {
       return { ...prevFilters, ...newFilters };
     });

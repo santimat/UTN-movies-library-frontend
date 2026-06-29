@@ -16,9 +16,6 @@ export function MovieList() {
     filters,
     '5'
   );
-  const handleUpdatePage = (page: string) => {
-    updateSearchParam({ page });
-  };
 
   if (loading) {
     return <Loader />;
@@ -53,7 +50,7 @@ export function MovieList() {
         <Pagination
           totalPages={totalPages}
           currentPage={currentPage}
-          updatePage={handleUpdatePage}
+          updatePage={updateSearchParam}
         />
       )}
     </>

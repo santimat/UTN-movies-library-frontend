@@ -15,7 +15,7 @@ export function FilterBar() {
       onSubmit={(e) => e.preventDefault()}
     >
       <div className="flex flex-col gap-4 md:flex-row">
-        <SearchInput updateText={updateSearchParam} />
+        <SearchInput updateText={updateSearchParam} placeholder="Spiderman" />
         <SortSelect />
       </div>
       <GenreFilters updateGenre={updateSearchParam} genre={genre} />

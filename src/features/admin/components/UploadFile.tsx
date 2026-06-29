@@ -21,7 +21,7 @@ export function UploadFile({ existingPoster }: UploadFileProps) {
   };
 
   const bgImage = {
-    backgroundImage: `url(${fileInfo?.bufferUrl || existingPoster || 'public/placeholder.webp'})`,
+    backgroundImage: `url(${fileInfo?.bufferUrl || existingPoster || 'placeholder.webp'})`,
   };
 
   return (

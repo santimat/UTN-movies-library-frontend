@@ -10,9 +10,10 @@ type SearchInputProps = {
     searchText: string;
     page: string;
   }) => void;
+  placeholder: string;
 };
 
-export function SearchInput({ updateText }: SearchInputProps) {
+export function SearchInput({ updateText, placeholder }: SearchInputProps) {
   const [inputValue, setInputValue] = useState('');
   const timeoutRef = useRef(0);
 
@@ -54,7 +55,7 @@ export function SearchInput({ updateText }: SearchInputProps) {
         onChange={handleSearchChange}
         value={inputValue}
         className="peer w-full p-1 pl-8 placeholder:uppercase focus-visible:ring-2 focus-visible:ring-tertiary focus-visible:outline-none"
-        placeholder="Spiderman"
+        placeholder={placeholder}
         type="search"
         name="search"
         aria-label="Buscar peliculas"

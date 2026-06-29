@@ -19,8 +19,8 @@ export function Movie() {
   const { fetchMovieById, loading, error } = useMoviesStore(
     useShallow((s) => ({
       fetchMovieById: s.fetchMovieById,
-      loading: s.moviesLoading,
-      error: s.moviesError,
+      loading: s.loading,
+      error: s.error,
       movie: s.movie,
     }))
   );

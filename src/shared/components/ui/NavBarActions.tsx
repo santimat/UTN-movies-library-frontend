@@ -1,5 +1,8 @@
 import { ButtonLink } from '@/shared/components/ui/ButtonLink';
 import { useAuthStore } from '@/features/auth/store/useAuthStore';
+import { LogoutIcon } from '@/shared/components/icons/Logout';
+import { ToolIcon } from '@/shared/components/icons/Tool';
+import { LoginIcon } from '@/shared/components/icons/Login';
 
 export function AuthButton({ pathname }: { pathname: string }) {
   const user = useAuthStore((s) => s.user);
@@ -11,10 +14,10 @@ export function AuthButton({ pathname }: { pathname: string }) {
       {isAdmin && (
         <ButtonLink
           to="/admin"
-          className="bg-tertiary text-white"
+          className="flex items-center justify-center bg-tertiary text-white"
           isActive={pathname === '/admin'}
         >
-          Panel de administración
+          <ToolIcon />
         </ButtonLink>
       )}
       {!isAuthenticated ? (
@@ -23,7 +26,7 @@ export function AuthButton({ pathname }: { pathname: string }) {
           className="bg-tertiary text-white"
           isActive={pathname === '/auth'}
         >
-          Iniciar Sesión
+          <LoginIcon />
         </ButtonLink>
       ) : (
         <ButtonLink
@@ -31,7 +34,7 @@ export function AuthButton({ pathname }: { pathname: string }) {
           className="bg-secondary text-white"
           isActive={pathname === '/logout'}
         >
-          Cerrar Sesión
+          <LogoutIcon />
         </ButtonLink>
       )}
     </>
