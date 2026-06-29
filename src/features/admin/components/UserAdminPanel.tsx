@@ -22,7 +22,7 @@ export function UserAdminPanel() {
       <div>
         <h2 className="px-2 text-xl font-bold uppercase">Usuarios</h2>
       </div>
-      <div className="flex flex-col gap-4">
+      <div className="mt-4 flex flex-col gap-4">
         <SearchInput updateText={updateFilters} placeholder="Carlito teve" />
         <div className="flex gap-2">
           <Button
