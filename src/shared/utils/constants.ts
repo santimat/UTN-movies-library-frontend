@@ -31,3 +31,9 @@ export const DEFAULT_USER_FILTERS = {
   searchText: '',
   page: '1',
 };
+
+export const DEFAULT_SAVEDMOVIES_FILTERS = {
+  searchText: '',
+  genre: '',
+  page: '1',
+};

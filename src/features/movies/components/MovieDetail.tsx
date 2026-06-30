@@ -4,13 +4,34 @@ import { RatingBadge } from '@/shared/components/ui/RatingBadge';
 import { MovieMetaItem } from '@/features/movies/components/MovieMetaItem';
 import { useAuthStore } from '@/features/auth/store/useAuthStore';
 import { useMoviesStore } from '@/features/movies/store/useMoviesStore';
+import { useSavedMoviesActions } from '@/features/savedMovies/hooks/useSavedMoviesActions';
+import type { AppError } from '@/shared/types';
+import { sileo } from 'sileo';
 
 export function MovieDetail() {
+  const { saveMovieInMyList } = useSavedMoviesActions();
   const email = useAuthStore((s) => s.user?.email);
   const movie = useMoviesStore((s) => s.movie);
+
   const isAuthenticated = !!email;
 
   if (!movie) return null;
+
+  const handleAddToMyList = async () => {
+    try {
+      await saveMovieInMyList(movie.id);
+      sileo.success({
+        title: 'Película guardada',
+        description: 'La película se ha guardado en tu lista',
+      });
+    } catch (err) {
+      const { error } = err as AppError;
+      sileo.error({
+        title: 'Error al guardar la película',
+        description: error,
+      });
+    }
+  };
 
   return (
     <article className="mx-auto mt-4 grid gap-6 font-headline font-bold md:grid-cols-2 md:grid-rows-3 md:gap-y-2">
@@ -65,7 +86,10 @@ export function MovieDetail() {
             Ver trailer
           </a>
           {isAuthenticated && (
-            <Button className="bg-neutral/20 uppercase shadow-none">
+            <Button
+              className="bg-neutral/20 uppercase shadow-none"
+              onClick={handleAddToMyList}
+            >
               Añadir a mi lista +
             </Button>
           )}

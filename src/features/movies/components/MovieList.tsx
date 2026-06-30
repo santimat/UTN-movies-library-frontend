@@ -41,11 +41,13 @@ export function MovieList() {
 
   return (
     <>
-      <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-4 pb-8">
+      <ul className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-4 pb-8">
         {movies.map((movie, idx) => (
-          <MovieCard key={`movie-card-${movie.id}`} {...movie} idx={idx} />
+          <li key={`movie-card-${movie.id}`}>
+            <MovieCard {...movie} idx={idx} />
+          </li>
         ))}
-      </div>
+      </ul>
       {totalPages > 1 && (
         <Pagination
           totalPages={totalPages}
