@@ -18,6 +18,7 @@ export function MovieForm() {
   const { createMovie, updateMovie } = useMovieActions();
   const { movieForm, handleChange, setMovieForm } = useMovieManagement();
   const h2Text = movieForm?.id ? 'Editar Película' : 'Añadir Película';
+
   const handleSubmit = async (event: React.SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
 

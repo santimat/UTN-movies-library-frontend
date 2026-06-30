@@ -7,7 +7,7 @@ import { Loader } from '@/shared/components/ui/Loader';
 import { ArrowBackIcon } from '@/shared/components/icons/ArrowBack';
 import { MovieDetail } from '@/features/movies/components/MovieDetail';
 import { MovieFeedback } from '@/features/reviews/components/MovieFeedback';
-import { useShallow } from 'zustand/shallow';
+import { useMovieById } from '@/features/movies/hooks/useMovieById';
 
 const NotFound = lazy(() =>
   import('@/pages/NotFound').then((module) => ({
@@ -16,21 +16,9 @@ const NotFound = lazy(() =>
 );
 
 export function Movie() {
-  const { fetchMovieById, loading, error } = useMoviesStore(
-    useShallow((s) => ({
-      fetchMovieById: s.fetchMovieById,
-      loading: s.loading,
-      error: s.error,
-      movie: s.movie,
-    }))
-  );
-
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams();
   const movieId = Number(id);
-
-  useEffect(() => {
-    fetchMovieById(movieId);
-  }, [fetchMovieById, movieId]);
+  const { movie, loading, error } = useMovieById(movieId);
 
   if (loading) return <Loader />;
   if (error) return <NotFound />;
@@ -49,7 +37,7 @@ export function Movie() {
             Volver a la biblioteca
           </span>
         </Link>
-        <MovieDetail />
+        <MovieDetail movie={movie} />
       </section>
       <div className="mx-auto mt-20 mb-10 h-2 bg-neutral md:w-[80%]"></div>
       <MovieFeedback movieId={movieId} />

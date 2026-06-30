@@ -49,3 +49,8 @@ export type User = {
   pfpUrl: string;
   pfpFile?: File | null;
 };
+
+export type PlatformUrl =
+  | 'https://www.netflix.com'
+  | 'https://www.hbomax.com'
+  | 'https://www.disneyplus.com';

@@ -4,17 +4,25 @@ import { useMoviesStore } from '@/features/movies/store/useMoviesStore';
 import type { GetMoviesProps } from '@/features/movies/types';
 
 export function useMovies(filters: GetMoviesProps, limit = '3') {
-  const { movies, fetchMovies, loading, error, currentPage, totalPages } =
-    useMoviesStore(
-      useShallow((state) => ({
-        movies: state.movies,
-        fetchMovies: state.fetchMovies,
-        loading: state.loading,
-        error: state.error,
-        totalPages: state.data.totalPages,
-        currentPage: state.data.currentPage,
-      }))
-    );
+  const {
+    movies,
+    fetchMovies,
+    loading,
+    error,
+    currentPage,
+    totalPages,
+    totalElements,
+  } = useMoviesStore(
+    useShallow((state) => ({
+      movies: state.movies,
+      fetchMovies: state.fetchMovies,
+      loading: state.loading,
+      error: state.error,
+      totalPages: state.data.totalPages,
+      currentPage: state.data.currentPage,
+      totalElements: state.data.totalElements,
+    }))
+  );
 
   useEffect(() => {
     fetchMovies({
@@ -29,5 +37,6 @@ export function useMovies(filters: GetMoviesProps, limit = '3') {
     error,
     totalPages,
     currentPage,
+    totalElements,
   };
 }

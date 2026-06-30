@@ -6,7 +6,7 @@ import type { GetSavedMoviesProps } from '@/features/savedMovies/types';
 const BASE_URL = `${API_URL}/savedmovies`;
 
 export const savedMoviesService = {
-  fetchSavedMovies: async (filters: GetSavedMoviesProps) => {
+  getSavedMovies: async (filters: GetSavedMoviesProps) => {
     try {
       const url = new URL(BASE_URL);
       Object.entries(filters).forEach(([key, value]) => {
@@ -28,6 +28,18 @@ export const savedMoviesService = {
       };
     } catch (error) {
       throw handleFetchErrors(error);
+    }
+  },
+  getRandomSavedMovie: async () => {
+    try {
+      const res = await fetch(`${BASE_URL}/random`, {
+        credentials: 'include',
+      });
+      handleResponseErrors(res);
+      const randomSavedMovie = await res.json();
+      return randomSavedMovie;
+    } catch (error) {
+      handleFetchErrors(error);
     }
   },
   saveMovieInMyList: async (movieId: number) => {
