@@ -24,7 +24,6 @@ export const savedMoviesService = {
         savedMovies: content,
         totalPages: page.totalPages,
         currentPage: page.currentPage + 1,
-        totalElements: page.totalElements,
       };
     } catch (error) {
       throw handleFetchErrors(error);
@@ -53,6 +52,28 @@ export const savedMoviesService = {
         body: JSON.stringify({ movieId }),
       });
       handleResponseErrors(res);
+    } catch (error) {
+      throw handleFetchErrors(error);
+    }
+  },
+  deleteSavedMovie: async (movieId: number) => {
+    try {
+      const res = await fetch(`${BASE_URL}/${movieId}`, {
+        credentials: 'include',
+        method: 'DELETE',
+      });
+      handleResponseErrors(res);
+    } catch (error) {
+      throw handleFetchErrors(error);
+    }
+  },
+  countSavedMovies: async () => {
+    try {
+      const res = await fetch(`${BASE_URL}/count`, {
+        credentials: 'include',
+      });
+      const data = await res.json();
+      return data;
     } catch (error) {
       throw handleFetchErrors(error);
     }

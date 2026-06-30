@@ -19,7 +19,7 @@ export function SavedMoviesList({ savedMovies }: SavedMoviesListProps) {
     <ul className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-4 pb-8">
       {savedMovies.map((savedMovie, idx) => (
         <li key={`savedMovie-card-${savedMovie.id}`}>
-          <MovieCard {...savedMovie} idx={idx} />
+          <MovieCard {...savedMovie} idx={idx} isSavedMovie />
         </li>
       ))}
     </ul>

@@ -1,7 +1,6 @@
 import { type Movie } from '@/shared/types';
 
 export type MovieResponse = Movie;
-export type MovieCardProps = Omit<Movie, 'director' | 'synopsis'>;
 
 export type Genre = {
   id: number;

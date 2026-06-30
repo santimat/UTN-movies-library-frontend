@@ -8,14 +8,16 @@ export function useSavedMovies(filters: Record<string, string>, limit = '5') {
     fetchSavedMovies,
     currentPage,
     totalPages,
-    totalElements,
+    countSavedMovies,
+    totalSavedMovies,
   } = useSavedMoviesStore(
     useShallow((s) => ({
       savedMovies: s.savedMovies,
       fetchSavedMovies: s.fetchSavedMovies,
       currentPage: s.data.currentPage,
       totalPages: s.data.totalPages,
-      totalElements: s.data.totalElements,
+      countSavedMovies: s.countSavedMovies,
+      totalSavedMovies: s.totalSavedMovies,
     }))
   );
 
@@ -27,11 +29,15 @@ export function useSavedMovies(filters: Record<string, string>, limit = '5') {
     fetchSavedMovies({ ...filters, size: limit });
   }, [fetchSavedMovies, filters, limit]);
 
+  useEffect(() => {
+    countSavedMovies();
+  }, [countSavedMovies]);
+
   return {
     savedMovies,
     currentPage,
     totalPages,
-    totalElements,
     isSavedMovie,
+    totalSavedMovies,
   };
 }

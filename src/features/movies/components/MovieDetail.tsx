@@ -19,7 +19,6 @@ const NotFound = lazy(() =>
 
 type MovieDetailProps = {
   movie: Movie | null;
-  isSavedMovie?: boolean;
 };
 
 const PLATFORM_ICONS: Record<PlatformUrl, React.ReactNode> = {

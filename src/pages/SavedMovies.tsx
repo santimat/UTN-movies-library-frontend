@@ -17,10 +17,9 @@ import { RandomSavedMovie } from '@/features/savedMovies/components/RandomSavedM
 export function SavedMovies() {
   const { openModal } = useModal();
   const { filters, updateFilters } = useFilters(DEFAULT_SAVEDMOVIES_FILTERS);
-  const { savedMovies, currentPage, totalPages, totalElements } =
+  const { savedMovies, currentPage, totalPages, totalSavedMovies } =
     useSavedMovies(filters, '10');
   const { fetchRandomSavedMovie } = useRandomSavedMovie();
-  const [totalSavedMovies] = useState(totalElements);
 
   const counterText =
     totalSavedMovies > 1 || totalSavedMovies === 0
@@ -57,7 +56,7 @@ export function SavedMovies() {
           Obtener recomendación
         </Button>
       </div>
-      <div className="my-6 flex flex-col gap-2">
+      <div className="my-6 flex flex-col gap-2 font-semibold">
         <SearchInput updateText={updateFilters} placeholder="Toy Story" />
         <GenreFilters updateGenre={updateFilters} genre={filters.genre} />
       </div>
