@@ -81,12 +81,12 @@ export function LoginForm() {
           </span>
           <span>Mantener la sesión iniciada</span>
         </label>
-        <Link
+        {/*<Link
           to={'/forgot-password'}
           className={'mt-4 ml-auto w-fit text-secondary hover:underline'}
         >
           Olvidaste tu contraseña?
-        </Link>
+        </Link>*/}
       </AuthForm>
       <div className="relative bottom-0 mx-auto mt-10 flex w-4/5 items-center">
         <div className="absolute w-full bg-neutral p-1"></div>

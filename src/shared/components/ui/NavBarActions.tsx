@@ -14,7 +14,7 @@ export function AuthButton({ pathname }: { pathname: string }) {
       {isAdmin && (
         <ButtonLink
           to="/admin"
-          className="flex items-center justify-center bg-tertiary text-white"
+          className="flex items-center justify-center bg-tertiary p-1! text-white"
           isActive={pathname === '/admin'}
         >
           <ToolIcon />
@@ -23,7 +23,7 @@ export function AuthButton({ pathname }: { pathname: string }) {
       {!isAuthenticated ? (
         <ButtonLink
           to="/auth"
-          className="bg-tertiary text-white"
+          className="bg-tertiary p-1! text-white"
           isActive={pathname === '/auth'}
         >
           <LoginIcon />
@@ -31,7 +31,7 @@ export function AuthButton({ pathname }: { pathname: string }) {
       ) : (
         <ButtonLink
           to="/logout"
-          className="bg-secondary text-white"
+          className="bg-secondary p-1! text-white"
           isActive={pathname === '/logout'}
         >
           <LogoutIcon />
