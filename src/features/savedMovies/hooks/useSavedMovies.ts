@@ -19,6 +19,10 @@ export function useSavedMovies(filters: Record<string, string>, limit = '5') {
     }))
   );
 
+  const isSavedMovie = (movieId: number) => {
+    return savedMovies.some((movie) => movie.id === movieId);
+  };
+
   useEffect(() => {
     fetchSavedMovies({ ...filters, size: limit });
   }, [fetchSavedMovies, filters, limit]);
@@ -28,5 +32,6 @@ export function useSavedMovies(filters: Record<string, string>, limit = '5') {
     currentPage,
     totalPages,
     totalElements,
+    isSavedMovie,
   };
 }

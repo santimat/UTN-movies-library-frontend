@@ -1,5 +1,5 @@
 import { sileo } from 'sileo';
-import { lazy, useRef, useState } from 'react';
+import { lazy, useEffect, useState } from 'react';
 import { Button } from '@/shared/components/ui/Button';
 import { PlayIcon } from '@/shared/components/icons/Play';
 import { RatingBadge } from '@/shared/components/ui/RatingBadge';
@@ -10,6 +10,8 @@ import type { AppError, Movie, PlatformUrl } from '@/shared/types';
 import { NetflixIcon } from '@/shared/components/icons/Netflix';
 import { HboIcon } from '@/shared/components/icons/Hbo';
 import { DisneyIcon } from '@/shared/components/icons/Disney';
+import { useSavedMovies } from '@/features/savedMovies/hooks/useSavedMovies';
+import { DEFAULT_MOVIE_FILTERS } from '@/shared/utils/constants';
 
 const NotFound = lazy(() =>
   import('@/pages/NotFound').then((module) => ({ default: module.NotFound }))
@@ -26,8 +28,12 @@ const PLATFORM_ICONS: Record<PlatformUrl, React.ReactNode> = {
   'https://www.disneyplus.com': <DisneyIcon />,
 };
 
-export function MovieDetail({ movie, isSavedMovie = false }: MovieDetailProps) {
+export function MovieDetail({ movie }: MovieDetailProps) {
   const { saveMovieInMyList } = useSavedMoviesActions();
+  const { isSavedMovie } = useSavedMovies(DEFAULT_MOVIE_FILTERS);
+  const [isASavedMovie, setIsASavedMovie] = useState(
+    isSavedMovie(movie?.id || 0)
+  );
   const email = useAuthStore((s) => s.user?.email);
 
   if (!movie) return <NotFound />;
@@ -46,6 +52,7 @@ export function MovieDetail({ movie, isSavedMovie = false }: MovieDetailProps) {
         title: 'Película guardada',
         description: 'La película se ha guardado en tu lista',
       });
+      setIsASavedMovie(true);
     } catch (err) {
       const { error } = err as AppError;
       sileo.error({
@@ -118,12 +125,13 @@ export function MovieDetail({ movie, isSavedMovie = false }: MovieDetailProps) {
               Ver película
             </a>
           )}
-          {isAuthenticated && isSavedMovie && (
+          {isAuthenticated && (
             <Button
               className="bg-neutral/20 uppercase shadow-none"
               onClick={handleAddToMyList}
+              disabled={isASavedMovie}
             >
-              Añadir a mi lista +
+              {isASavedMovie ? 'Guardada' : 'Guardar en mi lista'}
             </Button>
           )}
         </div>
