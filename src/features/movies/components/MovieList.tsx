@@ -14,7 +14,7 @@ export function MovieList() {
   const { filters, updateSearchParam } = useMovieSearchParams();
   const { movies, loading, error, currentPage, totalPages } = useMovies(
     filters,
-    '5'
+    '4'
   );
 
   if (loading) {

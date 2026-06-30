@@ -19,6 +19,10 @@ const auth = async (endpoint: string, payload: Partial<AuthRequest>) => {
         code: 'EMAIL_ALREADY_EXISTS',
         error: 'El correo ya está registrado.',
       },
+      404: {
+        code: 'NOT_FOUND',
+        error: 'Email inexistente',
+      },
     });
 
     return await res.json();

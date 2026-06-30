@@ -59,13 +59,16 @@ export function MobileNav({
             </p>
           )}
           <ul className="grid gap-6 text-center text-2xl">
-            {navItems.map(({ text, href }) => (
-              <li key={href}>
-                <Link className={handleIsActive(href)} to={href}>
-                  {text}
-                </Link>
-              </li>
-            ))}
+            {navItems.map(({ text, href }) => {
+              if (href.includes('my-list') && !user?.id) return;
+              return (
+                <li key={href}>
+                  <Link className={handleIsActive(href)} to={href}>
+                    {text}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
           <div className="flex flex-col gap-4 text-center">
             <AuthButton pathname={pathname} />

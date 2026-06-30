@@ -81,7 +81,7 @@ export function MovieDetail({ movie }: MovieDetailProps) {
       </div>
       <div className="m-auto my-4 flex h-full items-center md:-order-1 md:row-span-3">
         <div className="relative">
-          <RatingBadge content={movie?.averageRating} />
+          <RatingBadge content={Number(movie?.averageRating).toFixed(1)} />
           <img
             src={movie?.posterUrl}
             alt={movie?.title}

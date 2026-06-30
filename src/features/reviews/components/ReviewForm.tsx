@@ -59,11 +59,7 @@ export function ReviewForm({
     closeModal();
   };
 
-  if (
-    !user?.email ||
-    (alreadyReviewed && editingReview.comment === '') ||
-    isLoading
-  )
+  if (!user?.email || (alreadyReviewed && !editingReview.id) || isLoading)
     return null;
 
   return (
@@ -92,7 +88,10 @@ export function ReviewForm({
             onChange={(e) => setEditingReview({ comment: e.target.value })}
           ></textarea>
         </div>
-        <Button type="submit" className="bg-neutral/15 text-black uppercase">
+        <Button
+          type="submit"
+          className="bg-neutral/15 font-semibold text-black uppercase"
+        >
           Enviar reseña
         </Button>
       </form>
