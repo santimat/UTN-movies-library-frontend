@@ -53,4 +53,5 @@ export type User = {
 export type PlatformUrl =
   | 'https://www.netflix.com'
   | 'https://www.hbomax.com'
+  | 'https://play.hbomax.com'
   | 'https://www.disneyplus.com';

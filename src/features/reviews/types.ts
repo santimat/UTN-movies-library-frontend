@@ -7,5 +7,8 @@ export type Review = {
   comment: string;
   movieId: number;
 };
-export type ReviewRequest = Pick<Review, 'movieId' | 'rating' | 'comment'>;
+export type ReviewRequest = Pick<
+  Review,
+  'movieId' | 'rating' | 'comment' | 'id'
+>;
 export type ReviewResponse = Review;

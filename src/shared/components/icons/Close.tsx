@@ -17,7 +17,7 @@ export function CloseIcon({
         fill="currentColor"
         stroke="currentColor"
         strokeLinecap="square"
-        strokeWidth="2"
+        strokeWidth="3"
         d="M16.95 7.05L12 12m0 0l-4.95 4.95M12 12l4.95 4.95M12 12L7.05 7.05"
       />
     </svg>

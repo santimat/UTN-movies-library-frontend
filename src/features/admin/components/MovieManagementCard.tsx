@@ -69,7 +69,9 @@ export function MovieManagementCard({ movie }: MovieManagementCardProps) {
         </div>
         <div className="flex items-center gap-2">
           <StarIcon width={24} height={24} className="fill-amber-500" />
-          <span className="font-bold">{movie.averageRating}</span>
+          <span className="font-bold">
+            {Number(movie.averageRating).toFixed(1)}
+          </span>
         </div>
       </div>
       <div className="col-span-3 grid w-full grid-cols-2 gap-2">

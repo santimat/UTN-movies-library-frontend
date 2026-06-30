@@ -1,3 +1,4 @@
+import { useEditReview } from '@/features/reviews/hooks/useEditReview';
 import { useSavedMoviesActions } from '@/features/savedMovies/hooks/useSavedMoviesActions';
 import { StarIcon } from '@/shared/components/icons/Star';
 import { TrashIcon } from '@/shared/components/icons/Trash';
@@ -23,7 +24,7 @@ export function MovieCard({
   isSavedMovie = false,
 }: MovieCardProps & { idx: number }) {
   const { deleteSavedMovie } = useSavedMoviesActions();
-
+  const { resetEditingReview } = useEditReview();
   const showBadge = Number(averageRating) > 0;
   const animationDelay = `${idx * 100}ms`;
 
@@ -78,6 +79,7 @@ export function MovieCard({
           <ButtonLink
             to={`/movie/${id}`}
             className="block text-center uppercase"
+            onClick={resetEditingReview}
           >
             Ver detalles
           </ButtonLink>

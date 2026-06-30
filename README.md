@@ -1,6 +1,6 @@
 # 🎬 Biblioteca de Películas — Frontend
 
-Una aplicación web completa de biblioteca de películas donde los usuarios pueden explorar, buscar, filtrar y reseñar películas. Desarrollada con React 19, TypeScript, Tailwind CSS v4 y Zustand. El backend es una API REST construida con Spring Boot (Java) y PostgreSQL (repositorio separado).
+Una aplicación web completa de biblioteca de películas donde los usuarios pueden explorar, buscar, filtrar, reseñar y guardar películas en su lista personal. Desarrollada con React 19, TypeScript, Tailwind CSS v4 y Zustand. El backend es una API REST construida con Spring Boot (Java) y PostgreSQL (repositorio separado).
 
 **Autores:** Santino Maturo & Guido Perroud
 
@@ -12,17 +12,8 @@ Una aplicación web completa de biblioteca de películas donde los usuarios pued
 - [Stack Tecnológico](#stack-tecnológico)
 - [Funcionalidades](#funcionalidades)
 - [Primeros Pasos](#primeros-pasos)
-  - [Prerrequisitos](#prerrequisitos)
-  - [Instalación](#instalación)
-  - [Variables de Entorno](#variables-de-entorno)
-  - [Ejecutar el Proyecto](#ejecutar-el-proyecto)
 - [Estructura del Proyecto](#estructura-del-proyecto)
 - [Arquitectura y Patrones](#arquitectura-y-patrones)
-  - [Estructura por Features](#estructura-por-features)
-  - [Gestión de Estado](#gestión-de-estado)
-  - [Flujo de Autenticación](#flujo-de-autenticación)
-  - [Manejo de Errores](#manejo-de-errores)
-  - [Estado de Filtros en la URL](#estado-de-filtros-en-la-url)
 - [Rutas](#rutas)
 - [Integración con la API](#integración-con-la-api)
 - [Estilos y Diseño](#estilos-y-diseño)
@@ -37,14 +28,16 @@ Una aplicación web completa de biblioteca de películas donde los usuarios pued
 Esta es una **aplicación de página única (SPA) con React** que funciona como el frontend de un sistema de biblioteca de películas. Los usuarios pueden:
 
 - Explorar una cuadrícula responsiva de películas con pósters, calificaciones y metadatos
-- Buscar películas por título en tiempo real
+- Buscar películas por título en tiempo real con debounce
 - Filtrar películas por género usando chips clickeables
 - Ordenar películas por título, género, calificación o año de estreno
-- Ver información detallada de una película incluyendo sinopsis, director y duración
+- Ver información detallada de una película incluyendo sinopsis, director, duración y plataformas de streaming
 - Leer y escribir reseñas con calificaciones de estrellas
+- Guardar películas en una lista personal ("Mi Lista")
+- Obtener recomendaciones aleatorias de películas guardadas
 - Autenticarse (iniciar sesión / registrarse) para acceder a funciones personalizadas
 
-Los usuarios administradores tienen acceso a un panel protegido para gestionar películas.
+Los usuarios administradores tienen acceso a un panel protegido para gestionar películas (crear, editar, eliminar) y usuarios (cambiar roles).
 
 La aplicación se comunica con una API backend (Spring Boot + Java + PostgreSQL) mediante peticiones HTTP y usa autenticación basada en sesiones con cookies HTTP-only.
 
@@ -54,15 +47,15 @@ La aplicación se comunica con una API backend (Spring Boot + Java + PostgreSQL)
 
 | Tecnología              | Propósito                                     |
 | ----------------------- | --------------------------------------------- |
-| **React**               | Framework de UI                               |
+| **React 19**            | Framework de UI con React Compiler             |
 | **TypeScript**          | JavaScript con tipos                          |
 | **Vite**                | Herramienta de build y servidor de desarrollo |
-| **Tailwind CSS**        | Framework de estilos utility-first            |
+| **Tailwind CSS v4**     | Framework de estilos utility-first            |
 | **Zustand**             | Gestión de estado ligera                      |
-| **React Router**        | Enrutamiento del lado del cliente             |
-| **Sonner**              | Notificaciones toast                          |
-| **tailwind-animations** | Utilidades de animación                       |
-| **Prettier**            | Formateo de código                            |
+| **React Router v7**     | Enrutamiento del lado del cliente             |
+| **Sileo**               | Notificaciones toast                          |
+| **tailwind-animations** | Utilidades de animación CSS                   |
+| **Prettier**            | Formateo de código (con plugin Tailwind)      |
 | **ESLint**              | Linting de código                             |
 
 **Backend (repositorio separado):** Spring Boot, Java, Jakarta EE, PostgreSQL
@@ -73,32 +66,44 @@ La aplicación se comunica con una API backend (Spring Boot + Java + PostgreSQL)
 
 ### 🏠 Página Principal — Exploración de Películas
 
-- **Cuadrícula Responsiva de Películas** — Muestra tarjetas de películas en un layout CSS Grid que se adapta de 1 a 3+ columnas según el breakpoint.
+- **Cuadrícula Responsiva de Películas** — Muestra tarjetas de películas en un layout CSS Grid que se adapta fluidamente de 1 a 3+ columnas según el breakpoint.
 - **Tarjetas de Película** — Cada tarjeta muestra el póster de la película (en escala de grises, pasando a color al pasar el mouse), título, badges de género, año de estreno y badge de calificación.
-- **Búsqueda en Tiempo Real** — Input de búsqueda con debounce (400ms) que filtra películas por título. El término de búsqueda se almacena en la URL, haciéndolo compartible y marcable.
+- **Búsqueda en Tiempo Real** — Input de búsqueda con debounce (400ms) que filtra películas por título. Normaliza acentos para búsquedas flexibles. El término de búsqueda se almacena en la URL, haciéndolo compartible y marcable.
 - **Filtros de Género** — Chips de géneros desplazables horizontalmente, obtenidos de la API. Haz clic en un chip para activar/desactivar ese filtro de género. Se pueden activar múltiples géneros simultáneamente.
 - **Controles de Ordenamiento** — Dropdown para seleccionar el campo de orden (Título, Género, Calificación Promedio, Año) con un botón para alternar entre orden ascendente/descendente.
-- **Estados de Carga y Vacío** — Spinner de carga durante las peticiones, y mensajes amigables cuando no hay películas que coincidan con los filtros.
+- **Paginación** — Botones de números de página con ventana deslizable que centra la página actual. Usa el formato de respuesta paginado de Spring Boot.
+- **Estados de Carga y Vacío** — Spinner de carga animado durante las peticiones, y mensajes amigables cuando no hay películas que coincidan con los filtros.
 
 ### 🎥 Página de Detalle de Película
 
-- **Vista Completa** — Póster grande con efecto de sombra difusa, título, año de estreno, badges de género, sinopsis, nombre del director, duración y calificación promedio.
+- **Vista Completa** — Póster grande con efecto de sombra difusa (blur duplicado detrás), título, año de estreno, badges de género, sinopsis, nombre del director, duración y calificación promedio.
+- **Íconos de Plataformas** — Detecta automáticamente la plataforma de streaming (Netflix, HBO Max, Disney+) a partir de la URL de visualización y muestra el ícono correspondiente.
 - **Enlace al Tráiler** — Enlace externo al tráiler de la película.
-- **Agregar a Mi Lista** — Botón visible solo para usuarios autenticados (función en progreso).
+- **Enlace para Ver** — Enlace directo a la plataforma de streaming.
+- **Agregar a Mi Lista** — Botón visible solo para usuarios autenticados. Se desactiva después de guardar la película.
 - **Sección de Reseñas** — Muestra todas las reseñas de los usuarios con calificaciones de estrellas y comentarios. La reseña del usuario actual se resalta con un badge "Tu reseña".
+
+### 📋 Mi Lista — Películas Guardadas
+
+- **Lista Personal de Películas** — Los usuarios autenticados pueden guardar películas desde la página de detalle para tener una lista personal de favoritas.
+- **Cuadrícula de Guardadas** — Vista de cuadrícula responsiva con las películas guardadas, usando el mismo estilo de tarjetas que la página principal.
+- **Eliminar de la Lista** — Cada tarjeta tiene un botón de eliminar para quitar películas de la lista.
+- **Recomendación Aleatoria** — Botón que muestra una película aleatoria de la lista del usuario en un modal, ideal para decidir qué ver.
+- **Paginación** — Paginación separada para la lista de películas guardadas.
 
 ### ⭐ Reseñas
 
-- **Lista de Reseñas** — Lista desplazable de todas las reseñas de una película, mostrando la inicial del nombre del usuario, calificación de estrellas y comentario.
+- **Lista de Reseñas** — Lista desplazable de todas las reseñas de una película, mostrando la inicial del nombre del usuario en un avatar de color, calificación de estrellas y comentario.
 - **Formulario de Reseña** — Los usuarios autenticados pueden enviar una reseña con una calificación de 1-5 estrellas y un comentario de texto. El formulario se oculta si el usuario ya dejó una reseña.
-- **Input de Calificación con Estrellas** — Selector interactivo de estrellas (1-5) para elegir una calificación al escribir una reseña.
+- **Input de Calificación con Estrellas** — Selector interactivo de estrellas (1-5) con toggle (haz clic en la misma estrella para deseleccionar).
+- **Una Reseña por Usuario** — El sistema verifica si el usuario ya dejó una reseña para la película y oculta el formulario si es así.
 
 ### 🔐 Autenticación
 
-- **Iniciar Sesión** — Formulario de login con email y contraseña, casilla "Recordarme" y enlace "Olvidé mi contraseña".
-- **Registro** — Formulario de registro con nombre, email y contraseña.
+- **Iniciar Sesión** — Formulario de login con email y contraseña, casilla "Recordarme".
+- **Registro** — Formulario de registro con nombre, email y contraseña. Detección de emails duplicados (error 409 en español).
 - **Gestión de Sesiones** — Usa cookies HTTP-only (el backend establece la cookie). Al cargar la app, la sesión del usuario se restaura llamando a `GET /api/auth/me`.
-- **UI Condicional** — La barra de navegación muestra botones de login/logout según el estado de autenticación. El botón "Agregar a Mi Lista" solo aparece para usuarios autenticados.
+- **UI Condicional** — La barra de navegación muestra botones de login/logout según el estado de autenticación. El botón "Agregar a Mi Lista" solo aparece para usuarios autenticados. El ícono de administrador solo aparece para usuarios con rol ADMIN.
 
 ### 🛡️ Protección de Rutas
 
@@ -107,20 +112,43 @@ La aplicación se comunica con una API backend (Spring Boot + Java + PostgreSQL)
 
 ### 📊 Panel de Administración
 
-- **Tabla de Gestión de Películas** — Muestra una tabla de películas con botones de acción para editar y eliminar. _(Actualmente usa datos de prueba — en progreso.)_
+El panel de administración está completamente funcional con dos secciones principales:
+
+#### Gestión de Películas (ABM)
+- **Tabla de Películas** — Lista de películas con búsqueda y filtros de género.
+- **Crear Película** — Formulario completo con campos: título, director, género (seleccionable con opción de crear nuevo género), año de estreno, duración, póster (subida con drag-and-drop y preview), sinopsis, URL del tráiler y URL de visualización.
+- **Editar Película** — Mismo formulario pre-cargado con los datos existentes de la película.
+- **Eliminar Película** — Confirmación de eliminación mediante diálogo de Sileo antes de borrar.
+- **Subida de Póster** — Componente de drag-and-drop o click-to-upload con preview de imagen.
+
+#### Gestión de Usuarios
+- **Lista de Usuarios** — Vista de tarjetas con avatar, nombre, email y rol actual.
+- **Búsqueda y Filtro** — Buscar usuarios por nombre y filtrar por rol (Admin/Regular).
+- **Cambiar Roles** — Botones de toggle para cambiar el rol de un usuario entre Admin y Regular.
 
 ### 📱 Diseño Responsivo
 
-- **Navegación de Escritorio** — Barra de navegación horizontal con enlaces, enlace al panel de administración y botón de login/logout.
-- **Navegación Móvil** — Menú hamburguesa con overlay deslizante, mostrando el nombre del usuario cuando está autenticado.
-- **Hook de Media Query** — Hook personalizado `useMediaQuery` para detección de breakpoints responsivos.
+- **Navegación de Escritorio** — Barra de navegación horizontal con enlaces, enlace al panel de administración (solo admin) y botón de login/logout.
+- **Navegación Móvil** — Menú hamburguesa con overlay deslizante, backdrop blur, mostrando el nombre del usuario cuando está autenticado. Bloqueo del scroll del body al abrir el menú.
+- **Hook de Media Query** — Hook personalizado `useMediaQuery` para detección de breakpoints responsivos (cambia a navegación móvil a 768px).
+- **Layout Adaptivo** — La página de detalle de películas cambia de layout apilado a 2 columnas en `md:`.
 
 ### 🔔 Mejoras de UX
 
-- **Notificaciones Toast** — Mensajes de éxito y error mostrados mediante la librería Sonner.
-- **Spinners de Carga** — Se muestran durante las peticiones a la API.
-- **Estados de Error** — Mensajes de error amigables provenientes de la API en español.
+- **Notificaciones Toast** — Mensajes de éxito, error e información mostrados mediante la librería Sileo. Incluye toast de promesa para operaciones de eliminación con estados loading/success/error.
+- **Spinners de Carga** — Icono animado de reproductor de cine con animación tada durante las peticiones a la API.
+- **Estados de Error** — Mensajes de error amigables provenientes de la API en español (400, 401, 403, 404, 409, etc.).
 - **Estados Vacíos** — Mensajes amigables cuando no hay datos disponibles (ej: "No se encontraron películas", "Aún no hay reviews").
+- **Modal con Portal** — Sistema de modales que usa `createPortal` con backdrop blur y cierre al hacer clic fuera.
+
+### 🎨 Estilo Visual
+
+- **Estética Neo-Brutalista** — Sombras duras (`shadow-auth`), bordes gruesos, colores audaces.
+- **Escala de Grises a Color** — Los pósters se muestran en escala de grises y pasan a color al pasar el mouse.
+- **Texto en Mayúsculas** — La mayoría del texto UI está en mayúsculas para una sensación audaz y editorial.
+- **Animaciones Escalonadas** — Las tarjetas de películas aparecen con un fade-in escalonado según su índice.
+- **Fuentes Custom** — Space Grotesk para títulos/etiquetas, Geist para cuerpo de texto.
+- **Micro-interacciones** — Hover con translate en botones, escala al hacer clic, rotación de flechas en dropdowns.
 
 ---
 
@@ -220,11 +248,21 @@ UTN-movies-library-frontend/
 │   │   │       ├── GenreFilters.tsx    # Filtros de género por chips
 │   │   │       ├── SearchInput.tsx     # Input de búsqueda con debounce
 │   │   │       ├── SortSelect.tsx      # Dropdown de orden + toggle ASC/DESC
-│   │   │       ├── Pagination.tsx      # Paginación (placeholder)
+│   │   │       ├── Pagination.tsx      # Paginación con ventana deslizante
 │   │   │       ├── MovieList.tsx       # Cuadrícula responsiva de tarjetas
 │   │   │       ├── MovieCard.tsx       # Tarjeta individual de película
 │   │   │       ├── MovieDetail.tsx     # Vista completa de detalle de película
 │   │   │       └── MovieMetaItem.tsx   # Elemento de visualización de metadatos
+│   │   │
+│   │   ├── savedMovies/               # Feature de películas guardadas
+│   │   │   ├── types.ts               # Tipos: SavedMovie
+│   │   │   ├── store/
+│   │   │   │   └── useSavedMoviesStore.ts  # Store Zustand de películas guardadas
+│   │   │   ├── services/
+│   │   │   │   └── savedMoviesService.ts   # Llamadas API
+│   │   │   └── components/
+│   │   │       ├── SavedMoviesList.tsx  # Cuadrícula de películas guardadas
+│   │   │       └── RandomSavedMovie.tsx # Recomendación aleatoria en modal
 │   │   │
 │   │   ├── reviews/                   # Feature de reseñas
 │   │   │   ├── types.ts               # Tipos: Review, ReviewRequest
@@ -240,17 +278,35 @@ UTN-movies-library-frontend/
 │   │   │       ├── RatingInput.tsx     # Input de calificación con estrellas
 │   │   │       └── Stars.tsx           # Visualización de estrellas (solo lectura)
 │   │   │
+│   │   ├── genres/                    # Feature de géneros
+│   │   │   ├── store/
+│   │   │   │   └── useGenresStore.ts  # Store Zustand de géneros
+│   │   │   └── services/
+│   │   │       └── genreService.ts    # Llamadas API de géneros
+│   │   │
 │   │   └── admin/                     # Feature de administración
+│   │       ├── store/
+│   │       │   ├── useUsersStore.ts          # Store de usuarios
+│   │       │   └── useMovieManagementStore.ts # Store de formulario de películas
+│   │       ├── services/
+│   │       │   └── userService.ts     # Llamadas API de usuarios
 │   │       └── components/
-│   │           ├── MovieAdminPanel.jsx # Tabla de admin (datos de prueba)
-│   │           └── MovieAdminPanel.css # Estilos de la tabla de admin
+│   │           ├── MovieAdminPanel.tsx   # Panel de gestión de películas
+│   │           ├── MoviesManagementList.tsx # Cuadrícula de películas admin
+│   │           ├── MovieManagementCard.tsx  # Tarjeta con editar/eliminar
+│   │           ├── MovieForm.tsx       # Formulario crear/editar película
+│   │           ├── UploadFile.tsx      # Drag-and-drop para pósters
+│   │           ├── GenreInput.tsx      # Selector de género con creación inline
+│   │           ├── UserAdminPanel.tsx  # Panel de gestión de usuarios
+│   │           ├── UsersManagementList.tsx # Cuadrícula de usuarios
+│   │           └── UserCard.tsx        # Tarjeta de usuario con cambio de rol
 │   │
 │   ├── pages/                         # Componentes de página por ruta
 │   │   ├── Home.tsx                   # Página principal (filtros + cuadrícula)
 │   │   ├── Movie.tsx                  # Página de detalle de película
+│   │   ├── SavedMovies.tsx            # Página de películas guardadas
 │   │   ├── Auth.tsx                   # Página de Login + Registro
 │   │   ├── Admin.tsx                  # Panel de administración
-│   │   ├── Test.tsx                   # Página de pruebas/prototipos
 │   │   └── NotFound.tsx               # Página 404
 │   │
 │   ├── routes/                        # Guards de ruta y manejadores
@@ -261,12 +317,17 @@ UTN-movies-library-frontend/
 │   └── shared/                        # Código compartido/reutilizable
 │       ├── types.ts                   # Tipos: SvgProps, SpringPageResponse, AppError
 │       ├── hooks/
-│       │   └── useMediaQuery.ts       # Hook de breakpoints responsivos
+│       │   ├── useMediaQuery.ts       # Hook de breakpoints responsivos
+│       │   ├── useFilters.ts          # Hook de filtros reutilizable
+│       │   └── useModal.ts            # Hook del sistema de modales
+│       ├── store/
+│       │   └── useModalStore.ts       # Store global de modales
 │       ├── utils/
 │       │   ├── constants.ts           # Etiquetas de formularios, API_URL, tiempo de debounce
 │       │   ├── checkMissingFields.ts  # Utilidad de validación de formularios
 │       │   ├── handleFetchErrors.ts   # Manejador de errores de red/parseo
-│       │   └── handleResponseErrors.ts # Manejador de errores HTTP
+│       │   ├── handleResponseErrors.ts # Manejador de errores HTTP
+│       │   └── dictionaries.ts        # Diccionarios de nombres de campos en español
 │       └── components/
 │           ├── layout/
 │           │   ├── Layout.tsx         # Shell de página (Header + contenido + Footer)
@@ -276,26 +337,44 @@ UTN-movies-library-frontend/
 │           │       ├── types.ts       # Tipo HeaderNavItem
 │           │       ├── NavBar.tsx     # Switcher de navegación responsiva
 │           │       ├── DesktopNav.tsx  # Navegación de escritorio
-│           │       └── MobileNav.tsx   # Navegación hamburguesa móvil
+│           │       ├── MobileNav.tsx   # Navegación hamburguesa móvil
+│           │       └── NavBarActions.tsx # Botones auth-aware de la barra
 │           ├── ui/
 │           │   ├── Button.tsx         # Botón reutilizable
 │           │   ├── ButtonLink.tsx     # Link con estilo de botón
-│           │   ├── Loader.tsx         # Spinner de carga
+│           │   ├── SubmitButton.tsx   # Botón de envío para formularios
+│           │   ├── FormField.tsx      # Campo de formulario con label
+│           │   ├── SearchInput.tsx    # Input de búsqueda con debounce
+│           │   ├── GenreFilters.tsx   # Chips de filtros de género
+│           │   ├── SortSelect.tsx     # Dropdown de ordenamiento
+│           │   ├── Pagination.tsx     # Paginación con ventana deslizante
+│           │   ├── Modal.tsx          # Modal con React Portal
+│           │   ├── Loader.tsx         # Spinner de carga animado
 │           │   └── RatingBadge.tsx    # Badge de calificación
-│           └── icons/                 # 13 componentes de iconos SVG
+│           └── icons/                 # 23 componentes de iconos SVG
+│               ├── Add.tsx
 │               ├── ArrowBack.tsx
 │               ├── ArrowDown.tsx
 │               ├── Burguer.tsx
 │               ├── CameraOff.tsx
 │               ├── CheckBox.tsx
-│               ├── Loader.tsx
+│               ├── Close.tsx
+│               ├── Disney.tsx
+│               ├── Hbo.tsx
+│               ├── Login.tsx
+│               ├── Logout.tsx
+│               ├── Movie.tsx
+│               ├── Netflix.tsx
 │               ├── Pen.tsx
 │               ├── Play.tsx
+│               ├── Random.tsx
 │               ├── Search.tsx
 │               ├── SortAscending.tsx
 │               ├── SortDescending.tsx
 │               ├── Star.tsx
-│               └── Trash.tsx
+│               ├── Tool.tsx
+│               ├── Trash.tsx
+│               └── Upload.tsx
 ├── .env                               # Variables de entorno (no se commitea)
 ├── .env.example                       # Plantilla de variables de entorno
 ├── index.html                         # Punto de entrada HTML
@@ -316,7 +395,7 @@ UTN-movies-library-frontend/
 
 ### Estructura por Features
 
-El código está organizado por **features** en lugar de por tipo de archivo. Cada feature (`auth`, `movies`, `reviews`, `admin`) es un módulo autocontenido con:
+El código está organizado por **features** en lugar de por tipo de archivo. Cada feature (`auth`, `movies`, `savedMovies`, `reviews`, `admin`, `genres`) es un módulo autocontenido con:
 
 - `types.ts` — Interfaces TypeScript para los modelos de datos de esa feature
 - `store/` — Store de estado Zustand
@@ -328,22 +407,35 @@ El código compartido (layout, primitivos UI, iconos, utilidades) vive en `share
 
 ### Gestión de Estado
 
-La app usa **Zustand** con tres stores independientes:
+La app usa **Zustand** con siete stores independientes:
 
 #### `useAuthStore`
-
-- **Estado:** `user` (usuario actual o null), `error`
+- **Estado:** `user` (usuario actual o null), `error`, `loading`
 - **Acciones:** `hydrateUser()` (restaurar sesión), `login()`, `register()`, `logout()`
 
 #### `useMoviesStore`
-
 - **Estado:** `movies[]`, `movie`, `genres[]`, flags de carga/error, datos de paginación
-- **Acciones:** `fetchMovies(filters)`, `fetchMovieById(id)`, `fetchGenres()`
+- **Acciones:** `fetchMovies(filters)`, `fetchMovieById(id)`, `createMovie()`, `updateMovie()`, `deleteMovie()`
+
+#### `useSavedMoviesStore`
+- **Estado:** `savedMovies[]`, `totalSavedMovies`, `randomSavedMovie`, datos de paginación
+- **Acciones:** `fetchSavedMovies()`, `saveMovieInMyList()`, `fetchRandomSavedMovie()`, `deleteSavedMovie()`, `countSavedMovies()`
 
 #### `useReviewsStore`
-
 - **Estado:** `reviews[]`, flags de carga/error
 - **Acciones:** `fetchReviews(movieId)`, `createReview(review)`, `isUserReview(userId)`
+
+#### `useUsersStore`
+- **Estado:** `users[]`, datos de paginación
+- **Acciones:** `fetchUsers()`, `updateUserRole()`
+
+#### `useGenresStore`
+- **Estado:** `genres[]`, flags de carga/error
+- **Acciones:** `fetchGenres()` (con caché), `createGenre()`
+
+#### `useModalStore`
+- **Estado:** `showModal`, `modalContent`
+- **Acciones:** `openModal()`, `closeModal()`
 
 Todos los stores usan `useShallow` de `zustand/shallow` para suscripciones selectivas al estado, evitando re-renders innecesarios.
 
@@ -381,7 +473,7 @@ Un sistema de manejo de errores de dos capas se usa en todos los servicios API:
 
 ### Estado de Filtros en la URL
 
-Todo el estado de filtros (texto de búsqueda, género, campo de orden, orden, número de página) se almacena en **parámetros de búsqueda de la URL** mediante `useSearchParams()` de React Router. Esto significa:
+En la página principal, todo el estado de filtros (texto de búsqueda, género, campo de orden, orden, número de página) se almacena en **parámetros de búsqueda de la URL** mediante `useSearchParams()` de React Router. Esto significa:
 
 - Los filtros son **compartibles** — copia la URL y alguien más ve los mismos resultados
 - Los filtros son **marcables** — guarda la URL y vuelve a la misma vista
@@ -391,11 +483,11 @@ Todo el estado de filtros (texto de búsqueda, género, campo de orden, orden, n
 
 Todos los componentes de página y algunos sub-componentes se cargan mediante `React.lazy()` con `import()` dinámico:
 
-- Todas las páginas: `Home`, `Movie`, `Auth`, `Admin`, `Test`, `NotFound`, `Logout`
+- Todas las páginas: `Home`, `Movie`, `SavedMovies`, `Auth`, `Admin`, `NotFound`, `Logout`
 - Componentes de navegación responsiva: `DesktopNav`, `MobileNav`
-- Algunos iconos: `SortDescending`
+- Componentes de admin: `MovieAdminPanel`, `UserAdminPanel`
 
-Esto reduce el tamaño del bundle inicial y mejora los tiempos de carga.
+Esto reduce el tamaño del bundle inicial y mejora los tiempos de carga. Además, el proyecto usa **React Compiler** (`babel-plugin-react-compiler`) para memoización automática.
 
 ### Caché Optimista
 
@@ -406,15 +498,15 @@ Esto reduce el tamaño del bundle inicial y mejora los tiempos de carga.
 
 ## Rutas
 
-| Ruta         | Componente | Auth Requerida | Descripción                                                             |
-| ------------ | ---------- | -------------- | ----------------------------------------------------------------------- |
-| `/`          | `Home`     | No             | Cuadrícula de películas con filtros, búsqueda y orden                   |
-| `/movie/:id` | `Movie`    | No             | Página de detalle de película con reseñas                               |
-| `/test`      | `Test`     | No             | Página de pruebas/prototipos (demo de calificación con estrellas)       |
-| `/auth`      | `Auth`     | No             | Formularios de login y registro (redirige a `/` si ya está autenticado) |
-| `/admin`     | `Admin`    | Sí (ADMIN)     | Panel de administración con gestión de películas                        |
-| `/logout`    | `Logout`   | No             | Ejecuta el cierre de sesión y redirige a `/`                            |
-| `*`          | `NotFound` | No             | Página 404                                                              |
+| Ruta              | Componente      | Auth Requerida | Descripción                                                             |
+| ----------------- | --------------- | -------------- | ----------------------------------------------------------------------- |
+| `/`               | `Home`          | No             | Cuadrícula de películas con filtros, búsqueda y orden                   |
+| `/movie/:id`      | `Movie`         | No             | Página de detalle de película con reseñas                               |
+| `/my-list`        | `SavedMovies`   | Sí             | Lista personal de películas guardadas con recomendación aleatoria       |
+| `/auth`           | `Auth`          | No             | Formularios de login y registro (redirige a `/` si ya está autenticado) |
+| `/admin`          | `Admin`         | Sí (ADMIN)     | Panel de administración con gestión de películas y usuarios             |
+| `/logout`         | `Logout`        | No             | Ejecuta el cierre de sesión y redirige a `/`                            |
+| `*`               | `NotFound`      | No             | Página 404 ("Escena no encontrada")                                     |
 
 **Protecciones de Ruta:**
 
@@ -431,18 +523,56 @@ El servidor de desarrollo de Vite proxea las peticiones `/api` al backend en `ht
 
 ### Endpoints
 
-| Feature            | Método | Endpoint                                                  | Auth | Descripción                                    |
-| ------------------ | ------ | --------------------------------------------------------- | ---- | ---------------------------------------------- |
-| Registro           | POST   | `/api/auth/register`                                      | No   | Registrar un nuevo usuario                     |
-| Login              | POST   | `/api/auth/login`                                         | No   | Iniciar sesión (se establece cookie de sesión) |
-| Logout             | POST   | `/api/auth/logout`                                        | Sí   | Limpiar sesión                                 |
-| Usuario Actual     | GET    | `/api/auth/me`                                            | Sí   | Obtener usuario actual desde la sesión         |
-| Verificación Admin | GET    | `/api/auth/admin`                                         | Sí   | Verificar rol de administrador                 |
-| Listar Películas   | GET    | `/api/movies?genre=&sortBy=&sortOrder=&searchText=&page=` | No   | Lista paginada de películas con filtros        |
-| Obtener Película   | GET    | `/api/movies/:id`                                         | No   | Detalle de una película                        |
-| Listar Géneros     | GET    | `/api/genres`                                             | No   | Todos los géneros disponibles                  |
-| Obtener Reseñas    | GET    | `/api/movies/reviews/:movieId`                            | No   | Reseñas de una película                        |
-| Crear Reseña       | POST   | `/api/reviews`                                            | Sí   | Enviar una nueva reseña                        |
+#### Autenticación
+
+| Método | Endpoint             | Auth | Descripción                                    |
+| ------ | -------------------- | ---- | ---------------------------------------------- |
+| POST   | `/api/auth/register` | No   | Registrar un nuevo usuario                     |
+| POST   | `/api/auth/login`    | No   | Iniciar sesión (se establece cookie de sesión) |
+| POST   | `/api/auth/logout`   | Sí   | Limpiar sesión                                 |
+| GET    | `/api/auth/me`       | Sí   | Obtener usuario actual desde la sesión         |
+| GET    | `/api/auth/admin`    | Sí   | Verificar rol de administrador                 |
+
+#### Películas
+
+| Método | Endpoint                                                  | Auth | Descripción                                    |
+| ------ | --------------------------------------------------------- | ---- | ---------------------------------------------- |
+| GET    | `/api/movies?genre=&sortBy=&sortOrder=&searchText=&page=` | No   | Lista paginada de películas con filtros        |
+| GET    | `/api/movies/:id`                                         | No   | Detalle de una película                        |
+| POST   | `/api/movies`                                             | Sí (ADMIN) | Crear película (FormData multipart)      |
+| PUT    | `/api/movies/:id`                                         | Sí (ADMIN) | Editar película (FormData multipart)      |
+| DELETE | `/api/movies/:id`                                         | Sí (ADMIN) | Eliminar película                         |
+
+#### Géneros
+
+| Método | Endpoint     | Auth | Descripción                    |
+| ------ | ------------ | ---- | ------------------------------ |
+| GET    | `/api/genres` | No   | Todos los géneros disponibles  |
+| POST   | `/api/genres` | Sí (ADMIN) | Crear un nuevo género    |
+
+#### Reseñas
+
+| Método | Endpoint                    | Auth | Descripción                          |
+| ------ | --------------------------- | ---- | ------------------------------------ |
+| GET    | `/api/reviews?movieId=`     | No   | Reseñas de una película              |
+| POST   | `/api/reviews`              | Sí   | Enviar una nueva reseña              |
+
+#### Películas Guardadas
+
+| Método | Endpoint                           | Auth | Descripción                              |
+| ------ | ---------------------------------- | ---- | ---------------------------------------- |
+| GET    | `/api/savedmovies?searchText=&genre=&page=&size=` | Sí | Películas guardadas del usuario |
+| GET    | `/api/savedmovies/random`          | Sí   | Película aleatoria de la lista           |
+| POST   | `/api/savedmovies`                 | Sí   | Guardar una película                     |
+| DELETE | `/api/savedmovies/:movieId`        | Sí   | Eliminar de la lista                     |
+| GET    | `/api/savedmovies/count`           | Sí   | Total de películas guardadas             |
+
+#### Usuarios (Admin)
+
+| Método | Endpoint              | Auth | Descripción                    |
+| ------ | --------------------- | ---- | ------------------------------ |
+| GET    | `/api/users?page=&role=&size=` | Sí (ADMIN) | Lista paginada de usuarios |
+| PATCH  | `/api/users/:userId`  | Sí (ADMIN) | Cambiar rol de usuario     |
 
 ### Formato de Respuesta
 
@@ -485,6 +615,7 @@ El proyecto usa **Tailwind CSS v4** con el plugin `@tailwindcss/vite`. Los valor
 - **Texto en Mayúsculas** — La mayoría del texto UI está en mayúsculas para una sensación audaz y editorial
 - **Animaciones Escalonadas** — Las tarjetas de películas aparecen con un fade-in escalonado según su índice
 - **Fuentes Custom** — Space Grotesk para títulos/etiquetas, Geist para cuerpo de texto (cargadas como woff2)
+- **Micro-interacciones** — Hover con translate en botones (`hover:-translate-x-0.5 hover:-translate-y-0.5`), escala al hacer clic (`active:scale-95`)
 
 ---
 
@@ -500,15 +631,23 @@ El proyecto usa **Tailwind CSS v4** con el plugin `@tailwindcss/vite`. Los valor
 | `NavBar`     | `shared/components/layout/navbar/NavBar.tsx`     | Alterna entre DesktopNav y MobileNav         |
 | `DesktopNav` | `shared/components/layout/navbar/DesktopNav.tsx` | Links de navegación horizontales             |
 | `MobileNav`  | `shared/components/layout/navbar/MobileNav.tsx`  | Menú hamburguesa con overlay deslizante      |
+| `NavBarActions` | `shared/components/layout/navbar/NavBarActions.tsx` | Botones auth-aware (Login/Logout/Admin) |
 
 ### Primitivos UI
 
-| Componente    | Ubicación                              | Descripción                                     |
-| ------------- | -------------------------------------- | ----------------------------------------------- |
-| `Button`      | `shared/components/ui/Button.tsx`      | Botón con estilos hover/active                  |
-| `ButtonLink`  | `shared/components/ui/ButtonLink.tsx`  | Link con estilo de botón de React Router        |
-| `Loader`      | `shared/components/ui/Loader.tsx`      | Spinner de carga centrado                       |
-| `RatingBadge` | `shared/components/ui/RatingBadge.tsx` | Badge de calificación posicionado absolutamente |
+| Componente     | Ubicación                              | Descripción                                     |
+| -------------- | -------------------------------------- | ----------------------------------------------- |
+| `Button`       | `shared/components/ui/Button.tsx`      | Botón con estilos hover/active y sombra 3D      |
+| `ButtonLink`   | `shared/components/ui/ButtonLink.tsx`  | Link con estilo de botón de React Router        |
+| `SubmitButton` | `shared/components/ui/SubmitButton.tsx` | Botón de envío fullWidth para formularios      |
+| `FormField`    | `shared/components/ui/FormField.tsx`   | Campo de formulario con label y focus styling   |
+| `SearchInput`  | `shared/components/ui/SearchInput.tsx` | Input de búsqueda con debounce y normalización  |
+| `GenreFilters` | `shared/components/ui/GenreFilters.tsx` | Chips de filtros de género desplazables         |
+| `SortSelect`   | `shared/components/ui/SortSelect.tsx`  | Dropdown de orden + toggle ASC/DESC             |
+| `Pagination`   | `shared/components/ui/Pagination.tsx`  | Botones de página con ventana deslizante        |
+| `Modal`        | `shared/components/ui/Modal.tsx`       | Modal con React Portal y backdrop blur          |
+| `Loader`       | `shared/components/ui/Loader.tsx`      | Spinner animado de reproductor de cine          |
+| `RatingBadge`  | `shared/components/ui/RatingBadge.tsx` | Badge de calificación posicionado absolutamente |
 
 ### Componentes de Películas
 
@@ -518,6 +657,7 @@ El proyecto usa **Tailwind CSS v4** con el plugin `@tailwindcss/vite`. Los valor
 | `SearchInput`   | `features/movies/components/SearchInput.tsx`   | Búsqueda con debounce y sincronización con URL        |
 | `SortSelect`    | `features/movies/components/SortSelect.tsx`    | Dropdown de campo de orden + toggle ASC/DESC          |
 | `GenreFilters`  | `features/movies/components/GenreFilters.tsx`  | Chips de filtros de género desplazables               |
+| `Pagination`    | `features/movies/components/Pagination.tsx`    | Paginación con números de página                      |
 | `MovieList`     | `features/movies/components/MovieList.tsx`     | Cuadrícula responsiva de MovieCards                   |
 | `MovieCard`     | `features/movies/components/MovieCard.tsx`     | Tarjeta con póster, título, género, año, calificación |
 | `MovieDetail`   | `features/movies/components/MovieDetail.tsx`   | Vista completa de detalle de película                 |
@@ -530,9 +670,16 @@ El proyecto usa **Tailwind CSS v4** con el plugin `@tailwindcss/vite`. Los valor
 | `MovieFeedback` | `features/reviews/components/MovieFeedback.tsx` | Contenedor de formulario + lista de reseñas      |
 | `ReviewForm`    | `features/reviews/components/ReviewForm.tsx`    | Envío de calificación con estrellas + comentario |
 | `ReviewList`    | `features/reviews/components/ReviewList.tsx`    | Lista de reseñas de una película                 |
-| `ReviewCard`    | `features/reviews/components/ReviewCard.tsx`    | Tarjeta individual de reseña                     |
+| `ReviewCard`    | `features/reviews/components/ReviewCard.tsx`    | Tarjeta individual de reseña con avatar          |
 | `RatingInput`   | `features/reviews/components/RatingInput.tsx`   | Selector interactivo de estrellas (1-5)          |
 | `Stars`         | `features/reviews/components/Stars.tsx`         | Visualización de estrellas de solo lectura       |
+
+### Componentes de Películas Guardadas
+
+| Componente        | Ubicación                                              | Descripción                                  |
+| ----------------- | ------------------------------------------------------ | -------------------------------------------- |
+| `SavedMoviesList` | `features/savedMovies/components/SavedMoviesList.tsx` | Cuadrícula de películas guardadas            |
+| `RandomSavedMovie`| `features/savedMovies/components/RandomSavedMovie.tsx`| Contenido del modal de recomendación aleatoria|
 
 ### Componentes de Autenticación
 
@@ -544,10 +691,24 @@ El proyecto usa **Tailwind CSS v4** con el plugin `@tailwindcss/vite`. Los valor
 | `LoginForm`        | `features/auth/components/LoginForm.tsx`        | Lógica del formulario de login    |
 | `RegisterForm`     | `features/auth/components/RegisterForm.tsx`     | Lógica del formulario de registro |
 
+### Componentes de Administración
+
+| Componente              | Ubicación                                                    | Descripción                                    |
+| ----------------------- | ------------------------------------------------------------ | ---------------------------------------------- |
+| `MovieAdminPanel`       | `features/admin/components/MovieAdminPanel.tsx`              | Panel de gestión de películas                  |
+| `MoviesManagementList`  | `features/admin/components/MoviesManagementList.tsx`         | Cuadrícula animada de películas admin          |
+| `MovieManagementCard`   | `features/admin/components/MovieManagementCard.tsx`          | Tarjeta con editar/eliminar                    |
+| `MovieForm`             | `features/admin/components/MovieForm.tsx`                    | Formulario crear/editar película completa      |
+| `UploadFile`            | `features/admin/components/UploadFile.tsx`                   | Drag-and-drop para pósters con preview         |
+| `GenreInput`            | `features/admin/components/GenreInput.tsx`                   | Selector de género con creación inline         |
+| `UserAdminPanel`        | `features/admin/components/UserAdminPanel.tsx`               | Panel de gestión de usuarios                   |
+| `UsersManagementList`   | `features/admin/components/UsersManagementList.tsx`          | Cuadrícula de tarjetas de usuario              |
+| `UserCard`              | `features/admin/components/UserCard.tsx`                     | Tarjeta de usuario con cambio de rol           |
+
 ### Iconos
 
-13 componentes de iconos SVG en `shared/components/icons/`, todos aceptando props `width`, `height` y `className`:
-`ArrowBack`, `ArrowDown`, `Burguer`, `CameraOff`, `CheckBox`, `Loader`, `Pen`, `Play`, `Search`, `SortAscending`, `SortDescending`, `Star`, `Trash`
+23 componentes de iconos SVG en `shared/components/icons/`, todos aceptando props `width`, `height` y `className`:
+`Add`, `ArrowBack`, `ArrowDown`, `Burguer`, `CameraOff`, `CheckBox`, `Close`, `Disney`, `Hbo`, `Login`, `Logout`, `Movie`, `Netflix`, `Pen`, `Play`, `Random`, `Search`, `SortAscending`, `SortDescending`, `Star`, `Tool`, `Trash`, `Upload`
 
 ---
 
@@ -568,14 +729,11 @@ El proyecto está configurado para despliegue en **Vercel**:
 
 ## Mejoras Futuras
 
-- [ ] **UI de Paginación** — Actualmente es un placeholder; necesita botones de números de página y controles
-- [ ] **Panel de Admin** — Conectar con datos reales de la API (actualmente usa datos de prueba)
-- [ ] **Gestión de Usuarios (Admin)** — Tabla con lista de usuarios, cambios de rol y eliminación
-- [ ] **Función "Mi Lista"** — Lista personalizada de películas para usuarios autenticados
-- [ ] **Vistas Modal** — Usando `createPortal` para modales de detalle de películas
+- [ ] **Vistas Modal de Películas** — Usando `createPortal` para modales de detalle de películas desde la cuadrícula
 - [ ] **Búsqueda Mejorada** — Búsqueda basada en palabras clave para mejores resultados
-- [ ] **ABM de Películas (Admin)** — Formularios para agregar, editar y eliminar películas
+- [ ] **Búsqueda de Películas Guardadas** — Búsqueda por título dentro de la lista personal
 - [ ] **AdminPanel responsivo** — Tabla de admin amigable en móvil
+- [ ] **Historial de Reseñas** — Página para ver todas las reseñas propias
 
 ---
 

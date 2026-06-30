@@ -39,3 +39,9 @@ export const DEFAULT_SAVEDMOVIES_FILTERS = {
   genre: '',
   page: '1',
 };
+
+export const INIT_REVIEW = {
+  rating: 0,
+  comment: '',
+  id: 0,
+};

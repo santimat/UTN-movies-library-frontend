@@ -24,12 +24,14 @@ type MovieDetailProps = {
 const PLATFORM_ICONS: Record<PlatformUrl, React.ReactNode> = {
   'https://www.netflix.com': <NetflixIcon />,
   'https://www.hbomax.com': <HboIcon />,
+  'https://play.hbomax.com': <HboIcon />,
   'https://www.disneyplus.com': <DisneyIcon />,
 };
 
 export function MovieDetail({ movie }: MovieDetailProps) {
   const { saveMovieInMyList } = useSavedMoviesActions();
   const { isSavedMovie } = useSavedMovies(DEFAULT_MOVIE_FILTERS);
+
   const [isASavedMovie, setIsASavedMovie] = useState(
     isSavedMovie(movie?.id || 0)
   );
@@ -41,6 +43,7 @@ export function MovieDetail({ movie }: MovieDetailProps) {
 
   const getPlatformIcon = (url: string) => {
     const platformOrigin = new URL(url).origin as PlatformUrl;
+    console.log('platformOrigin', platformOrigin);
     return PLATFORM_ICONS[platformOrigin] || null;
   };
 
@@ -103,27 +106,29 @@ export function MovieDetail({ movie }: MovieDetailProps) {
             <MovieMetaItem label="duración" value={`${movie?.duration} mins`} />
           </li>
         </ul>
-        <div className="mt-6 flex flex-col gap-4 lg:flex-row">
-          <a
-            className="flex flex-1 items-center justify-center gap-2 border-2 border-neutral bg-secondary p-2 text-xl text-white uppercase transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 hover:cursor-pointer active:scale-95"
-            href={movie?.trailerUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <PlayIcon width={24} height={24} />
-            Ver trailer
-          </a>
-          {movie?.watchUrl && (
+        <div className="mt-6 flex flex-col gap-4">
+          <div className="flex gap-2">
             <a
-              className="flex flex-1 items-center justify-center gap-2 border-2 border-neutral bg-tertiary p-2 text-xl text-white uppercase transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 hover:cursor-pointer active:scale-95"
-              href={movie.watchUrl}
+              className="flex flex-1 items-center justify-center gap-2 border-2 border-neutral bg-secondary p-2 text-xl text-white uppercase transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 hover:cursor-pointer active:scale-95"
+              href={movie?.trailerUrl}
               target="_blank"
               rel="noopener noreferrer"
             >
-              {getPlatformIcon(movie.watchUrl)}
-              Ver película
+              <PlayIcon width={24} height={24} />
+              Ver trailer
             </a>
-          )}
+            {movie?.watchUrl && (
+              <a
+                className="flex flex-1 items-center justify-center gap-2 border-2 border-neutral bg-tertiary p-2 text-xl text-white uppercase transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 hover:cursor-pointer active:scale-95"
+                href={movie.watchUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {getPlatformIcon(movie.watchUrl)}
+                Ver película
+              </a>
+            )}
+          </div>
           {isAuthenticated && (
             <Button
               className="bg-neutral/20 uppercase shadow-none"

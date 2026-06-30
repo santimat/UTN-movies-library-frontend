@@ -39,4 +39,20 @@ export const reviewService = {
       throw handleFetchErrors(error);
     }
   },
+  updateReview: async (updatedReview: ReviewRequest) => {
+    try {
+      const res = await fetch(`${BASE_URL}/${updatedReview.id}`, {
+        credentials: 'include',
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedReview),
+      });
+      handleResponseErrors(res);
+      return await res.json();
+    } catch (error) {
+      throw handleFetchErrors(error);
+    }
+  },
 };
